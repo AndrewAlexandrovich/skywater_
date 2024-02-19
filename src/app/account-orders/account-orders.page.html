@@ -1,0 +1,131 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Мої замовлення</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" [fullscreen]="true">
+  <ion-list [inset]="true" class="orders-list" *ngIf="showEmptyMsg == false">
+    <ion-item *ngFor="let order of my_orders">
+      <ion-label (click)="getOrder(order.order_id)">
+        <div class="order-line">
+          <div class="num"><b>#{{order.order_id}}</b></div>
+          <div class="caption">
+            <span>Статус замовлення - <b style="color:{{order.order_color}}">{{order.order_status}}</b></span><br>
+            Від {{order.date_added}}<br>
+            <small>На сумму {{ order.total }}</small>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-note *ngIf="showEmptyMsg == true" class="ion-text-center ion-justify-content-center">У вас ще немає замовлень. Саме час створити нове замовлення!</ion-note>
+  <ion-modal [isOpen]="order_modal_status">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{modal_title}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="hideModalOrder()">Закрити</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding ion-align-items-center">
+          <ion-item-group>
+  <ion-item-divider>
+    <ion-label>Деталі замовлення №{{order_id}}</ion-label>
+  </ion-item-divider>
+
+  <ion-item>
+    <ion-label><b>Метод доставки:</b> {{ shipping_method }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Метод оплати:</b> {{ payment_method }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Статус замовлення:</b> <span style="color:{{ order_status_color }}">{{ order_status_name }}</span></ion-label>
+  </ion-item>
+  <ion-item >
+    <ion-label><b>Дата створення:</b> {{ date_added }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Адреса:</b> {{ shipping_address }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Замовник:</b> {{ customer_name }}</ion-label>
+  </ion-item>
+  <ion-item >
+    <ion-label><b>Коментар:</b> {{ comment }}</ion-label>
+  </ion-item>
+  <ion-item lines="none"></ion-item>
+</ion-item-group>
+  <div class="product-section" *ngIf="products">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Товари</ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let product of products">
+        <ion-label>
+          <div class="product-item">
+            <p>{{ product.name }}</p>
+            <div class="qty">
+              <div class="left-side">
+              {{ product.price }} x {{ product.quantity }}
+            </div>
+              <div class="right-side">
+                {{product.total}}
+              </div>
+            </div>
+          </div>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none"></ion-item>
+    </ion-item-group>
+  </div>
+
+  <div class="total-section" *ngIf="totals">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Замовлення загалом</ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let total of totals">
+        <ion-label>
+          <div class="total-item">
+            <div class="start-side">
+            {{ total.title }}:
+          </div>
+            <div class="end-side">
+              <b>{{ total.value }}</b>
+            </div>
+          </div>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none"></ion-item>
+    </ion-item-group>
+  </div>
+  <div class="history-section" *ngIf="history">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Замовлення загалом</ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let hist of history">
+        <ion-label>
+          <div class="history-item">
+            <p>{{ hist.date_added }} - {{hist.order_status_name}}</p>
+            <div class="text">
+              <b>{{ hist.text }}</b>
+            </div>
+          </div>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none"></ion-item>
+    </ion-item-group>
+  </div>
+
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+</ion-content>

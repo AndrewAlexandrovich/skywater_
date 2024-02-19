@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ customer_name }}</ion-title>
+    <ion-buttons slot="end">
+    <ion-button fill="solid" (click)="logout()" size="small" color="primary">Вийти
+<ion-icon name="log-out-outline" solt="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding" color="light">
+<div class="my-acc">
+<ion-list>
+  <ion-list-header>
+    <ion-label>Мій акаунт</ion-label>
+  </ion-list-header>
+    <ion-item (click)="openMyAccModal()">
+      <ion-label><span class="icon"><ion-icon name="person-outline"></ion-icon></span> Мої дані</ion-label></ion-item>
+    <ion-item (click)="openAddresses()">
+      <ion-label><span class="icon"><ion-icon name="navigate-outline"></ion-icon></span> Адреси доставки</ion-label></ion-item>
+    <ion-item (click)="openOrdersPage()">
+      <ion-label><span class="icon"><ion-icon name="cart-outline"></ion-icon></span> Мої замовлення</ion-label></ion-item>
+    <ion-item>
+      <ion-label><span class="icon"><ion-icon name="gift-outline"></ion-icon></span> Мої бонуси</ion-label></ion-item>
+    <ion-item>
+      <ion-label><span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span> Повідомлення</ion-label></ion-item>
+    <ion-item>
+        <ion-label><span class="icon"><ion-icon name="qr-code-outline"></ion-icon></span> Мій QR</ion-label></ion-item>
+    <ion-item class="remove-acc" id="remove-acc-alert">
+        <ion-label><span class="icon"><ion-icon name="trash-outline"></ion-icon></span> Видалити мій акаунт</ion-label></ion-item>
+</ion-list>
+</div>
+
+<ion-modal [isOpen]="myAccountModal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Мої дані</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeMyAccModal()">Скасувати</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding ion-align-items-center">
+
+        <ion-input label="Ім'я *" type="text" label-placement="floating" fill="solid" placeholder="Ваше Ім'я" name="firstname" [(ngModel)]="acc_firstname"></ion-input>
+        <br>
+        <ion-input label="Прізвище *" type="text" label-placement="floating" fill="solid" placeholder="Ваше прізвище" name="lastname" [(ngModel)]="acc_lastname"></ion-input>
+        <br>
+        <ion-input label="Телефон *" type="number"  placeholder="+380 12 345 67 39" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="phone" [(ngModel)]="acc_phone"></ion-input>
+        <br>
+        <ion-input label="Email" type="email" label-placement="floating" fill="solid" placeholder="Email" name="email" [(ngModel)]="acc_email"></ion-input>
+        <br>
+        <ion-input label="Старий пароль" type="password" label-placement="floating" fill="solid" placeholder="Старий пароль" name="old_password" [(ngModel)]="acc_old_password"></ion-input>
+        <br>
+        <ion-input label="Пароль *" type="password" label-placement="floating" fill="solid" placeholder="Пароль" name="password" [(ngModel)]="acc_password"></ion-input>
+        <small>Залиште пустим якщо не бажаєте міняти пароль.</small>
+        <br><br>
+        <ion-button color="primary" (click)="updateProfile();" expand="full" >Оновити</ion-button>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+<!--remove acc-->
+<ion-alert
+  trigger="remove-acc-alert"
+  header="Увага!"
+  message="Ви не зможете відновити свій аккаунт. Вся пов'язана інформація буде втрачена."
+  [buttons]="alertRemoveAccButtons"
+  (didDismiss)="alertResult($event)"
+></ion-alert>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "Sky Water",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

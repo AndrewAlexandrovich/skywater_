@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Реєстрація</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="img-logo">
+      <img src="/assets/logo.png" alt="Skywater"/>
+    </ion-row>
+  </ion-grid>
+  <div class="ion-padding">
+  <form id="register">
+<ion-input label="Ім'я *" type="text" label-placement="floating" fill="solid" placeholder="Ваше Ім'я" name="firstname" [(ngModel)]="reg_firstname"></ion-input>
+<br>
+<ion-input label="Прізвище *" type="text" label-placement="floating" fill="solid" placeholder="Ваше прізвище" name="lastname" [(ngModel)]="reg_lastname"></ion-input>
+<br>
+<ion-input label="Телефон *" type="number"  [maskito]="phoneMask" [maskitoElement]="maskPredicate"  placeholder="+380 12 345 67 39" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="phone" [(ngModel)]="reg_phone"></ion-input>
+<br>
+<ion-input label="Email" type="email" label-placement="floating" fill="solid" placeholder="Email" name="email" [(ngModel)]="reg_email"></ion-input>
+<br>
+<ion-input label="Пароль *" type="password" label-placement="floating" fill="solid" placeholder="Пароль" name="password" [(ngModel)]="reg_password"></ion-input>
+<small>Поля відмечені * обов'язкові до заповнення</small>
+<br><br>
+<ion-button color="primary" (click)="register();" expand="full" >Реєстрація</ion-button>
+  </form>
+</div>
+
+<ion-modal [isOpen]="openValidate">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Підтвердження</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelValidate()">Скасувати</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding ion-align-items-center">
+        <p>
+          На ваш телефон відправлено смс із кодом підтвердження. Будь ласка, введіть код підтвердження в поле нижче:
+        </p>
+        <ion-input label="Код підтвердження" [(ngModel)]="validate_code" type="number" label-placement="floating" fill="solid" placeholder="Код підтвердження" name="validate_code"></ion-input>
+        <ion-button color="primary" (click)="validateCode();" expand="full" >Підтвердити</ion-button>
+
+        <br>
+        <small class="ion-text-center">*Якщо повідомлення не прийшло протягом 60 секунд, натисніть кнопку:</small>
+        <div class="re-send">
+          <ion-button size="small" (click)="resendCodeValidation();" fill="outline">Відправити повторно</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

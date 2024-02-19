@@ -1,0 +1,49 @@
+/*buttons cart*/
+.cart-btns {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 15px;
+}
+.qty-box {
+    display: flex;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    align-items: center;
+}
+.qty-box ion-icon {
+    color: #fff;
+}
+.qty-box p {
+    min-width: 20px;
+    text-align: center;
+    margin: 0px;
+}
+/*buttons cart*/
+h1.product-name {
+    font-weight: 600;
+    color: #3880ff;
+}
+.product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ul.product-vars li{
+  margin-bottom:5px
+}
+ul.product-vars {
+    list-style: none;
+    padding: 0px;
+}
+li.old-price {
+    color: #e65353;
+    text-decoration: line-through;
+    font-size: 13px;
+}
+li.price {
+    font-size: 1.4rem;
+    color: #27b927;
+    font-weight: 600;
+}

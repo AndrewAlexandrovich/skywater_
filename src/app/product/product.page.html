@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ product_name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+<div class="product-image">
+<img src="{{ product_image }}" alt="{{ product_name }}">
+</div>
+<h1 class="product-name">{{ product_name }}</h1>
+<ul class="product-vars">
+<li *ngIf="sku">Код товару: {{sku}}</li>
+<li *ngIf="category">Категорія: {{category}}</li>
+<div *ngIf="special_status == false">
+<li class="price">{{price}} <small *ngIf="unit">/ {{unit}}</small></li>
+</div>
+<div *ngIf="special_status == true">
+<li class="old-price">{{price}}</li>
+<li class="price">{{special}} <small *ngIf="unit">/ {{unit}}</small></li>
+</div>
+</ul>
+<ng-template #templateName>
+    <li class="price">{{price}} <small *ngIf="unit">/ {{unit}}</small></li>
+</ng-template>
+<div *ngIf="product_description" class="description-outer">
+<ion-card class="ion-no-padding ion-no-margin">
+  <ion-card-header>
+    <ion-card-title>Опис</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [innerHTML]='product_description'>
+  </ion-card-content>
+</ion-card>
+</div>
+</ion-content>
+<ion-footer>
+<ion-toolbar class="to-cart" color="primary">
+<div class="cart-btns">
+  <div class="qty-box">
+    <ion-button (click)="minus()" size="small" fill="clear"><ion-icon name="remove-outline"></ion-icon></ion-button>
+    <p>{{ product_qty }}</p>
+    <ion-button (click)="plus()" size="small" fill="clear"><ion-icon name="add-outline"></ion-icon></ion-button>
+  </div>
+  <ion-button (click)="addCart()" fill="solid"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
+</div>
+</ion-toolbar>
+</ion-footer>

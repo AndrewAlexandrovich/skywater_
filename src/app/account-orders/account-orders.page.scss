@@ -1,0 +1,32 @@
+ion-note.ion-text-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+ion-list.orders-list .order-line {
+    display: flex;
+    align-items: center;
+}
+.order-line .num {
+    min-width: 60px;
+}
+.product-item p {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+.product-item .qty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.7rem;
+}
+.right-side {
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+.total-item {
+    display: flex;
+    justify-content: space-between;
+}

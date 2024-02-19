@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="img-logo">
+      <img src="/assets/logo.png" alt="Skywater"/>
+    </ion-row>
+  </ion-grid>
+
+  <div class="ion-padding inputs">
+
+      <ion-input [(ngModel)]="auth_phone" label="Телефон" type="number" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel"></ion-input>
+  <br>
+      <ion-input [(ngModel)]="auth_password" label="Пароль" type="password" label-placement="floating" fill="solid" placeholder="Пароль" name="password"></ion-input>
+
+  </div>
+  <div class="ion-padding"><ion-button color="light" expand="full" (click)="login()">Увійти</ion-button></div>
+
+
+  <div class="ion-padding buttons-auth">
+    <ion-button fill="clear" (click)="signupPage();"><span class="text-light">Реєстрація</span></ion-button> |
+    <ion-button fill="clear" (click)="setForgotmodalStatus(true);"><span class="text-light">Забули пароль?</span></ion-button>
+</div>
+
+
+<ion-modal [isOpen]="openModal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Відновлення</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setForgotmodalStatus(false)">Скасувати</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding ion-align-items-center">
+        <p class="text-light">
+          Введіть номер телефону, на який ви зареєстрували акаунт:
+        </p>
+        <ion-input [(ngModel)]="restore_phone" label="Телефон" type="number" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel-forgot"></ion-input>
+        <ion-button color="primary" (click)="sendNewPassword();" expand="full" >Відновити</ion-button>
+
+        <br>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

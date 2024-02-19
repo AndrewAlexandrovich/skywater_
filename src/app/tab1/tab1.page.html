@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+	<section class="top-slider">
+  <swiper-container pagination="true" navigation="true" autoplay="2000" loop="true" effect="fade">
+		<swiper-slide *ngFor="let slide of sliderItems" class="swiperSlide">
+			<div class="slide-el">
+			<img src="{{ slide['src'] }}">
+			<ion-button *ngIf="slide['link']" data-open="{{ slide['link'] }}" size="small">Детальніше <ion-icon name="exit-outline"></ion-icon></ion-button>
+			</div>
+		</swiper-slide>
+	</swiper-container>
+  </section>
+	<ion-card>
+	  <ion-card-header>
+		<ion-card-title>Ваші бонуси</ion-card-title>
+		<ion-card-subtitle>5/10</ion-card-subtitle>
+	  </ion-card-header>
+
+	<ion-card-content>
+	<ion-progress-bar id="current" [value]="progress"></ion-progress-bar>
+	</ion-card-content>
+	</ion-card>
+	<div *ngFor="let cat of categoryProducts" class="category-products">
+	<ion-title class="text-center">{{ cat['name'] }}</ion-title>
+	<ion-grid class="ion-no-padding">
+	<ion-row>
+    <ion-col *ngFor="let product of cat['products']" size="6">
+    <ion-card class="product-item">
+      <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
+    <ion-card-content>
+      <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
+      <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
+      <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
+      <div class="add-cart-button">
+      <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
+      </div>
+    </ion-card-content>
+    </ion-card>
+    </ion-col>
+	</ion-row>
+	</ion-grid>
+	</div>
+  </ion-content>
+
+</ion-content>

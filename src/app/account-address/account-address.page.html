@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Мої адреси</ion-title>
+    <ion-buttons slot="end">
+    <ion-button fill="solid" (click)="addAddress()" size="small" color="primary">Додати
+      <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true" class="address-list" *ngIf="showEmptyMsg == false">
+
+<ion-item-sliding *ngFor="let address of addresses">
+  <ion-item>
+    <ion-label>
+      <p slot="start">{{ address.city }}, {{ address.street }}, {{ address.number }}</p>
+      <div class="address-icons">
+        <ion-icon *ngIf="address.is_default" name="checkbox-outline" color="primary" slot="end"></ion-icon>
+        <ion-icon name="chevron-back-outline" class="slide-icon"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-item>
+  <ion-item-options>
+    <ion-item-option (click)="editAddress(address.address_id);"><ion-icon name="pencil-outline"></ion-icon></ion-item-option>
+    <ion-item-option (click)="removeAddress(address.address_id)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
+  </ion-list>
+
+
+  <ion-modal [isOpen]="addressModal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{modal_title}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="addressModalHide()">Скасувати</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding ion-align-items-center">
+  <ion-item>
+    <ion-select  [(ngModel)]="addr_city" label="Місто" label-placement="fixed" placeholder="Оберіть місто" interface="popover">
+      <ion-select-option *ngFor="let city of cities_array" value="{{ city.name }}">{{ city.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+<br><ion-input [(ngModel)]="addr_street" name="firstname" label="Вулиця *" type="text" label-placement="floating" fill="solid" placeholder="Вулиця"></ion-input>
+<br><ion-input [(ngModel)]="addr_number" name="firstname" label="Номер будинку * " type="text" label-placement="floating" fill="solid" placeholder="Номер будинку"></ion-input>
+<br><ion-input [(ngModel)]="addr_enterance" name="firstname" label="Під'їзд" type="text" label-placement="floating" fill="solid" placeholder="Під'їзд"></ion-input>
+<br><ion-input [(ngModel)]="addr_floor" name="firstname" label="Поверх" type="text" label-placement="floating" fill="solid" placeholder="Поверх"></ion-input>
+<br><ion-input [(ngModel)]="addr_domofone_code" name="firstname" label="Код домофону" type="text" label-placement="floating" fill="solid" placeholder="Код домофону"></ion-input>
+<br><ion-input [(ngModel)]="addr_ap_number" name="firstname" label="Квартира" type="text" label-placement="floating" fill="solid" placeholder="Квартира"></ion-input>
+<br><ion-toggle [(ngModel)]="addr_is_default" [checked]="addr_is_default">Адреса по замовчуванні</ion-toggle>
+<br><br><ion-button color="primary" (click)="sendAddressToApi()" expand="full">Зберегти</ion-button>
+
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+  <ion-note *ngIf="showEmptyMsg == true" class="ion-text-center ion-justify-content-center">У вас ще немає доданої адреси</ion-note>
+</ion-content>

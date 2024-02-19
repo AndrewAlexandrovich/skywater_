@@ -1,0 +1,44 @@
+section.top-slider {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: -1rem;
+}
+.slide-el{
+	position:relative
+}
+.slide-el ion-button.button {
+    position: absolute;
+    bottom: 10px;
+    z-index: 2;
+    right: 5px;
+}
+ion-card.product-item ion-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3880ff;
+    height: 43px;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+}
+span.new-price {
+    color: #27b927;
+    font-weight: 600;
+}
+span.old-price {
+    color: #b61717;
+    text-decoration: line-through;
+    font-size: 12px;
+    padding-left:5px;
+}
+ion-button.btn-cart {
+    margin-top: 10px;
+}
+.category-products ion-title {
+    font-weight: 600;
+    display: block;
+    text-align: center;
+    color: #3880ff;
+    margin: 20px 0px 10px;
+    font-size: 2rem;
+}
