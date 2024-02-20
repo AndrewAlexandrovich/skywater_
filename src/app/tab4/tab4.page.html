@@ -5,33 +5,35 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list lines="none">
-  <ion-item class="chat-item from-admin">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+     <ion-refresher-content></ion-refresher-content>
+   </ion-refresher>
+  <ion-list lines="none" *ngIf="not_auth == false">
+  <ion-item *ngFor="let message of messages" class="chat-item {{ message.class }}">
     <ion-label>
       <div class="data">
-        <p>Pokémon Yellow Pokémon Yellow Pokémon Yellow</p>
-        <span>2024.01.01</span>
-        <ion-icon class="icon-label" name="caret-back-outline"></ion-icon>
+        <p>{{ message.text }}</p>
+        <span>{{ message.date_added }}</span>
+        <ion-icon *ngIf="message.sender == 0" class="icon-label" name="caret-back-outline"></ion-icon>
+        <ion-icon *ngIf="message.sender == 1" class="icon-label" name="caret-forward-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-item>
-  <ion-item class="chat-item from-im">
-    <ion-label>
-    <div class="data">
-      <p>Pokémon Yellow Pokémon Yellow Pokémon Yellow</p>
-      <span>2024.01.01</span>
-      <ion-icon class="icon-label" name="caret-forward-outline"></ion-icon>
-    </div>
-  </ion-label>
-  </ion-item>
 </ion-list>
+<ion-note *ngIf="empty_msg == true" class="ion-text-center ion-justify-content-center empty-cart">
+<div>
+  <ion-icon name="chatbubbles-outline"></ion-icon>
+    <p>Історія повідмолень порожня</p>
+    <p *ngIf="not_auth == true">Зараєструйтесь щоб написати нам.</p>
+  </div>
+</ion-note>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="not_auth == false">
   <ion-toolbar>
     <div class="text-box">
       <ion-item>
-  <ion-textarea placeholder="Enter your comments">
-    <ion-button class="button-send-msg" color="primary" slot="end">
+  <ion-textarea [(ngModel)]="text" placeholder="Почніть вводити повідомлення тут">
+    <ion-button (click)="sendMsg()" class="button-send-msg" color="primary" slot="end">
       <ion-icon slot="icon-only" name="send-outline"></ion-icon>
     </ion-button>
   </ion-textarea>
