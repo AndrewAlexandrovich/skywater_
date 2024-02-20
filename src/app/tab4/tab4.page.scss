@@ -53,3 +53,16 @@ ion-item.chat-item.from-im ion-icon.icon-label {
     width: 24px;
     height: 24px;
 }
+
+ion-note.ion-text-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.empty-cart ion-icon {
+    font-size: 8rem;
+    color: #ddd;
+}
+ion-title ion-icon {
+    vertical-align: top;
+}
