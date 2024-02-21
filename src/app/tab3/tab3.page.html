@@ -22,9 +22,7 @@
       <ion-label><span class="icon"><ion-icon name="cart-outline"></ion-icon></span> Мої замовлення</ion-label></ion-item>
     <ion-item>
       <ion-label><span class="icon"><ion-icon name="gift-outline"></ion-icon></span> Мої бонуси</ion-label></ion-item>
-    <ion-item>
-      <ion-label><span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span> Повідомлення</ion-label></ion-item>
-    <ion-item>
+    <ion-item (click)="getQr()">
         <ion-label><span class="icon"><ion-icon name="qr-code-outline"></ion-icon></span> Мій QR</ion-label></ion-item>
     <ion-item class="remove-acc" id="remove-acc-alert">
         <ion-label><span class="icon"><ion-icon name="trash-outline"></ion-icon></span> Видалити мій акаунт</ion-label></ion-item>
@@ -61,6 +59,25 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+  <ion-modal [isOpen]="showQrModal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Ваш QR код</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeQrModal()"><ion-icon name="close-outline"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding ion-align-items-center" color="light">
+          <ion-img
+            class="qr-image"
+            src="{{qr_url}}"
+            alt="{{customer_name}}"
+          ></ion-img>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 <!--remove acc-->
 <ion-alert
   trigger="remove-acc-alert"
