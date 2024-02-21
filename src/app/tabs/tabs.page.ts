@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-	
+
 	public cart_count = 0;
 	public chat_count = 0;
-	
+
 	getStat(){
-		
-		if(localStorage.getItem('token')){	
+
+		if(localStorage.getItem('token')){
 			let params = {
 				token : localStorage.getItem('token'),
 				user_id : localStorage.getItem('user_id')
@@ -24,28 +24,30 @@ export class TabsPage {
 			  if(json['cart_count']){
 				this.cart_count = json['cart_count'];
 			  }
-			  
+
 			  if(json['chat_count'] >= 0){
-				this.chat_count = json['chat_count'];
-			  }
-			  
+				  this.chat_count = json['chat_count'];
+        }else{
+          this.chat_count = 0
+        }
+
 			  if(json['notification']){
 				console.log(json['notification']);
 			  }
-			  
+
 			});
-		
+
 		}
 	}
-	
-	
+
+
 	public inteval = setInterval(() => {
-          
+
          this.getStat();
 
-    }, 10000); 
-	
-	
+    }, 10000);
+
+
   constructor(private http: HttpClient) {}
   ngOnInit() {
 	this.getStat();

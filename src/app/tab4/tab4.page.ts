@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, NavigationExtras } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { ToastController, IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -9,10 +9,11 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
+  @ViewChild(IonContent) content:any = IonContent;
 
   public empty_msg = true;
   public not_auth = true;
-  public messages:any;
+  public messages:any = '';
   public text:any = '';
 
   sendMsg(){
@@ -27,10 +28,24 @@ export class Tab4Page implements OnInit {
         if(json['error']){
           this.showToast(json['error'], 'danger');
         }else if(json['total_msg'] > 0){
-          this.messages = json['messages'];
+          if(this.messages == ''){
+            this.messages = json['messages'];
+          }else{
+            let keys = [];
+            for(let item of this.messages){
+              keys.push(item['chat_id']);
+            }
+            for(let item of json['messages']){
+              if(!keys.includes(item['chat_id'])){
+                this.messages.push(item);
+              }
+            }
+          }
           this.empty_msg = false;
           this.text = '';
-
+          setTimeout(() => {
+            this.content.scrollToBottom(500);
+          }, 150);
         }
       });
 
@@ -46,15 +61,31 @@ export class Tab4Page implements OnInit {
       if(json['error']){
         this.showToast(json['error'], 'danger');
       }else if(json['total_msg'] > 0){
-        this.messages = json['messages'];
+        if(this.messages == ''){
+          this.messages = json['messages'];
+        }else{
+          let keys = [];
+          for(let item of this.messages){
+            keys.push(item['chat_id']);
+          }
+          for(let item of json['messages']){
+            if(!keys.includes(item['chat_id'])){
+              this.messages.push(item);
+            }
+          }
+        }
         this.empty_msg = false;
+        setTimeout(() => {
+          this.content.scrollToBottom(500);
+        }, 150);
       }
     });
-
   }
+
 //page refresh
   handleRefresh(event:any) {
     setTimeout(() => {
+      this.messages == '';
       this.getMessages();
       event.target.complete();
     }, 1500);
@@ -75,12 +106,26 @@ export class Tab4Page implements OnInit {
     await toast.present();
   }
 
-  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController) { }
+  public intevalGetMessages = setInterval(() => {
+    if(this.router.url != '/tabs/tab4'){
+      clearInterval(this.intevalGetMessages);
+    }
+    this.getMessages();
+  }, 10000);
+
+  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
     if(localStorage.getItem('user_id')){
       this.getMessages();
       this.not_auth = false;
+
+      if(this.router.url == '/tabs/tab4'){
+        setTimeout(() => {
+          this.intevalGetMessages;
+        }, 15000);
+      }
+
     }
   }
 

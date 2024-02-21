@@ -14,14 +14,35 @@ export class Tab3Page {
 
   public customer_name:string = '';
   public myAccountModal = false;
+  public showQrModal = false;
   public acc_firstname:string = '';
   public acc_lastname:string = '';
   public acc_phone:string = '';
   public acc_email:string = '';
   public acc_old_password:string = '';
   public acc_password:string = '';
+  public qr_url:string = '';
   closeMyAccModal(){
     this.myAccountModal = false;
+  }
+  closeQrModal(){
+    this.showQrModal = false;
+  }
+  getQr(){
+    let params = {
+      token      : localStorage.getItem('token'),
+      user_id    : localStorage.getItem('user_id')
+    };
+    this.http.post('https://skywater.com.ua/api/index.php?type=getQr', JSON.stringify(params)).subscribe((response) => {
+      let json = JSON.parse(JSON.stringify(response));
+      console.log(json);
+      if(json['qr_code_path']){
+        this.qr_url = json['qr_code_path'];
+        this.showQrModal = true;
+      }else if(json['error']){
+        this.showToast(json['error'], 'warning');
+      }
+    });
   }
   openMyAccModal(){
     this.myAccountModal = true;
