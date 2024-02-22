@@ -20,6 +20,9 @@ export class Tab1Page {
   public templ_b_bottle:any = 0;
   public templ_b_liter:any = 0;
   public bonuses_liters:any = 0;
+  public getActiveTab:any = 'default';
+  public productToCat:any;
+  public home_text:any = false;
 
   openProduct(product_id:any){
 	this.router.navigate(['product',{product_id:product_id}])
@@ -56,6 +59,14 @@ export class Tab1Page {
     await toast.present();
   }
 
+  setProducts(category_id:any){
+    for(let cp of this.categoryProducts){
+      if(cp['category_id'] == category_id){
+        this.productToCat = cp['products'];
+      }
+    }
+  }
+
 
   constructor(private http: HttpClient, private router: Router, private toastCtrl: ToastController) {
 	this.http.get('https://skywater.com.ua/api/index.php?type=home_page').subscribe((response) => {
@@ -63,6 +74,12 @@ export class Tab1Page {
 	  let homeData = JSON.parse(JSON.stringify(response));
 	  this.sliderItems = homeData.slider;
 	  this.categoryProducts = homeData.categories_products;
+    for(let c of homeData.categories_products){
+      if(c.active == 1){
+        this.getActiveTab = 'category-'+c['category_id'];
+        this.productToCat = c.products;
+      }
+    }
 
     if(homeData.bonuses_boutles){
       let bounese_boutles = homeData.bonuses_boutles;
