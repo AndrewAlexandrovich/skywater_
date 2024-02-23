@@ -23,6 +23,7 @@ export class Tab1Page {
   public getActiveTab:any = 'default';
   public productToCat:any;
   public home_text:any = false;
+  public home_text_title:any = false;
 
   openProduct(product_id:any){
 	this.router.navigate(['product',{product_id:product_id}])
@@ -105,6 +106,13 @@ export class Tab1Page {
     }else{
       this.progress_l = '0, 700';
       this.bonuses_liters = 0;
+    }
+
+    if(homeData.home_text_title){
+      this.home_text_title = homeData.home_text_title;
+    }
+    if(homeData.home_text){
+      this.home_text = homeData.home_text;
     }
 
 	});

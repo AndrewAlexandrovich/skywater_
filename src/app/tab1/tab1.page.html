@@ -71,6 +71,9 @@
 
 
 <ion-card class="home_text" *ngIf="home_text != false">
+  <ion-card-header *ngIf="home_text_title != false">
+    <ion-card-title>{{ home_text_title }}</ion-card-title>
+  </ion-card-header>
   <ion-card-content [innerHTML]='home_text'>
   </ion-card-content>
 </ion-card>
