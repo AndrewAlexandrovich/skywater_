@@ -11,7 +11,7 @@
 		<swiper-slide *ngFor="let slide of sliderItems" class="swiperSlide">
 			<div class="slide-el">
 			<img src="{{ slide['src'] }}">
-			<ion-button *ngIf="slide['link']" data-open="{{ slide['link'] }}" size="small">Детальніше <ion-icon name="exit-outline"></ion-icon></ion-button>
+			
 			</div>
 		</swiper-slide>
 	</swiper-container>
@@ -28,7 +28,7 @@
   <circle class="circle-chart__background" stroke="#efefef" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small></span>
+<span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small><small>4/10</small></span>
 </div>
 
 <div class="bottles-svg">
@@ -36,7 +36,7 @@
   <circle class="circle-chart__background" stroke="#efefef" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small></span>
+<span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small><small>4/10</small></span>
 </div>
 </div>
 

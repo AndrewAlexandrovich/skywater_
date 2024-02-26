@@ -1,16 +1,18 @@
-section.top-slider {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    margin-top: -1rem;
+
+.slide-el img {
+    border-radius: 10px;
 }
 .slide-el{
-	position:relative
+	position:relative;
 }
 .slide-el ion-button.button {
     position: absolute;
     bottom: 10px;
     z-index: 2;
     right: 5px;
+}
+.swiper-button-next, .swiper-button-prev {
+    display: none;
 }
 ion-card.product-item ion-card-title {
     font-size: 1rem;
