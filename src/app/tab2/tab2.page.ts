@@ -9,10 +9,43 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
+  public qrcode:any = false;
+  public show_empty:any = true;
+  public count_bottles:any=0;
+  public count_liters:any=0;
+
+  getApiData(){
+    let params = {
+        token       : localStorage.getItem('token'),
+        user_id     : localStorage.getItem('user_id')
+    };
+
+    this.http.post('https://skywater.com.ua/api/index.php?type=getQrAndBonuses', JSON.stringify(params)).subscribe((response) => {
+      let json = JSON.parse(JSON.stringify(response));
+      if(json['error']){
+        this.showToast(json['error'], 'danger');
+      }else{
+        this.show_empty = false;
+        if(json.bonuses_boutles){
+          this.count_bottles = json.bonuses_boutles;
+        }
+        if(json.bonuses_liters){
+          this.count_liters = json.bonuses_liters;
+        }
+        if(json.qr_code_path){
+          this.qrcode = json.qr_code_path;
+        }
+
+
+      }
+    });
+
+  }
+  /*old function to this page*/
   public categories:any;
   public products:any;
   public showEmptyMsg = false;
-
   loadCategory(category_id:any){
     let params = {
         token       : localStorage.getItem('token'),
@@ -90,6 +123,6 @@ export class Tab2Page {
 
   constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController) { }
   ngOnInit() {
-    this.getCategories();
+    this.getApiData();
   }
 }

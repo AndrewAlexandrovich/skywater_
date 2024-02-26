@@ -25,6 +25,11 @@ export class Tab1Page {
   public home_text:any = false;
   public home_text_title:any = false;
 
+  public is_auto_category:any = false;
+  public products:any;
+  public categories:any;
+  public showEmptyMsg:any = false;
+
   openProduct(product_id:any){
 	this.router.navigate(['product',{product_id:product_id}])
   }
@@ -41,6 +46,26 @@ export class Tab1Page {
         this.showToast(json['error'], 'danger');
       }else if(json['success']){
         this.showToast(json['success'], 'light');
+      }
+    });
+  }
+  loadCategory(category_id:any){
+    let params = {
+        token       : localStorage.getItem('token'),
+        user_id     : localStorage.getItem('user_id'),
+        category_id : category_id
+    };
+    this.http.post('https://skywater.com.ua/api/index.php?type=getProductsByCategory', JSON.stringify(params)).subscribe((response) => {
+      let json = JSON.parse(JSON.stringify(response));
+      if(json['error']){
+        this.showToast(json['error'], 'danger');
+      }else{
+        this.products = json['products'];
+        if(this.products.length <= 0){
+          this.showEmptyMsg = true;
+        }else{
+          this.showEmptyMsg = false;
+        }
       }
     });
   }
@@ -81,6 +106,14 @@ export class Tab1Page {
         this.productToCat = c.products;
       }
     }
+    if(homeData.categories){
+      this.categories = homeData.categories;
+      this.is_auto_category = true;
+      this.loadCategory(0);
+    }else{
+      this.is_auto_category = false;
+    }
+
 
     if(homeData.bonuses_boutles){
       let bounese_boutles = homeData.bonuses_boutles;

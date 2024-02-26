@@ -11,7 +11,7 @@
 		<swiper-slide *ngFor="let slide of sliderItems" class="swiperSlide">
 			<div class="slide-el">
 			<img src="{{ slide['src'] }}">
-			
+
 			</div>
 		</swiper-slide>
 	</swiper-container>
@@ -22,7 +22,7 @@
 	  </ion-card-header>
 
 
-<div class="bottles">  
+<div class="bottles">
 <div class="bottles-svg">
 <svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
   <circle class="circle-chart__background" stroke="#efefef" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
@@ -45,6 +45,37 @@
   </ion-card-header>
 
 
+
+<div *ngIf="is_auto_category == true">
+  <ion-segment value="default" [scrollable]="true">
+    <ion-segment-button *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}">
+      <ion-label>{{ category.name }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="products-on-category">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <div class="empty-products" *ngIf="showEmptyMsg == true">В цій категорії ще немає товарів...</div>
+      <ion-col *ngFor="let product of products" size="6">
+      <ion-card class="product-item">
+        <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
+      <ion-card-content>
+        <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
+        <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
+        <div class="add-cart-button">
+        <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
+        </div>
+      </ion-card-content>
+      </ion-card>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</div>
+<div *ngIf="is_auto_category == false">
   <ion-segment [scrollable]="true" value="{{ getActiveTab }}">
     <ion-segment-button (click)="setProducts(cat['category_id'])" *ngFor="let cat of categoryProducts" value="category-{{ cat['category_id'] }}">
       {{ cat['name'] }}
@@ -70,7 +101,7 @@
     </ion-row>
     </ion-grid>
   </div>
-
+</div>
 
 <ion-card class="home_text" *ngIf="home_text != false">
   <ion-card-header *ngIf="home_text_title != false">

@@ -1,29 +1,21 @@
-<ion-content [fullscreen]="true">
-  <ion-segment value="default" [scrollable]="true">
-    <ion-segment-button *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}">
-      <ion-label>{{ category.name }}</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
-<div class="ion-padding products-on-category">
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-    <ion-col *ngFor="let product of products" size="6">
-    <ion-card class="product-item">
-      <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
-    <ion-card-content>
-      <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
-      <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
-      <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
-      <div class="add-cart-button">
-      <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
-      </div>
-    </ion-card-content>
-    </ion-card>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content [fullscreen]="true" class="ion-padding" color="light">
+<div class="bonuses">
+  <ion-card>
+  <ion-card-content>
+<ion-progress-bar [value]="count_bottles"></ion-progress-bar>
+  </ion-card-content>
+</ion-card>
 </div>
 
-  <ion-note *ngIf="showEmptyMsg == true" class="ion-text-center ion-justify-content-center">В цій категорії ще немає товарів...</ion-note>
+<div class="qr-code">
+<ion-card class="ion-text-center">
+  <img src="{{qrcode}}">
+  <ion-card-header class="ion-text-center">
+    <ion-card-subtitle>Покажіть цей код нашому менеджеру</ion-card-subtitle>
+  </ion-card-header>
+</ion-card>
+</div>
+  <ion-note *ngIf="show_empty == true" class="ion-text-center ion-justify-content-center">
+Будь ласка, увійдіть в свій особистий кабінет або зареєструйтесь.
+  </ion-note>
 </ion-content>
