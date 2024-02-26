@@ -16,34 +16,33 @@
 		</swiper-slide>
 	</swiper-container>
   </section>
-	<ion-card>
+
 	  <ion-card-header>
-		<ion-card-title>Ваші бонуси</ion-card-title>
-		<ion-card-subtitle>Бонусних бутелів <b>{{templ_b_bottle}}</b></ion-card-subtitle>
-		<ion-card-subtitle>Бонусних літрів <b>{{bonuses_liters}}</b></ion-card-subtitle>
+		<ion-card-title class="ion-text-center">Мої бонуси</ion-card-title>
 	  </ion-card-header>
 
-<ion-card-content>
+
+<div class="bottles">  
 <div class="bottles-svg">
-<svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="250" height="250" xmlns="http://www.w3.org/2000/svg">
-  <circle class="circle-chart__background" stroke="#efefef" stroke-width="15" fill="none" cx="125" cy="117" r="105" />
-  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="18" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="133" cy="124" r="105" />
+<svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+  <circle class="circle-chart__background" stroke="#efefef" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
+  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
 <span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small></span>
 </div>
 
 <div class="bottles-svg">
-<svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="250" height="250" xmlns="http://www.w3.org/2000/svg">
-  <circle class="circle-chart__background" stroke="#efefef" stroke-width="15" fill="none" cx="125" cy="117" r="105" />
-  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="18" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="133" cy="124" r="105" />
+<svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+  <circle class="circle-chart__background" stroke="#efefef" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
+  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
 <span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small></span>
+</div>
 </div>
 
 
 
-	</ion-card-content>
-	</ion-card>
+
   <ion-segment [scrollable]="true" value="{{ getActiveTab }}">
     <ion-segment-button (click)="setProducts(cat['category_id'])" *ngFor="let cat of categoryProducts" value="category-{{ cat['category_id'] }}">
       {{ cat['name'] }}

@@ -42,3 +42,26 @@ ion-button.btn-cart {
     margin: 20px 0px 10px;
     font-size: 2rem;
 }
+span.bonus-text {
+    position: absolute;
+    top: 28%;
+    left: 38%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.bottles-svg {
+    position: relative;
+}
+
+.bottles {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+span.bonus-text b {
+    font-size: 30px;
+    color: #3880ff;
+}
