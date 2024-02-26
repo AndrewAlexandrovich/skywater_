@@ -39,8 +39,6 @@ export class AuthPage implements OnInit {
           this.showToast(json['error'], 'danger');
         }else{
           this.showToast(json['success'], 'success');
-          this.storage.set('user_id', json['user_id']);
-          this.storage.set('token', json['token']);
           localStorage.setItem('user_id', json['user_id']);
           localStorage.setItem('token', json['token']);
           setTimeout(() => {
@@ -76,12 +74,11 @@ export class AuthPage implements OnInit {
           this.showToast(json['error'], 'danger');
         }else{
           this.showToast(json['success'], 'success');
-          this.storage.set('user_id', json['user_id']);
-          this.storage.set('token', json['token']);
           localStorage.setItem('user_id', json['user_id']);
           localStorage.setItem('token', json['token']);
           setTimeout(() => {
-            window.location.reload();
+            //window.location.reload();
+            this.router.navigate(['tabs/tab3']);
           }, (1500));
         }
       });
