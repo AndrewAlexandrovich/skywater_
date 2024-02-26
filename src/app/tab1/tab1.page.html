@@ -59,7 +59,7 @@
         <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
         <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
         <div class="add-cart-button">
-        <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
+        <ion-button expand="full" shape="round" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon slot="start" name="cart-outline"></ion-icon> В кошик</ion-button>
         </div>
       </ion-card-content>
       </ion-card>

@@ -62,8 +62,14 @@ span.bonus-text {
     position: relative;
     display: flex;
     justify-content: space-evenly;
+    padding: 16px 0;
 }
 span.bonus-text b {
     font-size: 30px;
     color: #3880ff;
+}
+ion-card.product-item {
+    box-shadow: none;
+    border: 1px solid #3880ff40;
+    border-radius: 10px;
 }
