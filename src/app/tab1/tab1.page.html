@@ -58,8 +58,9 @@
         <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
       <ion-card-content>
         <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
-        <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
-        <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="product.unit" class="ion-text-center"> {{ product.unit }}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="product.specials == false" class="price">{{ product.price }}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
         <div class="add-cart-button">
         <ion-button expand="full" shape="round" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon slot="start" name="cart-outline"></ion-icon> В кошик</ion-button>
         </div>
