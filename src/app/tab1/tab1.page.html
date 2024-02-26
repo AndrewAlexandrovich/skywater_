@@ -44,26 +44,40 @@
 
 	</ion-card-content>
 	</ion-card>
-	<div *ngFor="let cat of categoryProducts" class="category-products">
-	<ion-title class="text-center">{{ cat['name'] }}</ion-title>
-	<ion-grid class="ion-no-padding">
-	<ion-row>
-    <ion-col *ngFor="let product of cat['products']" size="6">
-    <ion-card class="product-item">
-      <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
-    <ion-card-content>
-      <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
-      <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
-      <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
-      <div class="add-cart-button">
-      <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
-      </div>
-    </ion-card-content>
-    </ion-card>
-    </ion-col>
-	</ion-row>
-	</ion-grid>
-	</div>
+  <ion-segment [scrollable]="true" value="{{ getActiveTab }}">
+    <ion-segment-button (click)="setProducts(cat['category_id'])" *ngFor="let cat of categoryProducts" value="category-{{ cat['category_id'] }}">
+      {{ cat['name'] }}
+    </ion-segment-button>
+  </ion-segment>
+  <div class="product-to-category">
+    <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col *ngFor="let product of productToCat" size="6">
+      <ion-card class="product-item">
+        <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
+      <ion-card-content>
+        <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
+        <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
+        <div class="add-cart-button">
+        <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
+        </div>
+      </ion-card-content>
+      </ion-card>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  </div>
+
+
+<ion-card class="home_text" *ngIf="home_text != false">
+  <ion-card-header *ngIf="home_text_title != false">
+    <ion-card-title>{{ home_text_title }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [innerHTML]='home_text'>
+  </ion-card-content>
+</ion-card>
+
   </ion-content>
 
 </ion-content>
