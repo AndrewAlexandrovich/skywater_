@@ -14,7 +14,14 @@
 .swiper-button-next, .swiper-button-prev {
     display: none;
 }
-
+.in-segment {
+    background: #ffffff;
+    margin-right: 10px;
+    border-radius: 10px;
+    color: black;
+    margin-bottom: 10px;
+    text-transform: math-auto;
+}
 .price {
     color: #3880ff;
     font-size: 16px;
@@ -69,9 +76,9 @@ span.bonus-text b {
 }
 ion-card.product-items {
     box-shadow: none;
-    border: 2px solid #3880ff40;
     border-radius: 10px;
     margin: 5px 0;
+   
 }
 ion-row.product-item {
     display: flex;
