@@ -38,7 +38,7 @@ ion-button.btn-cart {
 ion-card-title.products-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #3880ff;
+    color: #444444;
     align-items: center;
     display: flex;
     overflow: hidden;
@@ -69,8 +69,9 @@ span.bonus-text b {
 }
 ion-card.product-items {
     box-shadow: none;
-    border: 1px solid #3880ff40;
+    border: 2px solid #3880ff40;
     border-radius: 10px;
+    margin: 5px 0;
 }
 ion-row.product-item {
     display: flex;
