@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title><ion-icon name="basket-outline"></ion-icon> Ваш кошик</ion-title>
+    <ion-title><ion-icon name="basket-outline"></ion-icon> Оформлення замовлення</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" color="light">
@@ -10,7 +10,7 @@
 
   <ion-list [inset]="true" *ngIf="showEmptyMsg == false">
     <ion-list-header>
-      <ion-label><b>Ваші товари</b></ion-label>
+      <ion-label><b>Товари</b></ion-label>
     </ion-list-header>
     <ion-item-sliding *ngFor="let product of products">
         <ion-item>
@@ -69,7 +69,7 @@
       </ion-item>
     <!--Next row-->
     <ion-list-header>
-      <ion-label><b>Метод оплати</b></ion-label>
+      <ion-label><b>Оплата</b></ion-label>
     </ion-list-header>
     <ion-item *ngFor="let payment of payments">
       <ion-label class="address-line">
@@ -79,7 +79,7 @@
     </ion-item>
     <!--Next row-->
     <ion-list-header>
-      <ion-label><b>Метод доставки</b></ion-label>
+      <ion-label><b>Доставка</b></ion-label>
     </ion-list-header>
     <ion-item *ngFor="let shipping of shippings">
       <ion-label class="address-line">
@@ -99,14 +99,14 @@
     </ion-item>
     <ion-item *ngIf="totals == ''">
       <ion-label>
-        <p>Оберіть метод оплати та доставки</p>
+        <p>Оберіть оплату та доставку</p>
       </ion-label>
     </ion-item>
 
 
     <ion-item>
       <ion-label>
-        <ion-button [disabled]="disablePaymentButton" (click)="processPayment()" expand="full">Підтвердити <ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+        <ion-button [disabled]="disablePaymentButton" (click)="processPayment()" expand="full">Оформити замовлення <ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
       </ion-label>
     </ion-item>
     </ion-list>

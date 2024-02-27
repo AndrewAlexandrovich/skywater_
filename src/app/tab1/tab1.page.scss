@@ -14,18 +14,9 @@
 .swiper-button-next, .swiper-button-prev {
     display: none;
 }
-ion-card.product-item ion-card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #3880ff;
-    height: 43px;
-    align-items: center;
-    display: flex;
-    overflow: hidden;
-}
+
 .price {
     color: #3880ff;
-    text-align: center;
     font-size: 16px;
     font-weight: 600;
 }
@@ -41,14 +32,15 @@ span.old-price {
 }
 ion-button.btn-cart {
     margin-top: 10px;
+    text-transform: math-auto;
 }
-.category-products ion-title {
+ion-card-title.products-title {
+    font-size: 1rem;
     font-weight: 600;
-    display: block;
-    text-align: center;
     color: #3880ff;
-    margin: 20px 0px 10px;
-    font-size: 2rem;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
 }
 span.bonus-text {
     position: absolute;
@@ -74,8 +66,12 @@ span.bonus-text b {
     font-size: 30px;
     color: #3880ff;
 }
-ion-card.product-item {
+ion-card.product-items {
     box-shadow: none;
     border: 1px solid #3880ff40;
     border-radius: 10px;
+}
+ion-row.product-item {
+    display: flex;
+    align-items: center;
 }

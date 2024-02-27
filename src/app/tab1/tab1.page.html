@@ -57,19 +57,28 @@
     <ion-grid class="ion-no-padding">
       <ion-row>
         <div class="empty-products" *ngIf="showEmptyMsg == true">В цій категорії ще немає товарів...</div>
-      <ion-col *ngFor="let product of products" size="6">
-      <ion-card class="product-item">
-        <img alt="{{ product.name }}" src="{{ product.image }}" (click)="openProduct(product.product_id)" />
-      <ion-card-content>
-        <ion-card-title (click)="openProduct(product.product_id)">{{ product.name }}</ion-card-title>
-        <ion-card-subtitle *ngIf="product.specials == false">{{ product.price }} <small *ngIf="product.unit">/{{ product.unit }}</small></ion-card-subtitle>
-        <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <small *ngIf="product.unit">/{{ product.unit }}</small> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
-        <div class="add-cart-button">
-        <ion-button expand="full" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon name="cart-outline"></ion-icon> В кошик</ion-button>
-        </div>
-      </ion-card-content>
-      </ion-card>
-      </ion-col>
+          <ion-col *ngFor="let product of products" size="12">
+            <ion-card class="product-items">
+              <ion-card-content>
+                <ion-row class="product-item">
+                  <ion-col size="4">
+                    <div class="image">
+                      <img src="{{product.image}}" alt="{{product.name}}" (click)="openProduct(product.product_id)" />
+                    </div>
+                  </ion-col>
+                  <ion-col size="8">
+                    <ion-card-title (click)="openProduct(product.product_id)" class="products-title">{{ product.name }}</ion-card-title>
+                    <ion-card-subtitle *ngIf="product.unit" > {{ product.unit }}</ion-card-subtitle>
+                    <ion-card-subtitle *ngIf="product.specials == false" class="price">{{ product.price }}</ion-card-subtitle>
+                    <ion-card-subtitle *ngIf="product.specials == true"><span class="new-price">{{ product.special }}</span> <span class="old-price">{{ product.price }}</span></ion-card-subtitle>
+                    <div class="add-cart-button">
+                      <ion-button expand="full" shape="round" class="btn-cart" (click)="addCart(product.product_id, 1)"><ion-icon slot="start" name="cart-outline"></ion-icon> В кошик</ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
       </ion-row>
     </ion-grid>
   </div>
