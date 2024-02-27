@@ -87,3 +87,19 @@ ion-label.address-line .total {
 ion-label.address-line .caption {
     width: 100%;
 }
+.date-time-checkout-picker ion-radio {
+  display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+}
+ion-label.date-time-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+ion-label.date-time-line .selected-time {
+    font-size: 0.9rem;
+    color: #444;
+}

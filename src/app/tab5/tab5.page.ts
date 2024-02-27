@@ -23,8 +23,56 @@ export class Tab5Page implements OnInit {
   public disablePaymentButton:any = true;
   public totals:any = '';
 
+
+  public time_periods:any = false;
+  public selected_date_and_time:any = '';
+  public modal_picker_status = false;
+  public selectedDate:any = new Date().toISOString();
+  public selectedTime:any='';
+  public comment:any='';
+  public is_no_contact:boolean = false;
+  public is_no_call:boolean = false;
+  public is_zastava:boolean = false;
+
+  noContactShipping(){
+    if(this.is_no_contact == false){
+      this.is_no_contact = true;
+    }else{
+      this.is_no_contact = false;
+    }
+  }
+  noCall(){
+    if(this.is_no_call == false){
+      this.is_no_call = true;
+    }else{
+      this.is_no_call = false;
+    }
+  }
+  zastavaTrigger(){
+    if(this.is_zastava == false){
+      this.is_zastava = true;
+    }else{
+      this.is_zastava = false;
+    }
+  }
+
+  closeModalPicker(){
+    this.modal_picker_status = false;
+  }
+
   processPayment(){
 
+  }
+
+  saveDateAndTime(){
+    let defaultFormat = this.selectedDate.split('T')[0];
+    defaultFormat = defaultFormat.split('-');
+    defaultFormat = defaultFormat['2']+'.'+defaultFormat['1']+'.'+defaultFormat['0'];
+    this.selected_date_and_time = defaultFormat+' '+this.selectedTime;
+    this.modal_picker_status = false;
+  }
+  setDateAndTime(){
+    this.modal_picker_status = true;
   }
 
   getTotal(){
@@ -132,6 +180,9 @@ export class Tab5Page implements OnInit {
         }
         if(!json['addresses'].length){
           this.show_add_address = true;
+        }
+        if(json['time_period']){
+          this.time_periods = json['time_period'];
         }
 
 
