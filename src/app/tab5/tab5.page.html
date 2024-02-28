@@ -101,21 +101,47 @@
     <ion-item>
       <ion-label class="address-line">
         <div class="name">Безконтактна доставка</div>
-        <div class="check"><ion-toggle aria-label="" (click)="noContactShipping()" [checked]="is_no_contact"></ion-toggle></div>
+        <div class="check"><ion-toggle aria-label="" (ionChange)="noContactShipping()" [checked]="is_no_contact"></ion-toggle></div>
       </ion-label>
     </ion-item>
     <!--Next row-->
     <ion-item>
       <ion-label class="address-line">
         <div class="name">Не телефонувати</div>
-        <div class="check"><ion-toggle aria-label="" (click)="noCall()" [checked]="is_no_call"></ion-toggle></div>
+        <div class="check"><ion-toggle aria-label="" (ionChange)="noCall()" [checked]="is_no_call"></ion-toggle></div>
       </ion-label>
     </ion-item>
     <!--Next row-->
-    <ion-item>
-      <ion-label class="address-line">
-        <div class="name">Застава за тару</div>
-        <div class="check"><ion-toggle aria-label="" (click)="zastavaTrigger()" [checked]="is_zastava"></ion-toggle></div>
+    <ion-item *ngIf="zastava_status == true">
+      <ion-label>
+        <div class="address-line">
+        <div class="name">{{ zastava_data.title }}
+          <br><small (click)="zastavaModalStatus(true)" class="text-primary">Дізнатись більше</small></div>
+        <div class="check"><ion-toggle aria-label="" (ionChange)="zastavaTrigger()" [checked]="is_zastava"></ion-toggle></div>
+        </div>
+        <div class="zatvava-collapse toggle-{{is_zastava}}">
+          <div class="product-line">
+            <div class="image">
+              <img src="https://skywater.com.ua/assets/theme/img/buy_one_bottle.jpg" alt="">
+            </div>
+            <div class="caption">
+              <h4>Бутель для води</h4>
+              <p> {{ zastava_data['cost'] }} грн. <small> / Об'єм 18,9 л.</small></p>
+              <div class="total-product">
+                <div class="qty">
+                  <div class="qty-box">
+                    <ion-button (click)="updateZasatava('-');" size="small" fill="clear"><ion-icon name="remove-outline"></ion-icon></ion-button>
+                    <p>{{ zastava_qty }}</p>
+                    <ion-button (click)="updateZasatava('+');" size="small" fill="clear"><ion-icon name="add-outline"></ion-icon></ion-button>
+                  </div>
+                </div>
+                <div class="total">
+                   {{ zastava_total }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </ion-label>
     </ion-item>
     <!--Next row-->
@@ -185,4 +211,20 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+  <ion-modal [isOpen]="zastava_modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{ zastava_data.title }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="zastavaModalStatus(false)"><ion-icon name="close-outline"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding date-time-checkout-picker">
+          <div class="zastava-desc" [innerHTML]="zastava_data.description">
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 </ion-content>

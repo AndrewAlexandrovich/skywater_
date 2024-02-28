@@ -34,6 +34,29 @@ export class Tab5Page implements OnInit {
   public is_no_call:boolean = false;
   public is_zastava:boolean = false;
 
+  public zastava_status:boolean = false;
+  public zastava_data:any;
+  public zastava_qty:any = 1;
+  public zastava_total:any = 0;
+  public zastava_modal:any = 0;
+
+  zastavaModalStatus(newstatus:any){
+    this.zastava_modal = newstatus;
+  }
+
+  updateZasatava(symb:any){
+    if(symb == '+'){
+      this.zastava_qty++;
+    }else{
+      this.zastava_qty--;
+      if(this.zastava_qty < 1){
+        this.zastava_qty = 1;
+      }
+    }
+    this.getTotal(); // if user select zastava after
+    this.zastava_total = (this.zastava_qty * this.zastava_data['cost'])+ ' грн';
+  }
+
   noContactShipping(){
     if(this.is_no_contact == false){
       this.is_no_contact = true;
@@ -54,6 +77,7 @@ export class Tab5Page implements OnInit {
     }else{
       this.is_zastava = false;
     }
+    this.getTotal(); // if user select zastava after
   }
 
   closeModalPicker(){
@@ -83,7 +107,11 @@ export class Tab5Page implements OnInit {
       token        : localStorage.getItem('token'),
       user_id      : localStorage.getItem('user_id'),
       shipping_id  : this.shipping_id,
-      payment_id   : this.payment_id
+      payment_id   : this.payment_id,
+      zastava_qty    : this.zastava_qty,
+      is_zastava     : this.is_zastava,
+      is_no_call     : this.is_no_call,
+      is_no_contact  : this.is_no_contact,
     };
 
     this.http.post('https://skywater.com.ua/api/index.php?type=getCartTotal', JSON.stringify(params)).subscribe((response) => {
@@ -120,6 +148,7 @@ export class Tab5Page implements OnInit {
     setTimeout(() => {
       this.payments = temp_payments;
     }, 250);
+    this.getTotal();
   }
   isSelectedPayment(payment_id:any){
     if(payment_id == this.payment_id){
@@ -183,6 +212,11 @@ export class Tab5Page implements OnInit {
         }
         if(json['time_period']){
           this.time_periods = json['time_period'];
+        }
+        if(json['zastava_data']){
+          this.zastava_status = true;
+          this.zastava_data = json['zastava_data'];
+          this.zastava_total = json['zastava_data']['cost']+' грн';
         }
 
 

@@ -10,26 +10,26 @@ ion-note.ion-text-center {
 ion-title ion-icon {
     vertical-align: top;
 }
-ion-label.product-line {
+.product-line {
     display: flex;
 }
-ion-label.product-line .image {
+.product-line .image {
     max-width: 80px;
     align-items: center;
     justify-content: center;
     display: flex;
     padding-right: 10px;
 }
-ion-label.product-line .arrow-slide {
+.product-line .arrow-slide {
     display: flex;
     align-items: center;
     width: 14px;
     color: #878787;
 }
-ion-label.product-line .caption {
+.product-line .caption {
     width: 100%;
 }
-ion-label.product-line .caption h4 {
+.product-line .caption h4 {
     color: #3880ff;
     font-weight: 600;
 }
@@ -71,20 +71,21 @@ span.old-price {
     font-weight: 600;
     color: #2dd36f;
 }
-ion-label.address-line .name{
+.address-line .name{
   width:100%
 }
-ion-label.address-line .check{
+.address-line .check{
   min-width:54px
 }
-ion-label.address-line {
+.address-line {
     display: flex;
     align-items: center;
 }
-ion-label.address-line .total {
+.address-line .total {
     font-weight: 600;
+    white-space: nowrap;
 }
-ion-label.address-line .caption {
+.address-line .caption {
     width: 100%;
 }
 .date-time-checkout-picker ion-radio {
@@ -102,4 +103,29 @@ ion-label.date-time-line {
 ion-label.date-time-line .selected-time {
     font-size: 0.9rem;
     color: #444;
+}
+.zatvava-collapse .product-line {
+      margin: 10px 0px;
+    background: #f0f6fa;
+    padding: 10px;
+    border-radius: 15px;
+}
+.toggle-false.zatvava-collapse {
+    transition: all .4s ease;
+    visibility: hidden;
+    height: 0px;
+    opacity: 0;
+}
+.toggle-true.zatvava-collapse {
+    visibility: visible;
+    height: 100%;
+    transition: all .4s ease;
+}
+.text-primary {
+    color: #3880ff;
+}
+.zastava-desc .image-centered, .image-centered {
+    display: block;
+    margin: auto;
+    text-align: center;
 }
