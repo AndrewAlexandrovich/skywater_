@@ -1,8 +1,10 @@
 span.icon {
     padding: 5px 10px;
-    background: #f4f5f8;
+    background: #f0f6fa;
     border-radius: 0.25rem;
     margin-right: 5px;
+    color: #3880ff;
+    font-size: 20px;
 }
 span.icon > ion-icon {
     vertical-align: text-bottom;
@@ -11,6 +13,19 @@ ion-item.remove-acc {
     font-size: 12px;
     color: #a32636;
 }
+.remove-acc span.icon {
+    color: #a32636;
+}
 .qr-image{
   max-width: 400px
+}
+.list-md {
+    background:none;
+}
+ion-item.item.md.item-lines-default.item-fill-none.in-list.hydrated.item-label {
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+.item-inner {
+    display: none !important;
 }
