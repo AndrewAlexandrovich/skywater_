@@ -4,13 +4,19 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController,private storage: Storage) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private storage: Storage
+  ) { }
 
   public customer_name:string = '';
   public myAccountModal = false;
@@ -22,7 +28,7 @@ export class Tab3Page {
   public acc_old_password:string = '';
   public acc_password:string = '';
   public qr_url:string = '';
-  public customer_id = 0;
+  public customer_id:any = 0;
   closeMyAccModal(){
     this.myAccountModal = false;
   }
@@ -116,19 +122,15 @@ export class Tab3Page {
     this.router.navigate(['account-orders']);
   }
 
-  async checkUserAuth(){
-    let user_id = await this.storage.get('user_id');
-    let token = await this.storage.get('token');
-    if(!user_id){
-      user_id = localStorage.getItem('user_id');
-    }
-    if(!token){
-      token = localStorage.getItem('token');
-    }
+  checkUserAuth(){
+    let user_id = localStorage.getItem('user_id');
+    let token = localStorage.getItem('token');
+
     let params = {
       user_id    : user_id,
       token      : token
     };
+
     this.http.post('https://skywater.com.ua/api/index.php?type=my_profile', JSON.stringify(params)).subscribe((response) => {
       let json = JSON.parse(JSON.stringify(response));
       console.log(json);
@@ -142,7 +144,7 @@ export class Tab3Page {
         this.acc_phone = json['user_data']['phone'];
         this.acc_firstname = json['user_data']['firstname'];
         this.acc_lastname  = json['user_data']['lastname'];
-        this.customer_id = json['customer'];
+        this.customer_id = json['user_id'];
       }
     });
   }
@@ -198,9 +200,21 @@ public alertRemoveAccButtons = [
       });
     }
   }
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      this.checkUserAuth();
+      event.target.complete();
+    }, 1500);
+  }
 /*deleting account*/
+ionChange(){
+  this.checkUserAuth();
+}
   ionViewWillEnter(){
     this.checkUserAuth();
+    if(localStorage.getItem('user_id')){
+      this.customer_id = localStorage.getItem('user_id');
+    }
   }
   ngOnInit() {
     this.storage.create();

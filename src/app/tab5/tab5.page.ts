@@ -134,7 +134,7 @@ export class Tab5Page implements OnInit {
                   this.showToast('DEBUG: закриття', 'light');
                   //send request to check payment
                   let param = {order_id:json.order_id};
-                  this.http.post('https://skywater.com.ua/api/payment.php?type=checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
+                  this.http.post('https://skywater.com.ua/api/index.php?type=checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
                     let json2 = JSON.parse(JSON.stringify(response2));
 
                     if(json2.success){
@@ -155,6 +155,8 @@ export class Tab5Page implements OnInit {
               this.showToast(json.success, 'success');
               this.router.navigate(['success-order',{order_id:json.order_id}])
           }
+          //update cart page
+          this.getCart();
           }
       });
 
@@ -266,6 +268,9 @@ export class Tab5Page implements OnInit {
       let json = JSON.parse(JSON.stringify(response));
       if(json['error']){
         this.showToast(json['error'], 'danger');
+        if(!localStorage.getItem('user_id')){
+            this.showEmptyMsg = true;
+        }
       }else if(json['products']){
         this.products = json['products'];
         this.showEmptyMsg = false;

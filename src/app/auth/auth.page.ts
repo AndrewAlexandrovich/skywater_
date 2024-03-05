@@ -4,6 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -42,8 +43,8 @@ export class AuthPage implements OnInit {
           this.showToast(json['error'], 'danger');
         }else{
           this.showToast(json['success'], 'success');
-          localStorage.setItem('user_id', json['user_id']);
-          localStorage.setItem('token', json['token']);
+          //localStorage.setItem('user_id', json['user_id']);
+          //localStorage.setItem('token', json['token']);
           setTimeout(() => {
             this.openModal = false;
           }, (1500));
@@ -81,7 +82,10 @@ export class AuthPage implements OnInit {
           localStorage.setItem('token', json['token']);
           setTimeout(() => {
             //window.location.reload();
-            this.router.navigate(['tabs/tab3']);
+            //this.router.navigate(['tabs/tab3']);
+            this.router.navigate(['']).then(e => {
+              this.router.navigate(['tabs/tab3']);
+            });
           }, (1500));
         }
       });
@@ -105,7 +109,12 @@ export class AuthPage implements OnInit {
     await toast.present();
 }
 
-  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController, private storage: Storage) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private storage: Storage
+  ) { }
 
   ngOnInit() {
     this.storage.create();
