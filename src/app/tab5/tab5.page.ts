@@ -128,10 +128,10 @@ export class Tab5Page implements OnInit {
 
               if(json.in_app['link']){
                 //open inapp browser
-                const openCapacitorSite = async () => {
-                  await Browser.open({ url: json.in_app['link'] });
-                };
+                this.showToast('DEBUG: відкриття браузреа', 'light');
+                Browser.open({ url: json.in_app['link'], presentationStyle: 'popover' });
                 Browser.addListener('browserFinished', () => {
+                  this.showToast('DEBUG: закриття', 'light');
                   //send request to check payment
                   let param = {order_id:json.order_id};
                   this.http.post('https://skywater.com.ua/api/payment.php?type=checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
