@@ -115,6 +115,20 @@ export class Tab4Page implements OnInit {
 
   constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController, private activatedRoute:ActivatedRoute) { }
 
+  ionViewWillEnter(){
+    if(localStorage.getItem('user_id')){
+      this.getMessages();
+      this.not_auth = false;
+
+      if(this.router.url == '/tabs/tab4'){
+        setTimeout(() => {
+          this.intevalGetMessages;
+        }, 15000);
+      }
+
+    }
+  }
+
   ngOnInit() {
     if(localStorage.getItem('user_id')){
       this.getMessages();

@@ -22,6 +22,7 @@ export class Tab3Page {
   public acc_old_password:string = '';
   public acc_password:string = '';
   public qr_url:string = '';
+  public customer_id = 0;
   closeMyAccModal(){
     this.myAccountModal = false;
   }
@@ -107,6 +108,7 @@ export class Tab3Page {
     localStorage.removeItem('token');
     await this.storage.remove('user_id');
     await this.storage.remove('token');
+    this.customer_id = 0;
     this.router.navigate(['auth']);
   }
 
@@ -133,12 +135,14 @@ export class Tab3Page {
       //console.log(localStorage.getItem('random'));
       if(json['not_auth'] && json['not_auth'] == true){
         this.router.navigate(['auth']);
+        this.customer_id = 0;
       }else{
         this.customer_name = json['name'];
         this.acc_email = json['user_data']['email'];
         this.acc_phone = json['user_data']['phone'];
         this.acc_firstname = json['user_data']['firstname'];
         this.acc_lastname  = json['user_data']['lastname'];
+        this.customer_id = json['customer'];
       }
     });
   }
@@ -184,13 +188,10 @@ public alertRemoveAccButtons = [
         }else if(json['success']){
           this.showToast(json['success'], 'light');
           setTimeout(() => {
-            /*
             localStorage.removeItem('user_id');
             localStorage.removeItem('token');
-            await this.storage.remove('user_id');
-            await this.storage.remove('token');
+            this.customer_id = 0;
             this.router.navigate(['auth']);
-            */
             console.log('redirect');
           }, 2500);
         }
@@ -198,7 +199,9 @@ public alertRemoveAccButtons = [
     }
   }
 /*deleting account*/
-
+  ionViewWillEnter(){
+    this.checkUserAuth();
+  }
   ngOnInit() {
     this.storage.create();
     this.checkUserAuth();

@@ -19,6 +19,9 @@ export class AuthPage implements OnInit {
   public auth_password:string = '';
   public restore_phone:string = '';
 
+  closeAuth(){
+    this.router.navigate(['tabs/tab1']);
+  }
   signupPage(){
     //go to register page
     	this.router.navigate(['register']);

@@ -24,7 +24,8 @@ export class Tab2Page {
     this.http.post('https://skywater.com.ua/api/index.php?type=getQrAndBonuses', JSON.stringify(params)).subscribe((response) => {
       let json = JSON.parse(JSON.stringify(response));
       if(json['error']){
-        this.showToast(json['error'], 'danger');
+        //this.showToast(json['error'], 'danger');
+        console.log(json['error']);
       }else{
         this.show_empty = false;
         if(json.bonuses_boutles){
@@ -123,6 +124,9 @@ export class Tab2Page {
 
   constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController) { }
   ngOnInit() {
+    this.getApiData();
+  }
+  ionViewWillEnter() {
     this.getApiData();
   }
 }

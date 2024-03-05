@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="customer_id != 0">
     <ion-title>{{ customer_name }}</ion-title>
     <ion-buttons slot="end">
     <ion-button fill="solid" (click)="logout()" size="small" color="primary">Вийти
@@ -9,9 +9,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-<div class="my-acc">
+<div class="my-acc" *ngIf="customer_id != 0">
 <ion-list lines="none">
-  
+
     <ion-item (click)="openMyAccModal()">
       <ion-label><span class="icon"><ion-icon name="person-outline"></ion-icon></span> Мої дані</ion-label></ion-item>
     <ion-item (click)="openAddresses()">

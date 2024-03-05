@@ -1,19 +1,21 @@
 <ion-content [fullscreen]="true" class="ion-padding">
-<div class="bonuses">
-  <ion-card>
-  <ion-card-content>
-<ion-progress-bar [value]="count_bottles"></ion-progress-bar>
-  </ion-card-content>
-</ion-card>
-</div>
+<div class="content" *ngIf="show_empty != true">
+  <div class="bonuses">
+    <ion-card>
+    <ion-card-content>
+  <ion-progress-bar [value]="count_bottles"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+  </div>
 
-<div class="qr-code">
-<ion-card class="ion-text-center">
-  <img src="{{qrcode}}">
-  <ion-card-header class="ion-text-center">
-    <ion-card-subtitle>Покажіть цей код нашому менеджеру</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
+  <div class="qr-code">
+  <ion-card class="ion-text-center">
+    <img src="{{qrcode}}">
+    <ion-card-header class="ion-text-center">
+      <ion-card-subtitle>Покажіть цей код нашому менеджеру</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  </div>
 </div>
   <ion-note *ngIf="show_empty == true" class="ion-text-center ion-justify-content-center">
 Будь ласка, увійдіть в свій особистий кабінет або зареєструйтесь.
