@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-tab5',
@@ -84,8 +85,81 @@ export class Tab5Page implements OnInit {
     this.modal_picker_status = false;
   }
 
-  processPayment(){
+  validateCheckout(){
+    if(!this.shipping_id){
+      this.showToast('Оберіть метод доставки','danger');
+      return false;
+    }
+    if(!this.payment_id){
+      this.showToast('Оберіть метод оплати','danger');
+      return false;
+    }
+    return true;
+  }
 
+  processPayment(){
+    //validate
+    if(this.validateCheckout()){
+      let order = {
+        payment_id    : this.payment_id,
+        shipping_id   : this.shipping_id,
+        is_no_contact : this.is_no_contact,
+        is_no_call    : this.is_no_call,
+        comment       : this.comment,
+        zastava       : (this.is_zastava == true) ? this.zastava_qty : 0,
+        delivery_time : this.selectedTime,
+        delivery_date : this.selectedDate,
+        address_id     : this.defaultAddressId,
+        user_id       : localStorage.getItem('user_id'),
+        token         : localStorage.getItem('token'),
+      };
+
+      this.http.post('https://skywater.com.ua/api/index.php?type=addOrder', JSON.stringify(order)).subscribe((response) => {
+        let json = JSON.parse(JSON.stringify(response));
+        if(json.error){
+          this.showToast(json.error, 'danger');
+        }else{
+          //ok do
+          if(json.in_app){
+            //do inapp browser
+              if(json.in_app['msg']){
+                this.showToast(json.in_app['msg'], 'light');
+              }
+
+              if(json.in_app['link']){
+                //open inapp browser
+                const openCapacitorSite = async () => {
+                  await Browser.open({ url: json.in_app['link'] });
+                };
+                Browser.addListener('browserFinished', () => {
+                  //send request to check payment
+                  let param = {order_id:json.order_id};
+                  this.http.post('https://skywater.com.ua/api/payment.php?type=checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
+                    let json2 = JSON.parse(JSON.stringify(response2));
+
+                    if(json2.success){
+                      this.showToast(json2.success, 'success');
+                      this.router.navigate(['success-order',{order_id:json.order_id}])
+                    }else{
+                      this.showToast(json2.message, 'light');
+                    }
+
+                  });
+                });
+                //start check order status
+
+              }
+
+            }
+          if(json.success){
+              this.showToast(json.success, 'success');
+              this.router.navigate(['success-order',{order_id:json.order_id}])
+          }
+          }
+      });
+
+
+    }
   }
 
   saveDateAndTime(){
@@ -111,7 +185,7 @@ export class Tab5Page implements OnInit {
       zastava_qty    : this.zastava_qty,
       is_zastava     : this.is_zastava,
       is_no_call     : this.is_no_call,
-      is_no_contact  : this.is_no_contact,
+      is_no_contact  : this.is_no_contact
     };
 
     this.http.post('https://skywater.com.ua/api/index.php?type=getCartTotal', JSON.stringify(params)).subscribe((response) => {
@@ -287,7 +361,11 @@ export class Tab5Page implements OnInit {
   }
 
 
-  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastCtrl: ToastController
+  ) { }
 
   ngOnInit() {
     this.getCart();

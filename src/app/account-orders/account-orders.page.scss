@@ -30,3 +30,9 @@ ion-list.orders-list .order-line {
     display: flex;
     justify-content: space-between;
 }
+.history-item ion-icon {
+    vertical-align: bottom;
+    color: #969696;
+    margin-right: 5px;
+    font-size: 1.2rem;
+}

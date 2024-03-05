@@ -60,6 +60,9 @@
   <ion-item >
     <ion-label><b>Коментар:</b> {{ comment }}</ion-label>
   </ion-item>
+  <ion-item *ngIf="zastava">
+    <ion-label><b>Застава за тару:</b> {{ zastava }} x {{ zastava_cost }}</ion-label>
+  </ion-item>
   <ion-item lines="none"></ion-item>
 </ion-item-group>
   <div class="product-section" *ngIf="products">
@@ -116,7 +119,7 @@
           <div class="history-item">
             <p>{{ hist.date_added }} - {{hist.order_status_name}}</p>
             <div class="text">
-              <b>{{ hist.text }}</b>
+              <ion-icon name="chatbox-ellipses-outline"></ion-icon> <em>{{ hist.text }}</em>
             </div>
           </div>
         </ion-label>
