@@ -21,7 +21,7 @@ export class TabsPage {
 			this.http.post('https://skywater.com.ua/api/index.php?type=getTabStat', JSON.stringify(params)).subscribe((response) => {
 			  let json = JSON.parse(JSON.stringify(response));
 
-			  if(json['cart_count']){
+			  if(json['cart_count'] >= 0){
 				this.cart_count = json['cart_count'];
 			  }
 

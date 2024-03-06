@@ -139,6 +139,7 @@ export class Tab5Page implements OnInit {
 
                     if(json2.success){
                       this.showToast(json2.success, 'success');
+                      this.getCart();
                       this.router.navigate(['success-order',{order_id:json.order_id}])
                     }else{
                       this.showToast(json2.message, 'light');
@@ -153,6 +154,7 @@ export class Tab5Page implements OnInit {
             }
           if(json.success){
               this.showToast(json.success, 'success');
+              this.getCart();
               this.router.navigate(['success-order',{order_id:json.order_id}])
           }
           //update cart page
@@ -271,7 +273,7 @@ export class Tab5Page implements OnInit {
         if(!localStorage.getItem('user_id')){
             this.showEmptyMsg = true;
         }
-      }else if(json['products']){
+      }else if(json['products'].length){
         this.products = json['products'];
         this.showEmptyMsg = false;
         if(json['addresses']){
@@ -286,6 +288,12 @@ export class Tab5Page implements OnInit {
         if(json['shippings']){
             this.shippings = json['shippings'];
         }
+        if(json['default_shipping_id'] != ''){
+            this.shipping_id = json['default_shipping_id'];
+        }else{
+           this.showToast('Оберіть адресу', 'danger');
+        }
+
         if(!json['addresses'].length){
           this.show_add_address = true;
         }
@@ -299,7 +307,7 @@ export class Tab5Page implements OnInit {
         }
 
 
-      }else if(!json['products']){
+      }else if(json['products']){
         this.showEmptyMsg = true;
       }
     });

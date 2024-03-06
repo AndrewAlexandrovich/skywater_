@@ -56,10 +56,37 @@
   <div class="products-on-category">
     <ion-grid class="ion-no-padding">
       <ion-row>
-        <div class="empty-products" *ngIf="showEmptyMsg == true">В цій категорії ще немає товарів...</div>
+        <div class="empty-products" *ngIf="showEmptyMsg == true">
+<ion-icon name="search-circle-outline"></ion-icon>
+          В цій категорії ще немає товарів...</div>
+        <ion-col *ngIf="!products.length && showEmptyMsg == false" size="12">
+          <ion-card class="product-items">
+
+              <ion-row class="product-item">
+                <ion-col size="4">
+                  <ion-card-content>
+                  <div class="image">
+                    <ion-thumbnail slot="start" style="width:100%">
+                      <ion-skeleton-text style="width:100%" [animated]="true"></ion-skeleton-text>
+                    </ion-thumbnail>
+                  </div>
+                </ion-card-content>
+                </ion-col>
+                <ion-col size="8">
+                  <ion-card-content>
+                  <ion-skeleton-text [animated]="true" style="width: 80%;margin-bottom: 10px;"></ion-skeleton-text>
+                  <ion-skeleton-text [animated]="true" style="width: 40%;margin-bottom: 10px;"></ion-skeleton-text>
+                  <ion-skeleton-text [animated]="true" style="width: 30%;margin-bottom: 10px;"></ion-skeleton-text>
+                  <ion-skeleton-text [animated]="true" style="width: 50px"></ion-skeleton-text>
+                </ion-card-content>
+                </ion-col>
+              </ion-row>
+
+          </ion-card>
+        </ion-col>
           <ion-col *ngFor="let product of products" size="12">
             <ion-card class="product-items">
-              
+
                 <ion-row class="product-item">
                   <ion-col size="4">
                     <ion-card-content>
@@ -80,7 +107,7 @@
                   </ion-card-content>
                   </ion-col>
                 </ion-row>
-              
+
             </ion-card>
           </ion-col>
       </ion-row>

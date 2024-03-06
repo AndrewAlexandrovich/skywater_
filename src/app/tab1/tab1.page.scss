@@ -78,7 +78,7 @@ ion-card.product-items {
     box-shadow: none;
     border-radius: 10px;
     margin: 5px 0;
-   
+
 }
 ion-row.product-item {
     display: flex;
@@ -89,4 +89,17 @@ ion-card.home_text{
     box-shadow: none;
     border-radius: 10px;
     margin-top: 10px;
+}
+.empty-products {
+    padding: 10px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    color: #444;
+}
+.empty-products ion-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin: 0px auto 5px auto;
+    color: #cbdbe6;
 }

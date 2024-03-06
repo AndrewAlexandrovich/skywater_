@@ -78,15 +78,7 @@
       </ion-label>
     </ion-item>
     <!--Next row-->
-    <ion-list-header>
-      <ion-label><b>Доставка</b></ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let shipping of shippings">
-      <ion-label class="address-line">
-        <div class="name">{{ shipping.name }} <br><small>- {{ shipping.cost }}</small></div>
-        <div class="check"><ion-toggle aria-label="shipping.name" (click)="changeShipping(shipping.shipping_id)" [checked]="isSelectedShipping(shipping.shipping_id)"></ion-toggle></div>
-      </ion-label>
-    </ion-item>
+
     <ion-item *ngIf="time_periods != false">
       <ion-label (click)="setDateAndTime()" class="date-time-line">
         <div><ion-icon name="calendar-outline"></ion-icon> Дата та час</div>
@@ -221,7 +213,7 @@
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-        <ion-content class="ion-padding date-time-checkout-picker">
+        <ion-content class="ion-padding" style="text-align:center">
           <div class="zastava-desc" [innerHTML]="zastava_data.description">
           </div>
         </ion-content>

@@ -94,62 +94,68 @@ export class Tab1Page {
   }
 
 
-  constructor(private http: HttpClient, private router: Router, private toastCtrl: ToastController) {
-	this.http.get('https://skywater.com.ua/api/index.php?type=home_page').subscribe((response) => {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastCtrl: ToastController
+  ) {}
 
-	  let homeData = JSON.parse(JSON.stringify(response));
-	  this.sliderItems = homeData.slider;
-	  this.categoryProducts = homeData.categories_products;
-    for(let c of homeData.categories_products){
-      if(c.active == 1){
-        this.getActiveTab = 'category-'+c['category_id'];
-        this.productToCat = c.products;
+  loadHomeData(){
+    this.http.get('https://skywater.com.ua/api/index.php?type=home_page').subscribe((response) => {
+
+  	  let homeData = JSON.parse(JSON.stringify(response));
+  	  this.sliderItems = homeData.slider;
+  	  this.categoryProducts = homeData.categories_products;
+      for(let c of homeData.categories_products){
+        if(c.active == 1){
+          this.getActiveTab = 'category-'+c['category_id'];
+          this.productToCat = c.products;
+        }
       }
-    }
-    if(homeData.categories){
-      this.categories = homeData.categories;
-      this.is_auto_category = true;
-      this.loadCategory(0);
-    }else{
-      this.is_auto_category = false;
-    }
-
-
-    if(homeData.bonuses_boutles){
-      let bounese_boutles = homeData.bonuses_boutles;
-          this.templ_b_bottle = homeData.bonuses_boutles;
-      let percent = ((bounese_boutles * 10) / 100) * 700;
-      this.progress = percent+', 700';
-      this.intervalSetBootles;
-    }else{
-      this.progress = '0, 700';
-      this.bonuses_boutles = 0;
-    }
-
-    if(homeData.bonuses_liters){
-      let bounese_l = homeData.bonuses_liters;
-          this.templ_b_liter = homeData.bonuses_liters;
-      let percent = ((bounese_l * 19) / 100) * 700;
-      if(percent > 500){
-        percent = percent / 1.5;
+      if(homeData.categories){
+        this.categories = homeData.categories;
+        this.is_auto_category = true;
+        this.loadCategory(0);
+      }else{
+        this.is_auto_category = false;
       }
-      this.progress_l = percent+', 700';
-      this.intervalSetLiters;
 
-    }else{
-      this.progress_l = '0, 700';
-      this.bonuses_liters = 0;
-    }
 
-    if(homeData.home_text_title){
-      this.home_text_title = homeData.home_text_title;
-    }
-    if(homeData.home_text){
-      this.home_text = homeData.home_text;
-    }
+      if(homeData.bonuses_boutles){
+        let bounese_boutles = homeData.bonuses_boutles;
+            this.templ_b_bottle = homeData.bonuses_boutles;
+        let percent = ((bounese_boutles * 10) / 100) * 700;
+        this.progress = percent+', 700';
+        this.intervalSetBootles;
+      }else{
+        this.progress = '0, 700';
+        this.bonuses_boutles = 0;
+      }
 
-	});
-}
+      if(homeData.bonuses_liters){
+        let bounese_l = homeData.bonuses_liters;
+            this.templ_b_liter = homeData.bonuses_liters;
+        let percent = ((bounese_l * 19) / 100) * 700;
+        if(percent > 500){
+          percent = percent / 1.5;
+        }
+        this.progress_l = percent+', 700';
+        this.intervalSetLiters;
+
+      }else{
+        this.progress_l = '0, 700';
+        this.bonuses_liters = 0;
+      }
+
+      if(homeData.home_text_title){
+        this.home_text_title = homeData.home_text_title;
+      }
+      if(homeData.home_text){
+        this.home_text = homeData.home_text;
+      }
+
+  	});
+  }
 
   public intervalSetBootles = setInterval(() => {
     this.bonuses_boutles++;
@@ -164,9 +170,11 @@ export class Tab1Page {
     }
   }, 700);
 
-
+ionViewWillEnter(){
+  this.loadHomeData();
+}
 ngOnInit(){
-
+  this.loadHomeData();
 }
 
 }
