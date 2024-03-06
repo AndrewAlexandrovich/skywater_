@@ -380,7 +380,7 @@ export class Tab5Page implements OnInit {
     private toastCtrl: ToastController
   ) { }
 
-  ionViewWillEnter(){
+  ionViewWillEnter(){ 
     this.getCart();
   }
   ngOnInit() {
