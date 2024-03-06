@@ -45,7 +45,7 @@
         <br>
         <ion-input label="Прізвище *" type="text" label-placement="floating" fill="solid" placeholder="Ваше прізвище" name="lastname" [(ngModel)]="acc_lastname"></ion-input>
         <br>
-        <ion-input label="Телефон *" type="number"  placeholder="+380 12 345 67 39" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="phone" [(ngModel)]="acc_phone"></ion-input>
+        <ion-input label="Телефон *" type="tel" [maskito]="phoneMask" [maskitoElement]="maskPredicate"  placeholder="+380 12 345 67 39" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="phone" [(ngModel)]="acc_phone"></ion-input>
         <br>
         <ion-input label="Email" type="email" label-placement="floating" fill="solid" placeholder="Email" name="email" [(ngModel)]="acc_email"></ion-input>
         <br>

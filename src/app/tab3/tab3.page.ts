@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-
+import { MaskitoOptions, MaskitoElementPredicate } from '@maskito/core';
 
 @Component({
   selector: 'app-tab3',
@@ -17,6 +17,11 @@ export class Tab3Page {
     private toastCtrl: ToastController,
     private storage: Storage
   ) { }
+  //phone mask
+  readonly phoneMask: MaskitoOptions = {
+    mask: ['+', '3','8',' ', /\d/,/\d/,/\d/, ' ', /\d/,/\d/,/\d/,' ', /\d/,/\d/, ' ', /\d/,/\d/],
+  };
+  readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   public customer_name:string = '';
   public myAccountModal = false;

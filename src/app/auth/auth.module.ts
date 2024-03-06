@@ -8,12 +8,15 @@ import { AuthPageRoutingModule } from './auth-routing.module';
 
 import { AuthPage } from './auth.page';
 
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AuthPageRoutingModule
+    AuthPageRoutingModule,
+    MaskitoModule
   ],
   declarations: [AuthPage]
 })

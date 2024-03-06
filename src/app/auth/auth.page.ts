@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { MaskitoOptions, MaskitoElementPredicate } from '@maskito/core';
 
 
 @Component({
@@ -11,6 +12,12 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+
+  //phone mask
+  readonly phoneMask: MaskitoOptions = {
+    mask: ['+', '3','8',' ', /\d/,/\d/,/\d/, ' ', /\d/,/\d/,/\d/,' ', /\d/,/\d/, ' ', /\d/,/\d/],
+  };
+  readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
   openModal = false;
   setForgotmodalStatus(status:any){
     this.openModal = status;

@@ -8,12 +8,15 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
 
+import { MaskitoModule } from '@maskito/angular';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    RegisterPageRoutingModule,
+    MaskitoModule
   ],
   declarations: [RegisterPage],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

@@ -37,7 +37,10 @@ export class TabsPage {
 
 			});
 
-		}
+		}else{
+      this.cart_count = 0;
+      this.chat_count = 0;
+    }
 	}
 
 

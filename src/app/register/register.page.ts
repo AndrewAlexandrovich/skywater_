@@ -3,8 +3,8 @@ import { Storage } from '@ionic/storage-angular';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-
 import { MaskitoOptions, MaskitoElementPredicate } from '@maskito/core';
+
 
 @Component({
   selector: 'app-register',
@@ -12,8 +12,9 @@ import { MaskitoOptions, MaskitoElementPredicate } from '@maskito/core';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+
   readonly phoneMask: MaskitoOptions = {
-    mask: ['+', '38', ' ', '0', /\d/, /\d/,' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/,' ', /\d/, /\d/],
+    mask: ['+', '3','8',' ', /\d/,/\d/,/\d/, ' ', /\d/,/\d/,/\d/,' ', /\d/,/\d/, ' ', /\d/,/\d/],
   };
   readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
 
@@ -58,16 +59,20 @@ export class RegisterPage implements OnInit {
         email : this.reg_email,
         password : this.reg_password,
       };
-      this.http.post('https://skywater.com.ua/api/index.php?type=validate_code', JSON.stringify(params)).subscribe((response) => {
+      this.http.post('https://skywater.com.ua/api/index.php?type=register', JSON.stringify(params)).subscribe((response) => {
         let json = JSON.parse(JSON.stringify(response));
         console.log(json);
         if(json.error){
           this.showToast(json['error'], 'danger');
         }else{
           this.showToast(json['success'], 'success');
+
+          //localStorage.setItem('user_id', json['user_id'])
+          //localStorage.setItem('token', json['token'])
+
           this.storage.set('user_id', json['user_id']);
           this.storage.set('user_md5', json['md5']);
-          this.storage.set('session_id', json['session_id']);
+          this.storage.set('token', json['token']);
           setTimeout(() => {
             this.openValidate = true;
           }, (1500));
@@ -104,7 +109,9 @@ export class RegisterPage implements OnInit {
           localStorage.setItem('is_active', json['is_active']);
           this.openValidate = false;
           setTimeout(() => {
-            this.router.navigate(['tab3']);
+            this.router.navigate(['']).then(e => {
+              this.router.navigate(['tabs/tab3']);
+            });
           }, 1500);
         }
       });
@@ -170,8 +177,6 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.storage.create();
-    console.log(this.storage.get('user_id'));
-    localStorage.setItem("token", "1235");
   }
 
 

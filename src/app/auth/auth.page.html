@@ -8,7 +8,7 @@
 
   <div class="ion-padding inputs">
 
-      <ion-input [(ngModel)]="auth_phone" label="Телефон" type="number" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel"></ion-input>
+      <ion-input [(ngModel)]="auth_phone" label="Телефон" type="tel" [maskito]="phoneMask" [maskitoElement]="maskPredicate" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel"></ion-input>
   <br>
       <ion-input [(ngModel)]="auth_password" label="Пароль" type="password" label-placement="floating" fill="solid" placeholder="Пароль" name="password"></ion-input>
 
@@ -36,7 +36,7 @@
         <p class="text-light">
           Введіть номер телефону, на який ви зареєстрували акаунт:
         </p>
-        <ion-input [(ngModel)]="restore_phone" label="Телефон" type="number" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel-forgot"></ion-input>
+        <ion-input [(ngModel)]="restore_phone" label="Телефон" type="tel" [maskito]="phoneMask" [maskitoElement]="maskPredicate" label-placement="floating" fill="solid" placeholder="Ваш телефон" name="tel-forgot"></ion-input>
         <ion-button color="primary" (click)="sendNewPassword();" expand="full" >Відновити</ion-button>
 
         <br>
