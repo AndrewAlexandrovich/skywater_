@@ -2,7 +2,7 @@
   <ion-toolbar *ngIf="customer_id != 0">
     <ion-title>{{ customer_name }}</ion-title>
     <ion-buttons slot="end">
-    <ion-button fill="solid" (click)="logout()" size="small" color="primary">Вийти
+    <ion-button fill="solid" (click)="logout()" shape="round"  size="small" color="primary">Вийти
 <ion-icon name="log-out-outline" solt="end"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -54,7 +54,7 @@
         <ion-input label="Пароль *" type="password" label-placement="floating" fill="solid" placeholder="Пароль" name="password" [(ngModel)]="acc_password"></ion-input>
         <small>Залиште пустим якщо не бажаєте міняти пароль.</small>
         <br><br>
-        <ion-button color="primary" (click)="updateProfile();" expand="full" >Оновити</ion-button>
+        <ion-button color="primary" shape="round" (click)="updateProfile();" expand="full" >Оновити</ion-button>
 
       </ion-content>
     </ng-template>
@@ -69,7 +69,7 @@
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-        <ion-content class="ion-padding ion-align-items-center" color="light">
+        <ion-content class="ion-padding ion-align-items-center" >
           <ion-img
             class="qr-image"
             src="{{qr_url}}"
