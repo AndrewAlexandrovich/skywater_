@@ -43,6 +43,10 @@ export class Tab2Page {
         if(json.to_next_bonusL && json.to_next_bonusL>0){
           this.to_next_l = 10-json.to_next_bonusL;
           this.progress_ll = json.to_next_bonusL / 10;
+          if(this.to_next_l == 0){
+            this.to_next_l = 10;
+            this.progress_ll = 0;
+          }
         }
 
 
