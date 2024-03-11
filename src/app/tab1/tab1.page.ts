@@ -25,8 +25,8 @@ export class Tab1Page {
   public productToCat:any;
   public home_text:any = false;
   public home_text_title:any = false;
-  public to_next_bottle:any = 10;
-  public to_next_liter:any = 10;
+  public to_next_bottle:any = 0;
+  public to_next_liter:any = 0;
 
   public is_auto_category:any = false;
   public products:any;
@@ -145,32 +145,39 @@ export class Tab1Page {
         this.is_auto_category = false;
       }
 
+      this.progress = '0, 700';
+      if(homeData.to_next_bonus > 0){
+        let segment = 370 / 10;
+        let percent =  homeData.to_next_bonus * segment;
+        this.progress = percent+', 700';
+      }else{
+        this.progress = '0, 700';
+      }
 
       if(homeData.bonuses_boutles >=1 ){
         let bounese_boutles = homeData.bonuses_boutles;
             this.templ_b_bottle = homeData.bonuses_boutles;
-        let percent = ((bounese_boutles * 10) / 100) * 400;
-        this.progress = percent+', 700';
         this.intervalSetBootles;
-        this.to_next_bottle = homeData.to_next_bonus;
       }else{
-        this.progress = '0, 700';
         this.bonuses_boutles = 0;
         clearInterval(this.intervalSetBootles);
       }
 
-      if(homeData.bonuses_liters >= 1){
-        let bounese_l = homeData.bonuses_liters;
-            this.templ_b_liter = homeData.bonuses_liters;
-        let percent = ((bounese_l * 19) / 100) * 400;
-        if(percent > 500){
-          percent = percent / 1.5;
-        }
+      this.to_next_bottle = homeData.to_next_bonus;
+      this.to_next_liter = homeData.to_next_bonusL;
+
+      if(homeData.to_next_bonusL > 0){
+        let segment = 370 / 10;
+        let percent =  homeData.to_next_bonusL * segment;
         this.progress_l = percent+', 700';
-        this.intervalSetLiters;
-        this.to_next_liter = homeData.to_next_bonusL;
       }else{
         this.progress_l = '0, 700';
+      }
+
+      if(homeData.bonuses_liters >= 1){
+        this.templ_b_liter = homeData.bonuses_liters;
+        this.intervalSetLiters;
+      }else{
         this.bonuses_liters = 0;
         clearInterval(this.intervalSetLiters);
       }
@@ -197,7 +204,12 @@ export class Tab1Page {
       clearInterval(this.intervalSetLiters)
     }
   }, 700);
-
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      this.loadHomeData();
+      event.target.complete();
+    }, 1500);
+  }
 ionViewWillEnter(){
   this.loadHomeData();
 }

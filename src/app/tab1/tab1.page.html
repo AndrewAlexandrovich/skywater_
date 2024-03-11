@@ -1,9 +1,7 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+     <ion-refresher-content></ion-refresher-content>
+   </ion-refresher>
 
   <ion-content class="ion-padding">
 	<section class="top-slider">
@@ -26,7 +24,8 @@
 <div class="bottles-svg">
 <svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
-  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
+  <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" >
+</circle>
 </svg>
 <span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small><small>{{to_next_bottle}}/10</small></span>
 </div>

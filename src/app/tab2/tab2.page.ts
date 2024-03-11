@@ -35,14 +35,14 @@ export class Tab2Page {
         }
         if(json.bonuses_liters){
           this.count_liters = json.bonuses_liters;
-          this.progress_ll = json.bonuses_liters / 10;
         }
         if(json.qr_code_path){
           this.qrcode = json.qr_code_path;
         }
 
-        if(json.to_next_bonusL){
-          this.to_next_l = json.to_next_bonusL;
+        if(json.to_next_bonusL && json.to_next_bonusL>0){
+          this.to_next_l = 10-json.to_next_bonusL;
+          this.progress_ll = json.to_next_bonusL / 10;
         }
 
 
