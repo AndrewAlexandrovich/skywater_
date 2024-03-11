@@ -21,9 +21,12 @@ export class Tab1Page {
   public templ_b_liter:any = 0;
   public bonuses_liters:any = 0;
   public getActiveTab:any = 'default';
+  public selectedCategory:any = 'default';
   public productToCat:any;
   public home_text:any = false;
   public home_text_title:any = false;
+  public to_next_bottle:any = 10;
+  public to_next_liter:any = 10;
 
   public is_auto_category:any = false;
   public products:any;
@@ -31,7 +34,9 @@ export class Tab1Page {
   public showEmptyMsg:any = false;
 
   openProduct(product_id:any){
-	this.router.navigate(['product',{product_id:product_id}])
+    if(product_id >= 1){
+      this.router.navigate(['product',{product_id:product_id}]);
+    }
   }
   addCart(product_id:any, quantity:any){
     let params = {
@@ -101,11 +106,21 @@ export class Tab1Page {
   ) {}
 
   loadHomeData(){
-    this.http.get('https://skywater.com.ua/api/index.php?type=home_page').subscribe((response) => {
+    let user_id:any = '';
+    let token:any   = '';
+    if(localStorage.getItem('user_id')){user_id = localStorage.getItem('user_id');}
+    if(localStorage.getItem('token')){token = localStorage.getItem('token');}
+
+    let params = {
+      user_id : user_id,
+      token   : token,
+    };
+    this.http.post('https://skywater.com.ua/api/index.php?type=home_page', JSON.stringify(params)).subscribe((response) => {
 
   	  let homeData = JSON.parse(JSON.stringify(response));
   	  this.sliderItems = homeData.slider;
   	  this.categoryProducts = homeData.categories_products;
+
       for(let c of homeData.categories_products){
         if(c.active == 1){
           this.getActiveTab = 'category-'+c['category_id'];
@@ -116,35 +131,48 @@ export class Tab1Page {
         this.categories = homeData.categories;
         this.is_auto_category = true;
         this.loadCategory(0);
+        if(this.categories[0]['category_id']){
+          this.loadCategory(this.categories[0]['category_id']);
+          this.selectedCategory = 'category-'+this.categories[0]['category_id'];
+        }
+        /*
+        this.is_auto_category = false;
+        this.loadCategory(this.categories[0]['category_id']);
+        this.getActiveTab = 'category-'+this.categories[0]['category_id'];
+        */
+
       }else{
         this.is_auto_category = false;
       }
 
 
-      if(homeData.bonuses_boutles){
+      if(homeData.bonuses_boutles >=1 ){
         let bounese_boutles = homeData.bonuses_boutles;
             this.templ_b_bottle = homeData.bonuses_boutles;
-        let percent = ((bounese_boutles * 10) / 100) * 700;
+        let percent = ((bounese_boutles * 10) / 100) * 400;
         this.progress = percent+', 700';
         this.intervalSetBootles;
+        this.to_next_bottle = homeData.to_next_bonus;
       }else{
         this.progress = '0, 700';
         this.bonuses_boutles = 0;
+        clearInterval(this.intervalSetBootles);
       }
 
-      if(homeData.bonuses_liters){
+      if(homeData.bonuses_liters >= 1){
         let bounese_l = homeData.bonuses_liters;
             this.templ_b_liter = homeData.bonuses_liters;
-        let percent = ((bounese_l * 19) / 100) * 700;
+        let percent = ((bounese_l * 19) / 100) * 400;
         if(percent > 500){
           percent = percent / 1.5;
         }
         this.progress_l = percent+', 700';
         this.intervalSetLiters;
-
+        this.to_next_liter = homeData.to_next_bonusL;
       }else{
         this.progress_l = '0, 700';
         this.bonuses_liters = 0;
+        clearInterval(this.intervalSetLiters);
       }
 
       if(homeData.home_text_title){
@@ -159,13 +187,13 @@ export class Tab1Page {
 
   public intervalSetBootles = setInterval(() => {
     this.bonuses_boutles++;
-    if(this.bonuses_boutles == this.templ_b_bottle){
+    if(this.bonuses_boutles == parseInt(this.templ_b_bottle)){
       clearInterval(this.intervalSetBootles)
     }
   }, 1000);
   public intervalSetLiters = setInterval(() => {
     this.bonuses_liters++;
-    if(this.bonuses_liters == this.templ_b_liter){
+    if(this.bonuses_liters == parseInt(this.templ_b_liter)){
       clearInterval(this.intervalSetLiters)
     }
   }, 700);

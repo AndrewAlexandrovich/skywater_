@@ -14,6 +14,8 @@ export class Tab2Page {
   public show_empty:any = true;
   public count_bottles:any=0;
   public count_liters:any=0;
+  public progress_ll:any = 0;
+  public to_next_l:any = 10;
 
   getApiData(){
     let params = {
@@ -33,9 +35,14 @@ export class Tab2Page {
         }
         if(json.bonuses_liters){
           this.count_liters = json.bonuses_liters;
+          this.progress_ll = json.bonuses_liters / 10;
         }
         if(json.qr_code_path){
           this.qrcode = json.qr_code_path;
+        }
+
+        if(json.to_next_bonusL){
+          this.to_next_l = json.to_next_bonusL;
         }
 
 

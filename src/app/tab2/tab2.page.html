@@ -3,7 +3,9 @@
   <div class="bonuses">
     <ion-card>
     <ion-card-content>
-  <ion-progress-bar [value]="count_bottles"></ion-progress-bar>
+      <h4>Ви накопичили: <b>{{count_liters}}</b> бонусних літрів</h4>
+     <ion-progress-bar [value]="progress_ll"></ion-progress-bar>
+     <p>*до наступного бонусного літру вам потрібно купити {{to_next_l}} літрів очищеної води</p>
     </ion-card-content>
   </ion-card>
   </div>

@@ -28,7 +28,7 @@
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small><small>4/10</small></span>
+<span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small><small>{{to_next_bottle}}/10</small></span>
 </div>
 
 <div class="bottles-svg">
@@ -36,7 +36,7 @@
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small><small>4/10</small></span>
+<span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small><small>{{to_next_liter}}/10</small></span>
 </div>
 </div>
 
@@ -47,7 +47,7 @@
 
 
 <div *ngIf="is_auto_category == true">
-  <ion-segment value="default" [scrollable]="true">
+  <ion-segment [(ngModel)]="selectedCategory" value="default" [scrollable]="true">
     <ion-segment-button *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}">
       <ion-label>{{ category.name }}</ion-label>
     </ion-segment-button>
