@@ -163,8 +163,8 @@ export class Tab1Page {
         clearInterval(this.intervalSetBootles);
       }
 
-      this.to_next_bottle = homeData.to_next_bonus;
-      this.to_next_liter = homeData.to_next_bonusL;
+      this.to_next_bottle = (homeData.to_next_bonus) ? homeData.to_next_bonus : 0;
+      this.to_next_liter = (homeData.to_next_bonusL) ? homeData.to_next_bonusL : 0;
 
       if(homeData.to_next_bonusL > 0){
         let segment = 370 / 10;

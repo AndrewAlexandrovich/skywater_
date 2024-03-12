@@ -73,9 +73,9 @@
       <ion-label><b>Оплата</b></ion-label>
     </ion-list-header>
     <ion-item *ngFor="let payment of payments">
-      <ion-icon name="card-outline" color="primary"></ion-icon>
+      <ion-icon name="{{payment.icon}}" color="primary"></ion-icon>
       <ion-label class="address-line">
-        
+
         <div class="name">{{ payment.name }}</div>
         <div class="check"><ion-toggle aria-label="payment.name" (click)="changePayment(payment.payment_id)" [checked]="isSelectedPayment(payment.payment_id)"></ion-toggle></div>
       </ion-label>
@@ -85,23 +85,23 @@
       <ion-label><b>Додатково</b></ion-label>
     </ion-list-header>
     <ion-item *ngIf="time_periods != false">
-      <ion-icon name="calendar-outline" color="primary"></ion-icon> 
+      <ion-icon name="calendar-outline" color="primary"></ion-icon>
       <ion-label (click)="setDateAndTime()" class="date-time-line">
-       
+
         <div>Дата та час</div>
         <div class="selected-time">{{ selected_date_and_time }}</div>
       </ion-label>
     </ion-item>
     <!--Next row-->
     <ion-item >
-     
+
       <ion-textarea style="display: flex; align-items: center;" [(ngModel)]="comment"  placeholder="Додати коментар"> <ion-icon name="chatbox-outline" style="font-size: 24px;"  color="primary"></ion-icon></ion-textarea>
     </ion-item>
     <!--Next row-->
     <ion-item>
       <ion-icon name="hand-left-outline" color="primary"></ion-icon>
       <ion-label class="address-line">
-        
+
         <div class="name">Безконтактна доставка</div>
         <div class="check"><ion-toggle aria-label="" (ionChange)="noContactShipping()" [checked]="is_no_contact"></ion-toggle></div>
       </ion-label>
@@ -110,7 +110,7 @@
     <ion-item>
       <ion-icon name="notifications-off-outline" color="primary"></ion-icon>
       <ion-label class="address-line">
-        
+
         <div class="name">Не телефонувати</div>
         <div class="check"><ion-toggle aria-label="" (ionChange)="noCall()" [checked]="is_no_call"></ion-toggle></div>
       </ion-label>
@@ -119,9 +119,9 @@
     <ion-item *ngIf="zastava_status == true">
       <ion-icon name="sync-outline" color="primary"></ion-icon>
       <ion-label>
-        
+
         <div class="address-line">
-         
+
         <div class="name">{{ zastava_data.title }}
           <br><small (click)="zastavaModalStatus(true)" class="text-primary">Дізнатись більше</small></div>
         <div class="check"><ion-toggle aria-label="" (ionChange)="zastavaTrigger()" [checked]="is_zastava"></ion-toggle></div>

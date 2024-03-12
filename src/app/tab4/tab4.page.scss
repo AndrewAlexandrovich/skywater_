@@ -66,3 +66,10 @@ ion-note.ion-text-center {
 ion-title ion-icon {
     vertical-align: top;
 }
+ion-list, ion-item{
+  background: #f0f6fa;
+}
+ion-content{
+  --ion-background-color:#f0f6fa;
+  --background: #f0f6fa !important;
+}
