@@ -128,13 +128,13 @@ export class Tab5Page implements OnInit {
 
               if(json.in_app['link']){
                 //open inapp browser
-                this.showToast('DEBUG: відкриття браузреа', 'light');
+                //this.showToast('DEBUG: відкриття браузреа', 'light');
                 Browser.open({ url: json.in_app['link'], presentationStyle: 'popover' });
                 Browser.addListener('browserFinished', () => {
-                  this.showToast('DEBUG: закриття', 'light');
+                  //this.showToast('DEBUG: закриття', 'light');
                   //send request to check payment
                   let param = {order_id:json.order_id};
-                  this.http.post('https://skywater.com.ua/api/index.php?type=checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
+                  this.http.post('https://skywater.com.ua/api/index.php?checkPayment=1&order_id='+json.order_id, JSON.stringify(param)).subscribe((response2) => {
                     let json2 = JSON.parse(JSON.stringify(response2));
 
                     if(json2.success){
@@ -143,6 +143,7 @@ export class Tab5Page implements OnInit {
                       this.router.navigate(['success-order',{order_id:json.order_id}])
                     }else{
                       this.showToast(json2.message, 'light');
+                      this.getCart();
                     }
 
                   });
@@ -380,7 +381,7 @@ export class Tab5Page implements OnInit {
     private toastCtrl: ToastController
   ) { }
 
-  ionViewWillEnter(){ 
+  ionViewWillEnter(){
     this.getCart();
   }
   ngOnInit() {
