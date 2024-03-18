@@ -22,6 +22,8 @@
       <ion-label><span class="icon"><ion-icon name="navigate-outline"></ion-icon></span> Адреси доставки</ion-label></ion-item>
     <ion-item (click)="openOrdersPage()">
       <ion-label><span class="icon"><ion-icon name="cart-outline"></ion-icon></span> Мої замовлення</ion-label></ion-item>
+    <ion-item *ngIf="bonus_history_status == true" (click)="toggleBonusesHistory(true)">
+      <ion-label><span class="icon"><ion-icon name="gift-outline"></ion-icon></span> Історія бонусів</ion-label></ion-item>
     <ion-item (click)="getQr()">
         <ion-label><span class="icon"><ion-icon name="qr-code-outline"></ion-icon></span> Мій QR</ion-label></ion-item>
     <ion-item class="remove-acc" id="remove-acc-alert">
@@ -34,8 +36,8 @@
       <ion-header>
         <ion-toolbar>
           <ion-title>Мої дані</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="closeMyAccModal()">Скасувати</ion-button>
+          <ion-buttons slot="start">
+            <ion-button (click)="closeMyAccModal()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -64,8 +66,8 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>Ваш QR код</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="closeQrModal()"><ion-icon name="close-outline"></ion-icon></ion-button>
+            <ion-buttons slot="start">
+              <ion-button (click)="closeQrModal()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
@@ -75,6 +77,36 @@
             src="{{qr_url}}"
             alt="{{customer_name}}"
           ></ion-img>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  <ion-modal *ngIf="bonus_history_status == true" [isOpen]="bonus_history_modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Історія використання бонусів</ion-title>
+            <ion-buttons slot="start">
+              <ion-button (click)="toggleBonusesHistory(false)"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class=" ion-align-items-center" >
+          <ion-list [inset]="true" class="bonus-history">
+             <ion-item *ngFor="let his of bonusHistories">
+               <ion-label>
+                 <div class="bhistory-item">
+                   <div class="date">{{his.date_added}}</div>
+                   <div class="caption">{{his.text}}</div>
+                   <div class="count item-{{his.type}}">{{his.count}}</div>
+                 </div>
+               </ion-label>
+             </ion-item>
+             <ion-item *ngIf="bonusHistories == ''">
+               <ion-label class="ion-text-center">
+                 Історія порожня...<br>Час створити замовлення :)
+               </ion-label>
+             </ion-item>
+           </ion-list>
         </ion-content>
       </ng-template>
     </ion-modal>

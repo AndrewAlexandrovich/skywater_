@@ -34,11 +34,21 @@ export class Tab3Page {
   public acc_password:string = '';
   public qr_url:string = '';
   public customer_id:any = 0;
+  public bonus_history_modal:any = false;
+  public bonus_history_status:any = true;//
+  public bonusHistories:any;//
   closeMyAccModal(){
     this.myAccountModal = false;
   }
   closeQrModal(){
     this.showQrModal = false;
+  }
+  toggleBonusesHistory(status:any){
+    if(status == true){
+      this.loadBonusHistory();
+    }
+
+    this.bonus_history_modal = status;
   }
   getQr(){
     let params = {
@@ -150,7 +160,31 @@ export class Tab3Page {
         this.acc_firstname = json['user_data']['firstname'];
         this.acc_lastname  = json['user_data']['lastname'];
         this.customer_id = json['user_id'];
+
+        //new history func
+        this.bonus_history_status = json['bonus_history_status'];
+
       }
+    });
+  }
+
+  loadBonusHistory(){
+    let user_id = localStorage.getItem('user_id');
+    let token = localStorage.getItem('token');
+
+    let params = {
+      user_id    : user_id,
+      token      : token
+    };
+
+    this.http.post('https://skywater.com.ua/api/index.php?type=loadBonusHistory', JSON.stringify(params)).subscribe((response) => {
+      let json = JSON.parse(JSON.stringify(response));
+      if(json.error){
+        this.showToast(json.error, 'danger');
+      }else if(json.results){
+        this.bonusHistories = json.results;
+      }
+
     });
   }
 

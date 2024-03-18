@@ -30,3 +30,27 @@ ion-item.item.md.item-lines-default.item-fill-none.in-list.hydrated.item-label {
     display: none !important;
 }
 has-focus.input-fill-solid.ion-valid.sc-ion-input-md-h {--border-color:black}
+.bhistory-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.bhistory-item .date {
+    font-size: 12px;
+    max-width: 65px;
+    margin-right: 5px;
+}
+.bhistory-item .caption {
+    width: 100%;
+    text-align: left;
+    padding: 0px 10px 0px;
+}
+.bhistory-item .count {
+  font-weight: 600;
+}
+.count.item-plus {
+    color: #2dd36f;
+}
+.count.item-minus {
+    color: #e07f7f;
+}

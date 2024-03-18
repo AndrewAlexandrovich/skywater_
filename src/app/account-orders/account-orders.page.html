@@ -57,8 +57,14 @@
   <ion-item>
     <ion-label><b>Замовник:</b> {{ customer_name }}</ion-label>
   </ion-item>
-  <ion-item >
+  <ion-item *ngIf="comment">
     <ion-label><b>Коментар:</b> {{ comment }}</ion-label>
+  </ion-item>
+  <ion-item *ngIf="date_and_time">
+    <ion-label><b>Дата доставки:</b> {{ date_and_time }}</ion-label>
+  </ion-item>
+  <ion-item *ngIf="is_bezkont">
+    <ion-label><b>Безконтактна:</b> {{ is_bezkont }}</ion-label>
   </ion-item>
   <ion-item *ngIf="zastava">
     <ion-label><b>Застава за тару:</b> {{ zastava }} x {{ zastava_cost }}</ion-label>

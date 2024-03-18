@@ -30,6 +30,8 @@ export class AccountOrdersPage implements OnInit {
   public customer_name:any;
   public zastava:any = false;
   public zastava_cost:any = 0;
+  public date_and_time:any;
+  public is_bezkont:any;
 
   hideModalOrder(){
     this.order_modal_status = false;
@@ -59,6 +61,10 @@ export class AccountOrdersPage implements OnInit {
         this.totals = json['totals'];
         this.order_id = order_id;
         this.zastava_cost = json['zastava_cost']+' грн.';
+        this.is_bezkont = json['bezkontakt'];
+        if(json['date_and_time']){
+          this.date_and_time = json['date_and_time'];
+        }
         if(json['zastava']){
           this.zastava = json['zastava'];
         }else{
