@@ -30,3 +30,13 @@ ion-button.btn-cart {
     border-radius: 10px;
 }
 ion-progress-bar{min-height:8px}
+.text-shop {
+    margin-top: 25px;
+}
+.bonuses{
+  margin-bottom:25px
+}
+.text-shop ion-card, .bonuses ion-card{
+    box-shadow: none;
+    border-radius: 10px;
+}

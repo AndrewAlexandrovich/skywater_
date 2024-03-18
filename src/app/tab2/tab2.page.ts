@@ -17,6 +17,10 @@ export class Tab2Page {
   public progress_ll:any = 0;
   public to_next_l:any = 10;
 
+  //text
+  public text_title:any=false;
+  public text_text:any=false;
+
   getApiData(){
     let params = {
         token       : localStorage.getItem('token'),
@@ -25,6 +29,12 @@ export class Tab2Page {
 
     this.http.post('https://skywater.com.ua/api/index.php?type=getQrAndBonuses', JSON.stringify(params)).subscribe((response) => {
       let json = JSON.parse(JSON.stringify(response));
+      if(json.text_title){
+        this.text_title = json.text_title;
+      }
+      if(json.text_text){
+        this.text_text = json.text_text;
+      }
       if(json['error']){
         //this.showToast(json['error'], 'danger');
         console.log(json['error']);

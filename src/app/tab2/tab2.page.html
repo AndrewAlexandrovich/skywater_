@@ -18,6 +18,16 @@
     </ion-card-header>
   </ion-card>
   </div>
+
+  <div class="text-shop" *ngIf="text_text != false">
+  <ion-card>
+    <ion-card-header *ngIf="text_title != false" class="ion-text-center">
+      <ion-card-title>{{text_title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content [innerHTML]='text_text'>
+    </ion-card-content>
+  </ion-card>
+  </div>
 </div>
   <ion-note *ngIf="show_empty == true" class="ion-text-center ion-justify-content-center">
 Будь ласка, увійдіть в свій особистий кабінет або зареєструйтесь.
