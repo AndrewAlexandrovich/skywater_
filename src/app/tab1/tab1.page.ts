@@ -161,10 +161,11 @@ export class Tab1Page {
       if(homeData.bonuses_boutles >=1 ){
         let bounese_boutles = homeData.bonuses_boutles;
             this.templ_b_bottle = homeData.bonuses_boutles;
-        this.intervalSetBootles;
+            this.bonuses_boutles = homeData.bonuses_boutles;
+        //this.intervalSetBootles;
       }else{
         this.bonuses_boutles = 0;
-        clearInterval(this.intervalSetBootles);
+        //clearInterval(this.intervalSetBootles);
       }
 
       this.to_next_bottle = (homeData.to_next_bonus) ? homeData.to_next_bonus : 0;
@@ -180,10 +181,11 @@ export class Tab1Page {
 
       if(homeData.bonuses_liters >= 1){
         this.templ_b_liter = homeData.bonuses_liters;
-        this.intervalSetLiters;
+        this.bonuses_liters = homeData.bonuses_liters;
+        //this.intervalSetLiters;
       }else{
         this.bonuses_liters = 0;
-        clearInterval(this.intervalSetLiters);
+        //clearInterval(this.intervalSetLiters);
       }
 
       if(homeData.home_text_title){
@@ -196,6 +198,7 @@ export class Tab1Page {
   	});
   }
 
+  /*
   public intervalSetBootles = setInterval(() => {
 
     this.bonuses_boutles++;
@@ -210,6 +213,7 @@ export class Tab1Page {
       clearInterval(this.intervalSetLiters)
     }
   }, 700);
+  */
   handleRefresh(event:any) {
     setTimeout(() => {
       this.loadHomeData();
