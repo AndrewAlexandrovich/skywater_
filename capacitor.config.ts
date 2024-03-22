@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'Sky Water',
-  webDir: 'www/browser',
+  webDir: 'www',
   server: {
     androidScheme: 'https'
   }
