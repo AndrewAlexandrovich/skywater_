@@ -76,7 +76,7 @@ export class Tab1Page {
   }
 
   async showToast(msg:any, color:any) {
-    console.log('start show');
+
     if(color == ''){
       color = 'primary';
     }
@@ -116,6 +116,10 @@ export class Tab1Page {
       token   : token,
     };
     this.http.post('https://skywater.com.ua/api/index.php?type=home_page', JSON.stringify(params)).subscribe((response) => {
+
+      //set null
+      this.templ_b_bottle = 0;
+      this.templ_b_liter = 0;
 
   	  let homeData = JSON.parse(JSON.stringify(response));
   	  this.sliderItems = homeData.slider;
@@ -193,12 +197,14 @@ export class Tab1Page {
   }
 
   public intervalSetBootles = setInterval(() => {
+
     this.bonuses_boutles++;
     if(this.bonuses_boutles == parseInt(this.templ_b_bottle)){
       clearInterval(this.intervalSetBootles)
     }
   }, 1000);
   public intervalSetLiters = setInterval(() => {
+
     this.bonuses_liters++;
     if(this.bonuses_liters == parseInt(this.templ_b_liter)){
       clearInterval(this.intervalSetLiters)
