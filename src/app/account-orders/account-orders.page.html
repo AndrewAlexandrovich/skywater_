@@ -27,47 +27,63 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>{{modal_title}}</ion-title>
+            <ion-title *ngIf="show_skeleton == false">{{modal_title}}</ion-title>
+            <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 80px"></ion-skeleton-text>
             <ion-buttons slot="start">
               <ion-button (click)="hideModalOrder()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding ion-align-items-center">
+        <div class="loader" *ngIf="show_skeleton == true">
+            <ion-spinner name="dots"></ion-spinner>
+            <span>Завантаження...</span>
+        </div>
           <ion-item-group>
   <ion-item-divider>
-    <ion-label>Деталі замовлення №{{order_id}}</ion-label>
+    <ion-label *ngIf="show_skeleton == false">Деталі замовлення №{{order_id}}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 50px"></ion-skeleton-text>
   </ion-item-divider>
 
   <ion-item>
-    <ion-label><b>Метод доставки:</b> {{ shipping_method }}</ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Метод доставки:</b> {{ shipping_method }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 130px"></ion-skeleton-text>
   </ion-item>
   <ion-item>
-    <ion-label><b>Метод оплати:</b> {{ payment_method }}</ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Метод оплати:</b> {{ payment_method }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 130px"></ion-skeleton-text>
   </ion-item>
   <ion-item>
-    <ion-label><b>Статус замовлення:</b> <span style="color:{{ order_status_color }}">{{ order_status_name }}</span></ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Статус замовлення:</b> <span style="color:{{ order_status_color }}">{{ order_status_name }}</span></ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 120px"></ion-skeleton-text>
   </ion-item>
   <ion-item >
-    <ion-label><b>Дата створення:</b> {{ date_added }}</ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Дата створення:</b> {{ date_added }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 100px"></ion-skeleton-text>
   </ion-item>
   <ion-item>
-    <ion-label><b>Адреса:</b> {{ shipping_address }}</ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Адреса:</b> {{ shipping_address }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 130px"></ion-skeleton-text>
   </ion-item>
   <ion-item>
-    <ion-label><b>Замовник:</b> {{ customer_name }}</ion-label>
+    <ion-label *ngIf="show_skeleton == false"><b>Замовник:</b> {{ customer_name }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 140px"></ion-skeleton-text>
   </ion-item>
-  <ion-item *ngIf="comment">
+  <ion-item *ngIf="comment  && show_skeleton == false">
     <ion-label><b>Коментар:</b> {{ comment }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 140px"></ion-skeleton-text>
   </ion-item>
-  <ion-item *ngIf="date_and_time">
+  <ion-item *ngIf="date_and_time && show_skeleton == false">
     <ion-label><b>Дата доставки:</b> {{ date_and_time }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 140px"></ion-skeleton-text>
   </ion-item>
-  <ion-item *ngIf="is_bezkont">
+  <ion-item *ngIf="is_bezkont && show_skeleton == false">
     <ion-label><b>Безконтактна:</b> {{ is_bezkont }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 140px"></ion-skeleton-text>
   </ion-item>
-  <ion-item *ngIf="zastava">
+  <ion-item *ngIf="zastava && show_skeleton == false">
     <ion-label><b>Застава за тару:</b> {{ zastava }} x {{ zastava_cost }}</ion-label>
+    <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 140px"></ion-skeleton-text>
   </ion-item>
   <ion-item lines="none"></ion-item>
 </ion-item-group>
@@ -80,11 +96,11 @@
         <ion-label>
           <div class="product-item">
             <p>{{ product.name }}</p>
-            <div class="qty">
+            <div class="qty" *ngIf="product.price">
               <div class="left-side">
               {{ product.price }} x {{ product.quantity }}
             </div>
-              <div class="right-side">
+              <div *ngIf="product.total" class="right-side">
                 {{product.total}}
               </div>
             </div>
@@ -98,7 +114,8 @@
   <div class="total-section" *ngIf="totals">
     <ion-item-group>
       <ion-item-divider>
-        <ion-label>Замовлення загалом</ion-label>
+        <ion-label  *ngIf="show_skeleton == false">Замовлення загалом</ion-label>
+        <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 60px"></ion-skeleton-text>
       </ion-item-divider>
       <ion-item *ngFor="let total of totals">
         <ion-label>
@@ -118,7 +135,8 @@
   <div class="history-section" *ngIf="history">
     <ion-item-group>
       <ion-item-divider>
-        <ion-label>Історія замовлення</ion-label>
+        <ion-label *ngIf="show_skeleton == false">Історія замовлення</ion-label>
+        <ion-skeleton-text *ngIf="show_skeleton == true" [animated]="true" style="width: 70px"></ion-skeleton-text>
       </ion-item-divider>
       <ion-item *ngFor="let hist of history">
         <ion-label>

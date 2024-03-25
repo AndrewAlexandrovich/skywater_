@@ -36,3 +36,14 @@ ion-list.orders-list .order-line {
     margin-right: 5px;
     font-size: 1.2rem;
 }
+.loader span{color: #5260ff;}
+.loader {
+    text-align: center;
+}
+.loader ion-spinner {
+    vertical-align: middle;
+    min-width: 42px;
+    min-height: 40px;
+    margin-right: 10px;
+    color: #5260ff;
+}

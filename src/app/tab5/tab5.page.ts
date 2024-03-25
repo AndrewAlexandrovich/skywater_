@@ -30,6 +30,7 @@ export class Tab5Page implements OnInit {
   public modal_picker_status = false;
   public selectedDate:any = new Date().toISOString();
   public selectedTime:any='';
+  public today_day:any= new Date().toISOString();
   public comment:any='';
   public is_no_contact:boolean = false;
   public is_no_call:boolean = false;
@@ -40,6 +41,14 @@ export class Tab5Page implements OnInit {
   public zastava_qty:any = 1;
   public zastava_total:any = 0;
   public zastava_modal:any = 0;
+  // тара на обмін
+  public tara_na_obmin_title:any = '';
+  public tara_na_obmin_variants:any = '';
+  public tara_na_obmin_selected:any = '';
+  selectVariantObmin(type:any){
+    this.tara_na_obmin_selected = type;
+  }
+
 
   zastavaModalStatus(newstatus:any){
     this.zastava_modal = newstatus;
@@ -109,7 +118,8 @@ export class Tab5Page implements OnInit {
         zastava       : (this.is_zastava == true) ? this.zastava_qty : 0,
         delivery_time : this.selectedTime,
         delivery_date : this.selectedDate,
-        address_id     : this.defaultAddressId,
+        address_id    : this.defaultAddressId,
+        tara_obmin    : this.tara_na_obmin_selected,
         user_id       : localStorage.getItem('user_id'),
         token         : localStorage.getItem('token'),
       };
@@ -190,7 +200,8 @@ export class Tab5Page implements OnInit {
       zastava_qty    : this.zastava_qty,
       is_zastava     : this.is_zastava,
       is_no_call     : this.is_no_call,
-      is_no_contact  : this.is_no_contact
+      is_no_contact  : this.is_no_contact,
+      address_id     : this.defaultAddressId,
     };
 
     this.http.post('https://skywater.com.ua/api/index.php?type=getCartTotal', JSON.stringify(params)).subscribe((response) => {
@@ -222,14 +233,26 @@ export class Tab5Page implements OnInit {
   }
   changePayment(payment_id:any){
     this.payment_id = payment_id;
-    let temp_payments = this.payments;
-    this.payments = '';
+    console.log('payment_id '+ this.payment_id);
+    for(let i of this.payments){
+      if(i.payment_id == payment_id){
+        i['checked'] = true;
+      }else{
+        i['checked'] = false;
+      }
+    }
+    let temp = this.payments;
+    this.payments = {};
+
     setTimeout(() => {
-      this.payments = temp_payments;
+      this.payments = temp;
+      this.getTotal();
     }, 250);
-    this.getTotal();
+
   }
+  // remove this
   isSelectedPayment(payment_id:any){
+    console.log('selected payment '+payment_id);
     if(payment_id == this.payment_id){
       return true;
     }else{
@@ -255,6 +278,20 @@ export class Tab5Page implements OnInit {
 
   changeDefaultAddress(address_id:any){
     this.defaultAddressId = address_id;
+    let temp = this.addresses;
+    this.addresses = {};
+    setTimeout(() => {
+      this.addresses = temp;
+      //change default address
+      let params = {
+          token      : localStorage.getItem('token'),
+          user_id    : localStorage.getItem('user_id'),
+          address_id : address_id,
+      };
+      this.http.post('https://skywater.com.ua/api/index.php?type=changeShippingMethod', JSON.stringify(params)).subscribe((response) => {
+        this.getCart(); // recalc cart
+      });
+    }, 250);
   }
 
   addAddress(){
@@ -307,6 +344,18 @@ export class Tab5Page implements OnInit {
           this.zastava_total = json['zastava_data']['cost']+' грн';
         }
 
+        this.tara_na_obmin_title = '';
+        this.tara_na_obmin_variants = '';
+        if(json['bottle_obmin']){
+          this.tara_na_obmin_title = json['bottle_obmin']['title'];
+          this.tara_na_obmin_variants = json['bottle_obmin']['variants'];
+          if(this.tara_na_obmin_selected == ''){
+            for(let ob of this.tara_na_obmin_variants){
+              this.tara_na_obmin_selected = ob;
+              break;
+            }
+          }
+        }
 
       }else if(json['products']){
         this.showEmptyMsg = true;

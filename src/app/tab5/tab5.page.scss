@@ -122,7 +122,7 @@ ion-label.date-time-line .selected-time {
     height: 100%;
     transition: all .4s ease;
 }
-.text-primary { 
+.text-primary {
     color: #3880ff;
 }
 .zastava-desc .image-centered, .image-centered {
@@ -139,4 +139,24 @@ ion-label.date-time-line .selected-time {
 ion-icon {
     margin-right: 10px;
 }
-
+ion-label.address-line.obmin .variants {
+    display: block;
+    width: 100%;
+}
+ion-label.address-line.obmin {
+    flex-wrap: wrap;
+}
+ion-label.address-line.obmin .name {
+    font-weight: 600;
+    font-size: 14px;
+}
+ion-label.address-line.obmin .radio-wrapper {
+    -ms-flex-pack: justify;
+    justify-content: start;
+}
+.address-note {
+    display: block;
+    font-size: 12px;
+    color: #3880ff;
+    margin-top: 3px;
+}

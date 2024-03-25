@@ -33,10 +33,30 @@ export class AccountOrdersPage implements OnInit {
   public date_and_time:any;
   public is_bezkont:any;
 
+  public show_skeleton:any=true;
+
   hideModalOrder(){
     this.order_modal_status = false;
+    this.show_skeleton = true;
   }
   getOrder(order_id:any){
+    this.show_skeleton = true;
+    this.order_modal_status = true;//open modal
+    //clear variables
+    this.shipping_address = '';
+    this.shipping_method = '';
+    this.payment_method = '';
+    this.date_added = '';
+    this.customer_name = '';
+    this.comment = '';
+    this.products = '';
+    this.order_status_name = '';
+    this.order_status_color = '';
+    this.history = '';
+    this.totals = '';
+    this.order_id = '';
+    this.zastava_cost = '';
+    this.is_bezkont = '';
     let params = {
       order_id : order_id,
       user_id  : localStorage.getItem('user_id'),
@@ -47,6 +67,7 @@ export class AccountOrdersPage implements OnInit {
       console.log(json);
       if(json['error']){
         this.showToast(json['error'], 'danger');
+        this.order_modal_status = false;
       }else{
         this.shipping_address = json['shipping_address'];
         this.shipping_method = json['shipping_method'];
@@ -73,6 +94,7 @@ export class AccountOrdersPage implements OnInit {
 
         this.modal_title = 'Замовлення №'+order_id;
         this.order_modal_status = true;
+        this.show_skeleton = false;
       }
     });
 

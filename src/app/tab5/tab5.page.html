@@ -55,8 +55,11 @@
       <ion-item *ngFor="let address of addresses">
         <ion-icon name="home-outline"  color="primary"></ion-icon>
         <ion-label class="address-line">
-          <div class="name">{{ address.short }}</div>
+          <div class="name">{{ address.short }}
+<div *ngIf="address.notice" class="address-note">{{address.notice}}</div>
+          </div>
           <div class="check"><ion-toggle aria-label="address.short" (click)="changeDefaultAddress(address.address_id)" [checked]="isDefaultAddress(address.address_id)"></ion-toggle></div>
+
         </ion-label>
       </ion-item>
       <ion-item *ngIf="show_add_address">
@@ -75,9 +78,8 @@
     <ion-item *ngFor="let payment of payments">
       <ion-icon name="{{payment.icon}}" color="primary"></ion-icon>
       <ion-label class="address-line">
-
-        <div class="name">{{ payment.name }}</div>
-        <div class="check"><ion-toggle aria-label="payment.name" (click)="changePayment(payment.payment_id)" [checked]="isSelectedPayment(payment.payment_id)"></ion-toggle></div>
+        <div class="name">{{ payment.name }}</div><!--  [checked]="" (click)=changePayment-->
+        <div class="check"><ion-toggle aria-label="payment.name" (click)="changePayment(payment.payment_id);" [checked]="payment.checked"></ion-toggle></div>
       </ion-label>
     </ion-item>
     <!--Next row-->
@@ -151,6 +153,17 @@
         </div>
       </ion-label>
     </ion-item>
+    <ion-item *ngIf="tara_na_obmin_title != ''">
+      <ion-icon name="refresh-outline" color="primary"></ion-icon>
+      <ion-label class="address-line obmin">
+        <div class="name">{{tara_na_obmin_title}}</div>
+        <div class="variants">
+          <ion-radio-group value="{{tara_na_obmin_selected}}">
+            <ion-radio labelPlacement="end" (click)="selectVariantObmin(vari);" justify="start" *ngFor="let vari of tara_na_obmin_variants" value="{{vari}}">{{vari}}</ion-radio><br />
+          </ion-radio-group>
+        </div>
+      </ion-label>
+    </ion-item>
     <!--Next row-->
     <ion-list-header>
       <ion-label><b>Замовлення загалом</b></ion-label>
@@ -170,7 +183,7 @@
 
     <ion-item>
       <ion-label>
-        <ion-button [disabled]="disablePaymentButton" (click)="processPayment()" expand="full" shape="round" size="default">Оформити замовлення <ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+        <ion-button (click)="processPayment()" expand="full" shape="round" size="default">Оформити замовлення <ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
       </ion-label>
     </ion-item>
     </ion-list>
@@ -202,11 +215,14 @@
       <ion-content class="ion-padding date-time-checkout-picker">
         <h4>Оберіть дату</h4>
         <ion-datetime
+        locale="uk-UA"
+        [firstDayOfWeek]="1"
         displayFormat="DD.MM.YYYY"
         pickerFormat="DD.MM.YYYY"
         size="cover"
         presentation="date"
         [(ngModel)]="selectedDate"
+        min="{{today_day}}"
         ></ion-datetime>
         <div class="time">
           <h4>Оберіть час</h4>
