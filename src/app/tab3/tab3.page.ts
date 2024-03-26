@@ -22,7 +22,7 @@ export class Tab3Page {
     mask: ['+', '3','8',' ', /\d/,/\d/,/\d/, ' ', /\d/,/\d/,/\d/,' ', /\d/,/\d/, ' ', /\d/,/\d/],
   };
   readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
-
+ 
   public customer_name:string = '';
   public myAccountModal = false;
   public showQrModal = false;

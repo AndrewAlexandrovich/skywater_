@@ -18,16 +18,21 @@
 	  <ion-card-header>
 		<ion-card-title class="ion-text-center">Мої бонуси</ion-card-title>
 	  </ion-card-header>
-
-
-<div class="bottles">
+    <div class="bottles-count">
+    <div class="bottles-img"><img height="30"  src="assets/bottle-icon.png"> <b>{{bonuses_boutles}}</b> бутелів <ion-icon name="alert-circle-outline" (click)="openmyBottModal()"></ion-icon></div>
+    <div class="bottles-img"><ion-icon name="water-outline"></ion-icon> <b>{{bonuses_liters}}</b> літрів <ion-icon name="alert-circle-outline" (click)="openmyLitModal()"></ion-icon></div>
+    </div>
+    <ion-card-header>
+    <ion-card-title class="ion-text-center">До наступного бонусу</ion-card-title>
+  </ion-card-header>
+    <div class="bottles">
 <div class="bottles-svg">
 <svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" >
 </circle>
 </svg>
-<span class="bonus-text"><b>{{bonuses_boutles}}</b><small>бутелів</small><small>{{to_next_bottle}}/10</small></span>
+<span class="bonus-text"><b>{{to_next_bottle}}/10</b><small>бутелів</small></span>
 </div>
 
 <div class="bottles-svg">
@@ -35,7 +40,7 @@
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{bonuses_liters}}</b><small>літрів</small><small>{{to_next_liter}}/10</small></span>
+<span class="bonus-text"><b>{{to_next_liter}}/10</b><small>літрів</small></span>
 </div>
 </div>
 
@@ -153,3 +158,37 @@
   </ion-content>
 
 </ion-content>
+
+
+<ion-modal [isOpen]="myBottleModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Бонусні бутелі</ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="closemyBottModal()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding ion-align-items-center" >
+      <p>Отримуй бонусний бутель за кожні 10 замовлених бутелів</p>
+      <p>Як тільки ти назбираєш бонусні бутлі, у тебе зявиться можливість замовити бонус бутель всього за 1 копійку</p>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<ion-modal [isOpen]="myLitreModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Бонусні літри</ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="closemyLitModal()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding ion-align-items-center" >
+      <p>Отримуй бонусний літр за кожні 10 налитих літрів у магазині</p>
+      <p>Літри можна обміняти при накопиченні 10 бонусних літрів</p>
+    </ion-content>
+  </ng-template>
+</ion-modal>
