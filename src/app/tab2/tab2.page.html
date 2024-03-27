@@ -10,6 +10,18 @@
   </ion-card>
   </div>
 
+  <div *ngIf="button_scanner_status == true" class="scanner">
+    <!--[disabled]="!isSupported" -->
+    <ion-button (click)="scanSingleBarcode()" expand="block">Відсканувати QR <ion-icon name="cart-outline"></ion-icon></ion-button>
+    <ion-button *ngIf="description_how_to != ''" id="scan-trigger" expand="block" fill="outline" size="small">Докладніше <ion-icon name="help-outline"></ion-icon></ion-button>
+<ion-popover trigger="scan-trigger" triggerAction="click" *ngIf="description_how_to != ''">
+  <ng-template>
+    <ion-content class="ion-padding">{{description_how_to}}</ion-content>
+  </ng-template>
+</ion-popover>
+    <p *ngIf="!isSupported" class="err-notice">Ваш пристрій не підтримує сканер QR коду</p>
+  </div>
+
   <div class="qr-code">
   <ion-card class="ion-text-center">
     <img src="{{qrcode}}">

@@ -40,3 +40,32 @@ ion-progress-bar{min-height:8px}
     box-shadow: none;
     border-radius: 10px;
 }
+.scanner {
+  padding-inline-start: var(--ion-padding, 16px);
+  padding-inline-end: var(--ion-padding, 16px);
+}
+.scanner p.err-notice {
+    text-align: center;
+    color: #eb445a;
+    font-size: 13px;
+}
+.barcode-scanner-active ion-content {
+  --background: transparent !important;
+}
+.barcode-scanner-active, .barcode-scanner-active > *, .barcode-scanner-active * {
+  visibility: hidden !important;
+  --background: transparent !important;
+  --ion-background-color: transparent !important;
+}
+
+// Show only the barcode scanner modal
+.barcode-scanner-modal {
+  visibility: visible;
+}
+
+@media (prefers-color-scheme: dark) {
+  .barcode-scanner-modal {
+    --background: transparent;
+    --ion-background-color: transparent;
+  }
+}
