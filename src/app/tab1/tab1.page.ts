@@ -34,14 +34,23 @@ export class Tab1Page {
   public categories:any;
   public showEmptyMsg:any = false;
 
+  public modal_bl_title:any;
+  public modal_bl_content:any;
+  public modal_bb_title:any;
+  public modal_bb_content:any;
+
   openmyBottModal(){
-    this.myBottleModal = true;
+    if(this.modal_bb_content != ''){
+      this.myBottleModal = true;
+    }
   }
   closemyBottModal(){
     this.myBottleModal = false;
   }
   openmyLitModal(){
-    this.myLitreModal = true;
+    if(this.modal_bl_content != ''){
+      this.myLitreModal = true;
+    }
   }
   closemyLitModal(){
     this.myLitreModal = false;
@@ -207,6 +216,12 @@ export class Tab1Page {
       if(homeData.home_text){
         this.home_text = homeData.home_text;
       }
+
+      // load modal content
+      this.modal_bl_title   = homeData.modal_bl_title;
+      this.modal_bl_content = homeData.modal_bl_content;
+      this.modal_bb_title   = homeData.modal_bb_title;
+      this.modal_bb_content = homeData.modal_bb_content;
 
   	});
   }
