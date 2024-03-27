@@ -54,8 +54,8 @@ ion-card-title.products-title {
 }
 span.bonus-text {
     position: absolute;
-    top: 28%;
-    left: 38%;
+    top: 33%;
+    left: 31%;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -104,4 +104,33 @@ ion-card.home_text{
     display: block;
     margin: 0px auto 5px auto;
     color: #cbdbe6;
+}
+.bottles-img {
+    background: white;
+    border-radius: 37px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+}
+.bottles-count {
+    display: flex;
+    justify-content: space-evenly;
+}
+.bottles-img b {
+    padding: 8px;
+}
+.bottles-img ion-icon {
+    padding: 0px 5px 0px 10px;
+    font-size: 20px;
+    color: #3880ff;
+}
+.bottles-img ion-icon.md.hydrated:first-child {
+    font-size: 30px;
+}
+.img-pad {
+    margin: 0 1em;
+}
+.icon-notif {
+    font-size: 22px;
+    color: #3880ff;
 }

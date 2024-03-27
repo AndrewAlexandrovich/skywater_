@@ -10,7 +10,8 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
+  public myBottleModal = false;
+  public myLitreModal = false;
   public progress = '0, 700';
   public progress_l = '0, 700';
   public svg_class = 'circle-chart';
@@ -33,6 +34,18 @@ export class Tab1Page {
   public categories:any;
   public showEmptyMsg:any = false;
 
+  openmyBottModal(){
+    this.myBottleModal = true;
+  }
+  closemyBottModal(){
+    this.myBottleModal = false;
+  }
+  openmyLitModal(){
+    this.myLitreModal = true;
+  }
+  closemyLitModal(){
+    this.myLitreModal = false;
+  }
   openProduct(product_id:any){
     if(product_id >= 1){
       this.router.navigate(['product',{product_id:product_id}]);
