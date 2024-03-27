@@ -22,7 +22,7 @@ export class Tab3Page {
     mask: ['+', '3','8',' ', /\d/,/\d/,/\d/, ' ', /\d/,/\d/,/\d/,' ', /\d/,/\d/, ' ', /\d/,/\d/],
   };
   readonly maskPredicate: MaskitoElementPredicate = async (el) => (el as HTMLIonInputElement).getInputElement();
- 
+
   public customer_name:string = '';
   public myAccountModal = false;
   public showQrModal = false;
@@ -37,6 +37,7 @@ export class Tab3Page {
   public bonus_history_modal:any = false;
   public bonus_history_status:any = true;//
   public bonusHistories:any;//
+  public allBonusHistories:any;//
   closeMyAccModal(){
     this.myAccountModal = false;
   }
@@ -182,10 +183,18 @@ export class Tab3Page {
       if(json.error){
         this.showToast(json.error, 'danger');
       }else if(json.results){
-        this.bonusHistories = json.results;
+        this.bonusHistories = json['results']['bottle'];
+        this.allBonusHistories = json.results;
       }
 
     });
+  }
+  updateBonusHistory(type:any){
+    if(type == 'bottle'){
+      this.bonusHistories = this.allBonusHistories['bottle'];
+    }else{
+      this.bonusHistories = this.allBonusHistories['liter'];
+    }
   }
 
   async showToast(msg:any, color:any) {

@@ -84,10 +84,17 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Історія використання бонусів</ion-title>
             <ion-buttons slot="start">
               <ion-button (click)="toggleBonusesHistory(false)"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
             </ion-buttons>
+            <ion-segment value="bottle">
+      <ion-segment-button (click)="updateBonusHistory('bottle')" value="bottle">
+        <ion-label>Бутеля</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="updateBonusHistory('liter')" value="liter">
+        <ion-label>Літри</ion-label>
+      </ion-segment-button>
+    </ion-segment>
           </ion-toolbar>
         </ion-header>
         <ion-content class=" ion-align-items-center" >
