@@ -4,6 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { MaskitoOptions, MaskitoElementPredicate } from '@maskito/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -15,7 +16,8 @@ export class Tab3Page {
     private http: HttpClient,
     private router: Router,
     private toastCtrl: ToastController,
-    private storage: Storage
+    private storage: Storage,
+    private alertController: AlertController
   ) { }
   //phone mask
   readonly phoneMask: MaskitoOptions = {
@@ -211,7 +213,18 @@ export class Tab3Page {
     });
     await toast.present();
 }
-/*deleting account*/
+  /*deleting account*/
+
+  async toggleAlertRemoveAcc(){
+
+      const alert = await this.alertController.create({
+        header: 'Увага!',
+        message: 'Ви не зможете відновити свій аккаунт. Вся пов\'язана інформація буде втрачена.',
+        buttons: this.alertRemoveAccButtons
+      });
+      await alert.present();
+
+  }
 public alertRemoveAccButtons = [
     {
       text: 'Відміна',
@@ -220,11 +233,13 @@ public alertRemoveAccButtons = [
     {
       text: 'Підтвердити',
       role: 'apply',
+      handler: () => {
+        this.alertResult(true);
+      },
     },
   ];
   alertResult(ev:any){
-    console.log(ev.detail.role);
-    if(ev.detail.role == 'apply'){
+    if(ev == true){
       //do delete account
       let params = {
         user_id    : localStorage.getItem('user_id'),
@@ -242,7 +257,6 @@ public alertRemoveAccButtons = [
             localStorage.removeItem('token');
             this.customer_id = 0;
             this.router.navigate(['auth']);
-            console.log('redirect');
           }, 2500);
         }
       });

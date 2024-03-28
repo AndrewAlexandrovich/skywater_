@@ -5,7 +5,11 @@
    <ion-header  class="ion-no-border ">
     <ion-toolbar >
           <img alt="logo" class="img-pad"  id="header_logo" height="40" slot="start" src="assets/logo-bg.png">
-          <ion-icon slot="end" class="img-pad icon-notif" name="notifications-outline"></ion-icon>
+
+          <div class="notify-icon">
+            <ion-icon slot="end" (click)="notifyModalTrigger(true)" class="img-pad icon-notif" name="notifications-outline"></ion-icon>
+            <span class="notify-counter" *ngIf="new_notify_cnt">{{new_notify_cnt}}</span>
+          </div>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
@@ -58,9 +62,9 @@
 <div *ngIf="is_auto_category == true">
   <ion-segment [(ngModel)]="selectedCategory" value="custom" [scrollable]="true">
     <ion-segment-button value="custom" *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}" >
-      
+
       <ion-label class="icon-flex"><div *ngIf="category.icon" class="cat-icon " [innerHTML]="category.icon">{{category.icon}}</div> {{ category.name }}</ion-label>
-       
+
     </ion-segment-button>
   </ion-segment>
 
@@ -197,3 +201,35 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+<ion-modal [isOpen]="modal_notify_status">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Останні повідомлення</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="notifyModalTrigger(false)"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+      <ion-list [inset]="true" *ngIf="modal_notify_items">
+        <ion-item *ngFor="let push of modal_notify_items" >
+          <ion-label>
+            <div class="push-item">
+              <div class="icon">
+<ion-icon *ngIf="push.is_new == 1" class="color-primary" name="eye-off-outline"></ion-icon>
+<ion-icon *ngIf="push.is_new == 0" class="color-success" name="eye-outline"></ion-icon>
+              </div>
+              <div class="caption">
+                <h4>{{push.subject}}</h4>
+                <p>{{push.text}}</p>
+                <small><ion-icon name="calendar-outline"></ion-icon> {{push.date_added}}</small>
+              </div>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-note class="empty-history-push" *ngIf="!modal_notify_items">Історія порожня...</ion-note>
+    </ion-content>
+    </ng-template>
+  </ion-modal>

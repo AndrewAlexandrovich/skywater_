@@ -26,7 +26,7 @@
       <ion-label><span class="icon"><ion-icon name="gift-outline"></ion-icon></span> Історія бонусів</ion-label></ion-item>
     <ion-item (click)="getQr()">
         <ion-label><span class="icon"><ion-icon name="qr-code-outline"></ion-icon></span> Мій QR</ion-label></ion-item>
-    <ion-item class="remove-acc" id="remove-acc-alert">
+    <ion-item class="remove-acc" (click)="toggleAlertRemoveAcc()">
         <ion-label><span class="icon"><ion-icon name="trash-outline"></ion-icon></span> Видалити мій акаунт</ion-label></ion-item>
 </ion-list>
 </div>
@@ -117,12 +117,5 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-<!--remove acc-->
-<ion-alert
-  trigger="remove-acc-alert"
-  header="Увага!"
-  message="Ви не зможете відновити свій аккаунт. Вся пов'язана інформація буде втрачена."
-  [buttons]="alertRemoveAccButtons"
-  (didDismiss)="alertResult($event)"
-></ion-alert>
+
 </ion-content>

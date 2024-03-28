@@ -39,6 +39,10 @@ export class Tab1Page {
   public modal_bb_title:any;
   public modal_bb_content:any;
 
+  public new_notify_cnt:any = 0;
+  public modal_notify_status:any = false;
+  public modal_notify_items:any;
+
   openmyBottModal(){
     if(this.modal_bb_content != ''){
       this.myBottleModal = true;
@@ -127,6 +131,28 @@ export class Tab1Page {
     private toastCtrl: ToastController
   ) {}
 
+  notifyModalTrigger(type:any){
+    if(type == true){
+      this.modal_notify_status = true;
+      //load notifes
+      if(localStorage.getItem('user_id')){
+        let params = {
+            token : localStorage.getItem('token'),
+            user_id : localStorage.getItem('user_id')
+        };
+        this.http.post('https://skywater.com.ua/api/index.php?type=getLastNotify', JSON.stringify(params)).subscribe((response) => {
+          let json = JSON.parse(JSON.stringify(response));
+          if(json['results'].length){
+            this.modal_notify_items = json.results;
+          }
+          this.new_notify_cnt = json.new_notify;
+        });
+      }
+    }else{
+      this.modal_notify_status = false;
+    }
+  }
+
   loadHomeData(){
     let user_id:any = '';
     let token:any   = '';
@@ -142,10 +168,15 @@ export class Tab1Page {
       //set null
       this.templ_b_bottle = 0;
       this.templ_b_liter = 0;
+      this.new_notify_cnt = 0;
 
   	  let homeData = JSON.parse(JSON.stringify(response));
   	  this.sliderItems = homeData.slider;
   	  this.categoryProducts = homeData.categories_products;
+
+      if(homeData['new_notify']){
+        this.new_notify_cnt = homeData['new_notify'];
+      }
 
       for(let c of homeData.categories_products){
         if(c.active == 1){
