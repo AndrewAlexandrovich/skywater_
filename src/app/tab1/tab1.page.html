@@ -56,9 +56,11 @@
 
 
 <div *ngIf="is_auto_category == true">
-  <ion-segment [(ngModel)]="selectedCategory" value="default" [scrollable]="true">
-    <ion-segment-button *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}">
-      <ion-label><div class="cat-icon-div"><div *ngIf="category.icon" class="cat-icon" [innerHTML]="category.icon">{{category.icon}}</div> {{ category.name }}</div></ion-label>
+  <ion-segment [(ngModel)]="selectedCategory" value="custom" [scrollable]="true">
+    <ion-segment-button value="custom" *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}" >
+      
+      <ion-label class="icon-flex"><div *ngIf="category.icon" class="cat-icon " [innerHTML]="category.icon">{{category.icon}}</div> {{ category.name }}</ion-label>
+       
     </ion-segment-button>
   </ion-segment>
 

@@ -23,7 +23,8 @@
     color: black;
     margin-bottom: 10px;
     text-transform: math-auto;
-    width: max-content;
+   
+    
 }
 .price {
     color: #3880ff;
@@ -140,9 +141,17 @@ ion-card.home_text{
 }
 .cat-icon {
     max-width: 25px;
-  margin-right: 5px;
+  margin-top: 5px;
 }
-.cat-icon-div {
+
+ion-segment {
+    --background: transparent;
+}
+ion-segment-button {
+    --box-shadow:none;
+}
+.icon-flex {
     display: flex;
     align-items: center;
+    width: max-content;
 }
