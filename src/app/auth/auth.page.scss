@@ -21,8 +21,10 @@ ion-row.img-logo img {
 }
 ion-icon.close-auth {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    right: 15px;
     color: #fff;
     font-size: 1.8rem;
+}
+.new-background-color{
+  --background: rgb(0 144 227);
 }
