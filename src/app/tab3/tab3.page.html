@@ -31,7 +31,7 @@
 </ion-list>
 </div>
 
-<ion-modal [isOpen]="myAccountModal">
+<ion-modal [isOpen]="myAccountModal" (onDidDismiss)="closeMyAccModal()" [canDismiss]="!myAccountModal">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -61,7 +61,7 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  <ion-modal [isOpen]="showQrModal">
+  <ion-modal [isOpen]="showQrModal" (onDidDismiss)="closeQrModal()" [canDismiss]="!showQrModal">
       <ng-template>
         <ion-header>
           <ion-toolbar>
@@ -80,7 +80,7 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-  <ion-modal *ngIf="bonus_history_status == true" [isOpen]="bonus_history_modal">
+  <ion-modal *ngIf="bonus_history_status == true" [isOpen]="bonus_history_modal" [canDismiss]="!bonus_history_modal" (onDidDismiss)="toggleBonusesHistory(false)">
       <ng-template>
         <ion-header>
           <ion-toolbar>

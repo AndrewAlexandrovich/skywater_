@@ -30,7 +30,7 @@
   </form>
 </div>
 
-<ion-modal [isOpen]="openValidate">
+<ion-modal [isOpen]="openValidate" [canDismiss]="!openValidate">
     <ng-template>
       <ion-header>
         <ion-toolbar>

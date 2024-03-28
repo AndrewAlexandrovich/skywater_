@@ -202,7 +202,7 @@
 </ion-note>
 
 <!--select date time in modal-->
-<ion-modal [isOpen]="modal_picker_status">
+<ion-modal [isOpen]="modal_picker_status" [canDismiss]="!modal_picker_status">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -234,7 +234,7 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  <ion-modal [isOpen]="zastava_modal">
+  <ion-modal [isOpen]="zastava_modal" [canDismiss]="!zastava_modal">
       <ng-template>
         <ion-header>
           <ion-toolbar>

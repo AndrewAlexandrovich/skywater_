@@ -23,7 +23,7 @@
     </ion-item>
   </ion-list>
   <ion-note *ngIf="showEmptyMsg == true" class="ion-text-center ion-justify-content-center">У вас ще немає замовлень. Саме час створити нове замовлення!</ion-note>
-  <ion-modal [isOpen]="order_modal_status">
+  <ion-modal [isOpen]="order_modal_status" (onDidDismiss)="hideModalOrder()" [canDismiss]="!order_modal_status">
       <ng-template>
         <ion-header>
           <ion-toolbar>

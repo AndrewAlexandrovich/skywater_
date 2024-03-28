@@ -171,7 +171,7 @@
 </ion-content>
 
 
-<ion-modal [isOpen]="myBottleModal">
+<ion-modal [isOpen]="myBottleModal" (onDidDismiss)="closemyBottModal()" [canDismiss]="!myBottleModal">
   <ng-template>
     <ion-header>
       <ion-toolbar>
@@ -186,7 +186,7 @@
     </ion-content>
   </ng-template>
 </ion-modal>
-<ion-modal [isOpen]="myLitreModal">
+<ion-modal [isOpen]="myLitreModal" (onDidDismiss)="closemyLitModal()" [canDismiss]="!myLitreModal">
   <ng-template>
     <ion-header>
       <ion-toolbar>
@@ -201,7 +201,7 @@
     </ion-content>
   </ng-template>
 </ion-modal>
-<ion-modal [isOpen]="modal_notify_status">
+<ion-modal [isOpen]="modal_notify_status" (onDidDismiss)="notifyModalTrigger(false)" [canDismiss]="!modal_notify_status">
     <ng-template>
       <ion-header>
         <ion-toolbar>
