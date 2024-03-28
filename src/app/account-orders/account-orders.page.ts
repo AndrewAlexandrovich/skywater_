@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-account-orders',
@@ -9,7 +10,12 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./account-orders.page.scss'],
 })
 export class AccountOrdersPage implements OnInit {
-  constructor(private http: HttpClient, private router: Router,private toastCtrl: ToastController) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private platform: Platform
+  ) { }
 
   public showEmptyMsg = true;
   public my_orders:any;
@@ -136,6 +142,10 @@ export class AccountOrdersPage implements OnInit {
 
   ngOnInit() {
     this.getOrders();
+
+    this.platform.backButton.subscribeWithPriority(5, () => {
+      this.order_modal_status = false;
+    });
 
   }
 
