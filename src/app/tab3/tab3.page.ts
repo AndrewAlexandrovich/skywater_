@@ -208,7 +208,7 @@ export class Tab3Page {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'bottom',
+      position: 'top',
       buttons: [],
       color:color
     });

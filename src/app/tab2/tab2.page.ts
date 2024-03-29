@@ -191,7 +191,7 @@ public closeCameraAfterTenSec = setTimeout(() => {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'bottom',
+      position: 'top',
       buttons: [],
       color:color
     });

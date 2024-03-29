@@ -76,7 +76,7 @@ export class Tab1Page {
       if(json['error']){
         this.showToast(json['error'], 'danger');
       }else if(json['success']){
-        this.showToast(json['success'], 'light');
+        this.showToast(json['success'], 'success');
       }
     });
   }
@@ -109,7 +109,7 @@ export class Tab1Page {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'bottom',
+      position: 'top',
       buttons: [],
       color:color
     });

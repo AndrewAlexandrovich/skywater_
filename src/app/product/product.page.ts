@@ -57,7 +57,7 @@ export class ProductPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       buttons: [],
       color:color
     });
