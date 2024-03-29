@@ -118,6 +118,18 @@
       </ion-label>
     </ion-item>
     <!--Next row-->
+    <ion-item *ngIf="tara_na_obmin_title != ''">
+      <ion-icon name="refresh-outline" color="primary"></ion-icon>
+      <ion-label class="address-line obmin">
+        <div class="name">{{tara_na_obmin_title}}</div>
+        <div class="variants">
+          <ion-radio-group value="{{tara_na_obmin_selected}}">
+            <ion-radio labelPlacement="end" (click)="selectVariantObmin(vari);" justify="start" *ngFor="let vari of tara_na_obmin_variants" value="{{vari}}">{{vari}}</ion-radio><br />
+          </ion-radio-group>
+        </div>
+      </ion-label>
+    </ion-item>
+    <!--Next row-->
     <ion-item *ngIf="zastava_status == true">
       <ion-icon name="sync-outline" color="primary"></ion-icon>
       <ion-label>
@@ -153,18 +165,6 @@
         </div>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="tara_na_obmin_title != ''">
-      <ion-icon name="refresh-outline" color="primary"></ion-icon>
-      <ion-label class="address-line obmin">
-        <div class="name">{{tara_na_obmin_title}}</div>
-        <div class="variants">
-          <ion-radio-group value="{{tara_na_obmin_selected}}">
-            <ion-radio labelPlacement="end" (click)="selectVariantObmin(vari);" justify="start" *ngFor="let vari of tara_na_obmin_variants" value="{{vari}}">{{vari}}</ion-radio><br />
-          </ion-radio-group>
-        </div>
-      </ion-label>
-    </ion-item>
-    <!--Next row-->
     <ion-list-header>
       <ion-label><b>Замовлення загалом</b></ion-label>
     </ion-list-header>

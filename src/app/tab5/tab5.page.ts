@@ -45,10 +45,41 @@ export class Tab5Page implements OnInit {
   public tara_na_obmin_title:any = '';
   public tara_na_obmin_variants:any = '';
   public tara_na_obmin_selected:any = '';
+  private zalejnist_obmin:any = '';
+  private zalejnist_cnt:any = '';
+
   selectVariantObmin(type:any){
     this.tara_na_obmin_selected = type;
+    this.triggerZastava(type);
   }
 
+  triggerZastava(selectedVar:any){
+    if(this.zalejnist_obmin){
+    if(this.zalejnist_obmin == selectedVar){
+      if(this.zastava_status == false){
+        this.zastava_status = true;
+        this.is_zastava = true;
+        if(this.zalejnist_cnt){
+          this.zastava_qty = this.zalejnist_cnt;
+          this.zastava_total = (this.zastava_qty * this.zastava_data['cost'])+ ' грн';
+        }
+      }else{
+        this.is_zastava = true;
+        if(this.zalejnist_cnt){
+          this.zastava_qty = this.zalejnist_cnt;
+          this.zastava_total = (this.zastava_qty * this.zastava_data['cost'])+ ' грн';
+        }
+      }
+    }else{
+      this.zastava_status = false;
+      this.is_zastava = false;
+      this.zastava_qty = 0;
+      this.zastava_total = 0;
+    }
+
+    this.getTotal(); // update total}
+  }//if(this.zalejnist_obmin){
+  }
 
   zastavaModalStatus(newstatus:any){
     this.zastava_modal = newstatus;
@@ -87,6 +118,12 @@ export class Tab5Page implements OnInit {
     }else{
       this.is_zastava = false;
     }
+    if(this.zalejnist_obmin){
+        if(this.zalejnist_obmin == this.tara_na_obmin_selected && this.is_zastava == false){
+          this.is_zastava = true;
+        }
+    }
+
     this.getTotal(); // if user select zastava after
   }
 
@@ -332,6 +369,13 @@ export class Tab5Page implements OnInit {
            this.showToast('Оберіть адресу', 'danger');
         }
 
+        if(json['zalejnist_obmin']){
+          this.zalejnist_obmin = json['zalejnist_obmin'];
+        }
+        if(json['zalejnist_counter']){
+          this.zalejnist_cnt = json['zalejnist_counter'];
+        }
+
         if(!json['addresses'].length){
           this.show_add_address = true;
         }
@@ -339,7 +383,11 @@ export class Tab5Page implements OnInit {
           this.time_periods = json['time_period'];
         }
         if(json['zastava_data']){
-          this.zastava_status = true;
+          if(json['zastava_data']['status'] == false){
+            this.zastava_status = false;
+          }else{
+            this.zastava_status = true;
+          }
           this.zastava_data = json['zastava_data'];
           this.zastava_total = json['zastava_data']['cost']+' грн';
         }
