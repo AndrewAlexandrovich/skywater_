@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'success-order',
     loadChildren: () => import('./success-order/success-order.module').then( m => m.SuccessOrderPageModule)
+  },
+  {
+    path: 'my-balance',
+    loadChildren: () => import('./my-balance/my-balance.module').then( m => m.MyBalancePageModule)
   }
 ];
 @NgModule({

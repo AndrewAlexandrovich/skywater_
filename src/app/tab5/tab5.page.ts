@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Browser } from '@capacitor/browser';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab5',
@@ -47,6 +48,9 @@ export class Tab5Page implements OnInit {
   public tara_na_obmin_selected:any = '';
   private zalejnist_obmin:any = '';
   private zalejnist_cnt:any = '';
+
+  public restoreOrderId:any = 0;
+  public restoreAlertOpened:any = false;
 
   selectVariantObmin(type:any){
     this.tara_na_obmin_selected = type;
@@ -335,6 +339,58 @@ export class Tab5Page implements OnInit {
     this.router.navigate(['account-address']);
   }
 
+  //restore old orders
+  async toggleAlertRestoreOrder(header:any, content:any){
+    if(!this.restoreAlertOpened){
+      this.restoreAlertOpened = true;
+      const alert = await this.alertController.create({
+        header: header,
+        message: content,
+        buttons: this.alertRestoreOrderButtons
+      });
+      await alert.present();
+    }
+  }
+public alertRestoreOrderButtons = [
+    {
+      text: 'Відміна',
+      role: 'cancel',
+      handler: () => {
+        this.restoreOrder(false);
+      },
+    },
+    {
+      text: 'Відновити',
+      role: 'apply',
+      handler: () => {
+        this.restoreOrder(true);
+      },
+    },
+  ];
+  restoreOrder(what_do:any){
+    this.restoreAlertOpened = false;
+    if(this.restoreOrderId){
+      let params = {
+          token : localStorage.getItem('token'),
+          user_id : localStorage.getItem('user_id'),
+          what_do : what_do,
+          order_id : this.restoreOrderId
+      };
+      this.http.post('https://skywater.com.ua/api/index.php?type=restoreCart', JSON.stringify(params)).subscribe((response) => {
+        let json = JSON.parse(JSON.stringify(response));
+        console.log(json);
+        if(json.success){
+          this.showToast(json.success, 'success');
+          this.getCart(); // update cart
+        }else if(json.error){
+          this.showToast(json.error, 'danger');
+          console.log(json);
+        }
+      });
+    }
+  }
+  //
+
   getCart(){
 
     let params = {
@@ -343,7 +399,10 @@ export class Tab5Page implements OnInit {
     };
     this.http.post('https://skywater.com.ua/api/index.php?type=getCart', JSON.stringify(params)).subscribe((response) => {
       let json = JSON.parse(JSON.stringify(response));
-      if(json['error']){
+      if(json['founded_old']){
+          this.restoreOrderId = json['founded_old']['order_id'];
+          this.toggleAlertRestoreOrder(json['founded_old']['txt_header'], json['founded_old']['txt_content']);
+      }else if(json['error']){
         this.showToast(json['error'], 'danger');
         if(!localStorage.getItem('user_id')){
             this.showEmptyMsg = true;
@@ -475,7 +534,8 @@ export class Tab5Page implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private alertController: AlertController
   ) { }
 
   ionViewWillEnter(){

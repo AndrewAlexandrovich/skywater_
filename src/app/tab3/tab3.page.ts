@@ -76,6 +76,9 @@ export class Tab3Page {
   openAddresses(){
     this.router.navigate(['account-address']);
   }
+  openMyBalance(){
+    this.router.navigate(['my-balance']);
+  }
   updateProfile(){
     //validate
     let error = ''

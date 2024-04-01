@@ -20,14 +20,28 @@ export class Tab2Page {
   public count_bottles:any=0;
   public count_liters:any=0;
   public progress_ll:any = 0;
-  public to_next_l:any = 10;
+  public to_next_l:any = 100;
   public button_scanner_status:any = false;
   public description_how_to:any = '';
 
   //text
   public text_title:any=false;
   public text_text:any=false;
+  public svg_class = 'circle-chart';
+  //
+  public to_next_bonus_liter:any = 0;
+  public myLitreModal:any = false;
+  public progress_l:any = '';
+  public modal_bl_title:any = '';
+  public modal_bl_content:any = '';
+  closemyLitModal(){
+    this.myLitreModal = false;
+  }
+  openmyLitModal(){
+    this.myLitreModal = true;
+  }
 
+  //
   getApiData(){
     let params = {
         token       : localStorage.getItem('token'),
@@ -68,15 +82,25 @@ export class Tab2Page {
         }
 
         if(json.to_next_bonusL && json.to_next_bonusL>0){
-          this.to_next_l = 10-json.to_next_bonusL;
-          this.progress_ll = json.to_next_bonusL / 10;
+          this.to_next_l = 100-json.to_next_bonusL;
+          this.progress_ll = json.to_next_bonusL / 100;
           if(this.to_next_l == 0){
-            this.to_next_l = 10;
+            this.to_next_l = 100;
             this.progress_ll = 0;
           }
         }
 
+        if(json.to_next_bonusL > 0){
+          let segment = 370 / 100;
+          let percent =  json.bonuses_liters * segment;
+          this.progress_l = percent+', 700';
+        }else{
+          this.progress_l = '0, 700';
+        }
 
+        this.modal_bl_title   = json.modal_bl_title;
+        this.modal_bl_content = json.modal_bl_content;
+        this.to_next_bonus_liter = json.bonuses_liters;
       }
     });
 

@@ -69,3 +69,52 @@ ion-progress-bar{min-height:8px}
     --ion-background-color: transparent;
   }
 }
+span.bonus-text {
+    position: absolute;
+    top: 33%;
+    left: 31%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.bottles-svg {
+    position: relative;
+}
+
+.bottles {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 16px 0;
+}
+span.bonus-text b {
+    font-size: 24px;
+    color: #3880ff;
+}
+.bottles-img {
+    background: white;
+    border-radius: 37px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+}
+.bottles-count {
+    display: flex;
+    justify-content: space-evenly;
+}
+.bottles-img b {
+    padding: 8px;
+}
+.bottles-img ion-icon {
+    padding: 0px 5px 0px 10px;
+    font-size: 20px;
+    color: #3880ff;
+}
+.bottles-img ion-icon.md.hydrated:first-child {
+    font-size: 30px;
+}
+.bottles-svg svg {
+    transform: rotate(-90deg);
+}

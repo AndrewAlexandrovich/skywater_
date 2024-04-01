@@ -9,6 +9,18 @@
     </ion-card-content>
   </ion-card>
   </div>
+  <div class="bottles">
+    <div class="bottles-count">
+    <div class="bottles-img"><ion-icon name="water-outline"></ion-icon> <b>{{count_liters}}</b> літрів <ion-icon name="alert-circle-outline" (click)="openmyLitModal()"></ion-icon></div>
+    </div>
+<div class="bottles-svg">
+<svg [attr.class]="svg_class" viewbox="0 0 33.83098862 33.83098862" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+<circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
+<circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
+</svg>
+<span class="bonus-text"><b>{{to_next_bonus_liter}}/100</b><small>літрів</small></span>
+</div>
+</div>
 
   <div *ngIf="button_scanner_status == true" class="scanner">
     <!--[disabled]="!isSupported" -->
@@ -44,4 +56,19 @@
   <ion-note *ngIf="show_empty == true" class="ion-text-center ion-justify-content-center">
 Будь ласка, увійдіть в свій особистий кабінет або зареєструйтесь.
   </ion-note>
+  <ion-modal [isOpen]="myLitreModal" (onDidDismiss)="closemyLitModal()" [canDismiss]="!myLitreModal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{modal_bl_title}}</ion-title>
+          <ion-buttons slot="start">
+            <ion-button (click)="closemyLitModal()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content  class="ion-padding ion-align-items-center" >
+        <div [innerHTML]="modal_bl_content"></div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
