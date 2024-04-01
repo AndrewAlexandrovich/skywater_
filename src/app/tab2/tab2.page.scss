@@ -4,13 +4,31 @@ ion-note.ion-text-center {
     height: 100%;
 }
 ion-card.product-item ion-card-title {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: 600;
     color: #3880ff;
     height: 43px;
     align-items: center;
     display: flex;
     overflow: hidden;
+}
+ion-card.product-items {
+    box-shadow: none;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: flex;
+
+
+}
+ion-row.product-item {
+    display: flex;
+    align-content: space-between;
+    align-items: center;
+}
+.price {
+    color: #3880ff;
+    font-size: 24px;
+    font-weight: 800;
 }
 span.new-price {
     color: #27b927;
