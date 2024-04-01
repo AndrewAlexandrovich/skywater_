@@ -1,0 +1,54 @@
+.pay-buttons{
+  display: flex;
+}
+.pay-buttons .outer ion-item{
+  border-radius: 5px
+}
+.pay-buttons .outer:last-child{
+  justify-content: center;
+    display: flex;
+}
+.pay-buttons .outer ion-button{
+  margin: 0px 0px 0px 10px;
+}
+.pay-buttons .outer{
+  width:50%
+}
+ion-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #777;
+}
+.balance-desc{
+  margin-bottom: 15px
+}
+.history-item {
+    display: flex;
+    width: 100%;
+}
+.history-item .icon {
+    width: 12%;
+    font-size: 1.8rem;
+    align-items: center;
+    display: flex;
+}
+ion-card.card-margin {
+    margin: 0px 0px 25px 0px;
+}
+.color-success .icon ion-icon {
+    color: #2dd36f;
+}
+.color-danger .icon ion-icon {
+    color: #e55d5d;
+}
+.history-item h3 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.meta {
+    font-size: 11px;
+    margin-top: 5px;
+}

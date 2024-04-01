@@ -78,7 +78,9 @@
     <ion-item *ngFor="let payment of payments">
       <ion-icon name="{{payment.icon}}" color="primary"></ion-icon>
       <ion-label class="address-line">
-        <div class="name">{{ payment.name }}</div><!--  [checked]="" (click)=changePayment-->
+        <div class="name">{{ payment.name }}
+          <small *ngIf="payment.small" class="text-primary">{{payment.small}}</small>
+        </div><!--  [checked]="" (click)=changePayment-->
         <div class="check"><ion-toggle aria-label="payment.name" (click)="changePayment(payment.payment_id);" [checked]="payment.checked"></ion-toggle></div>
       </ion-label>
     </ion-item>

@@ -6,11 +6,53 @@
     <ion-title>Мій баланс</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+     <ion-refresher-content></ion-refresher-content>
+   </ion-refresher>
+  <ion-card color="primary" class="card-margin">
+  <ion-card-header>
+    <ion-card-title>Ваш поточний баланс: <b>{{ balance_amount }}</b></ion-card-title>
+  </ion-card-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">my-balance</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card-content>
+    <p *ngIf="balance_description" class="balance-desc">{{balance_description}}</p>
+    <div class="pay-buttons">
+      <div class="outer">
+      <ion-item>
+        <ion-input placeholder="Сума" type="number" [(ngModel)]="amount_to_pay" name="amount_to_pay"></ion-input>
+      </ion-item>
+      </div>
+      <div class="outer">
+         <ion-button (click)="payToBalance()" color="light">Поповнити <ion-icon name="add-circle-outline"></ion-icon></ion-button>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-item-group class="history-lines" *ngIf="histories">
+  <ion-item-divider>
+    <ion-label>Історія</ion-label>
+  </ion-item-divider>
+  <ion-item *ngFor="let hist of histories">
+    <ion-label>
+      <div class="history-item color-{{hist.bg}}">
+        <div class="icon">
+<ion-icon *ngIf="hist.bg == 'success'" name="add-circle-outline"></ion-icon>
+<ion-icon *ngIf="hist.bg == 'danger'" name="remove-circle-outline"></ion-icon>
+        </div>
+        <div class="caption">
+          <h3>{{hist.type}}</h3>
+          <div class="text">
+             {{ hist.comment }}
+          </div>
+          <div class="meta">{{ hist.date_added }}</div>
+        </div>
+      </div>
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none"></ion-item>
+</ion-item-group>
+
+<ion-note *ngIf="!histories">Історя порожня...</ion-note>
 </ion-content>
