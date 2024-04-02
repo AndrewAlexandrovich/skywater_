@@ -165,6 +165,7 @@ export class Tab5Page implements OnInit {
         token         : localStorage.getItem('token'),
       };
 
+
       this.http.post('https://skywater.com.ua/api/index.php?type=addOrder', JSON.stringify(order)).subscribe((response) => {
         let json = JSON.parse(JSON.stringify(response));
         if(json.error){

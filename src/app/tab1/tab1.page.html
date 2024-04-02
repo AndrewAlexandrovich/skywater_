@@ -53,6 +53,13 @@
 </div>
 </div>
 
+<div *ngIf="show_my_balance" class="my-balance">
+  <div class="balance-item" (click)="openMyBalance()">{{text_balance_amount}} <b>{{balance_amount}}</b></div>
+  <div class="balance-item with-image">
+    <img *ngIf="balance_bottle_image != ''" src="{{balance_bottle_image}}" class="img">
+    <div>{{text_balance_bottle_cnt}} <b>{{balance_bottle_cnt}}</b> {{text_balance_bottle_cnt_end}}</div></div>
+</div>
+
 <ion-card-header>
   <ion-card-title class="ion-text-center">Доставка</ion-card-title>
   </ion-card-header>

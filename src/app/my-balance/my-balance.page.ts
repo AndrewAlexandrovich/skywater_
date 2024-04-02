@@ -23,6 +23,7 @@ export class MyBalancePage implements OnInit {
   public amount_to_pay:any = '';
   public histories:any = '';
   public show_skeleton = true;
+  private temp_balance_id:any=0;
 
   payToBalance(){
 
@@ -39,10 +40,11 @@ export class MyBalancePage implements OnInit {
           this.showToast(json.success, 'success');
 
           if(json.payment_url){
+            this.temp_balance_id = json.balance_id;
             Browser.open({ url: json.payment_url, presentationStyle: 'popover' });
             Browser.addListener('browserFinished', () => {
-              let param = {balance_id:json.balance_id};
-              this.http.post('https://skywater.com.ua/api/index.php?checkPayment=1&balance_id='+json.balance_id, JSON.stringify(param)).subscribe((response2) => {
+              let param = {balance_id:this.temp_balance_id};
+              this.http.post('https://skywater.com.ua/api/index.php?checkPayment=1&balance_id='+this.temp_balance_id, JSON.stringify(param)).subscribe((response2) => {
                 let json2 = JSON.parse(JSON.stringify(response2));
                 if(json2.success){
                   this.showToast(json2.success, 'success');
@@ -53,6 +55,9 @@ export class MyBalancePage implements OnInit {
                 this.amount_to_pay = '';
               });
             });
+            // load
+            this.getData();
+            this.amount_to_pay = '';
           }
 
         }else if(json.error){

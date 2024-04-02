@@ -46,6 +46,15 @@ export class Tab1Page {
   public bonus_step_l:any;
   public bonus_step_b:any;
 
+  //balance
+  public show_my_balance = false;
+  public balance_amount:any = '';
+  public text_balance_amount:any = '';
+  public balance_bottle_cnt:any = '';
+  public balance_bottle_image:any = '';
+  public text_balance_bottle_cnt:any = '';
+  public text_balance_bottle_cnt_end:any = '';
+
   openmyBottModal(){
     if(this.modal_bb_content != ''){
       this.myBottleModal = true;
@@ -156,6 +165,10 @@ export class Tab1Page {
     }
   }
 
+  openMyBalance(){
+    this.router.navigate(['my-balance']);
+  }
+
   loadHomeData(){
     let user_id:any = '';
     let token:any   = '';
@@ -259,6 +272,27 @@ export class Tab1Page {
       this.modal_bl_content = homeData.modal_bl_content;
       this.modal_bb_title   = homeData.modal_bb_title;
       this.modal_bb_content = homeData.modal_bb_content;
+
+      //balance
+      if(homeData.balance_amount){
+        this.show_my_balance = true;
+        this.balance_amount = homeData.balance_amount;
+        this.text_balance_amount = homeData.text_balance_amount;
+
+        if(homeData.balance_bottle_cnt){
+          this.balance_bottle_cnt = homeData.balance_bottle_cnt;
+        }
+        if(homeData.balance_bottle_image){
+          this.balance_bottle_image = homeData.balance_bottle_image;
+        }
+        if(homeData.text_balance_bottle_cnt){
+          this.text_balance_bottle_cnt = homeData.text_balance_bottle_cnt;
+        }
+        if(homeData.text_balance_bottle_cnt_end){
+          this.text_balance_bottle_cnt_end = homeData.text_balance_bottle_cnt_end;
+        }
+      }
+
 
   	});
   }
