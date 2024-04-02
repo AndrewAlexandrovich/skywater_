@@ -332,6 +332,9 @@ export class Tab5Page implements OnInit {
       };
       this.http.post('https://skywater.com.ua/api/index.php?type=changeShippingMethod', JSON.stringify(params)).subscribe((response) => {
         this.getCart(); // recalc cart
+        if(this.payment_id != 0){
+          this.getTotal(); //recalc total
+        }
       });
     }, 250);
   }
@@ -428,10 +431,11 @@ public alertRestoreOrderButtons = [
         }else{
            this.showToast('Оберіть адресу', 'danger');
         }
-
+        this.zalejnist_obmin = '';
         if(json['zalejnist_obmin']){
           this.zalejnist_obmin = json['zalejnist_obmin'];
         }
+        this.zalejnist_cnt = '';
         if(json['zalejnist_counter']){
           this.zalejnist_cnt = json['zalejnist_counter'];
         }
