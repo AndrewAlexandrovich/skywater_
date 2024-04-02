@@ -66,8 +66,8 @@ export class Tab2Page {
         if(json.bonuses_boutles){
           this.count_bottles = json.bonuses_boutles;
         }
-        if(json.bonuses_liters){
-          this.count_liters = json.bonuses_liters;
+        if(json.bonuses_liters_new){
+          this.count_liters = json.bonuses_liters_new;
         }
         if(json.qr_code_path){
           this.qrcode = json.qr_code_path;

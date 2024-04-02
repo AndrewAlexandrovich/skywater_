@@ -2,7 +2,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
      <ion-refresher-content></ion-refresher-content>
    </ion-refresher>
-   <ion-header  class="ion-no-border ">
+  <ion-header  class="ion-no-border ">
     <ion-toolbar >
           <img alt="logo" class="img-pad"  id="header_logo" height="40" slot="start" src="assets/logo-bg.png">
 
@@ -12,7 +12,7 @@
           </div>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
+  <div class="ion-padding">
 	<section class="top-slider">
   <swiper-container pagination="true" navigation="false" autoplay="2000" loop="true" effect="fade">
 		<swiper-slide *ngFor="let slide of sliderItems" class="swiperSlide">
@@ -173,8 +173,9 @@
   </ion-card-content>
 </ion-card>
 
-  </ion-content>
 
+
+</div>
 </ion-content>
 
 

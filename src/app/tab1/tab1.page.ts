@@ -206,10 +206,11 @@ export class Tab1Page {
       if(homeData.categories){
         this.categories = homeData.categories;
         this.is_auto_category = true;
-        this.loadCategory(0);
         if(this.categories[0]['category_id']){
           this.loadCategory(this.categories[0]['category_id']);
           this.selectedCategory = 'category-'+this.categories[0]['category_id'];
+        }else{
+          this.loadCategory(0);
         }
         /*
         this.is_auto_category = false;
