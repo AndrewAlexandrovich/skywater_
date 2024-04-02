@@ -43,6 +43,9 @@ export class Tab1Page {
   public modal_notify_status:any = false;
   public modal_notify_items:any;
 
+  public bonus_step_l:any;
+  public bonus_step_b:any;
+
   openmyBottModal(){
     if(this.modal_bb_content != ''){
       this.myBottleModal = true;
@@ -173,6 +176,9 @@ export class Tab1Page {
   	  let homeData = JSON.parse(JSON.stringify(response));
   	  this.sliderItems = homeData.slider;
   	  this.categoryProducts = homeData.categories_products;
+      //
+      this.bonus_step_b = homeData.bonus_step_b;
+      this.bonus_step_l = homeData.bonus_step_l;
 
       if(homeData['new_notify']){
         this.new_notify_cnt = homeData['new_notify'];
@@ -204,7 +210,7 @@ export class Tab1Page {
 
       this.progress = '0, 700';
       if(homeData.to_next_bonus > 0){
-        let segment = 370 / 10;
+        let segment = 370 / this.bonus_step_b;
         let percent =  homeData.to_next_bonus * segment;
         this.progress = percent+', 700';
       }else{
@@ -225,7 +231,7 @@ export class Tab1Page {
       this.to_next_liter = (homeData.to_next_bonusL) ? homeData.to_next_bonusL : 0;
 
       if(homeData.to_next_bonusL > 0){
-        let segment = 370 / 10;
+        let segment = 370 / this.bonus_step_l;
         let percent =  homeData.to_next_bonusL * segment;
         this.progress_l = percent+', 700';
       }else{

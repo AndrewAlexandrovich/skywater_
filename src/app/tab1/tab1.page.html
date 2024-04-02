@@ -41,7 +41,7 @@
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" >
 </circle>
 </svg>
-<span class="bonus-text"><b>{{to_next_bottle}}/10</b><small>бутелів</small></span>
+<span class="bonus-text"><b>{{to_next_bottle}}/{{bonus_step_b}}</b><small>бутелів</small></span>
 </div>
 
 <div class="bottles-svg">
@@ -49,7 +49,7 @@
   <circle class="circle-chart__background" stroke="#fff" stroke-width="30" fill="none" cx="75" cy="75" r="60" />
   <circle id="progress-line" class="circle-chart__circle" stroke="#3880ff" stroke-width="30" [attr.stroke-dasharray]="progress_l" stroke-linecap="round" fill="none" cx="75" cy="75" r="60" />
 </svg>
-<span class="bonus-text"><b>{{to_next_liter}}/10</b><small>літрів</small></span>
+<span class="bonus-text bonus-liter"><b>{{to_next_liter}}/{{bonus_step_l}}</b><small>літрів</small></span>
 </div>
 </div>
 

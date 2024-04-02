@@ -34,6 +34,9 @@ export class Tab2Page {
   public progress_l:any = '';
   public modal_bl_title:any = '';
   public modal_bl_content:any = '';
+  //
+  public prices:any = '';
+  public bonus_step_l:any = '';
   closemyLitModal(){
     this.myLitreModal = false;
   }
@@ -58,7 +61,6 @@ export class Tab2Page {
       }
       if(json['error']){
         //this.showToast(json['error'], 'danger');
-        console.log(json['error']);
       }else{
         this.show_empty = false;
         if(json.bonuses_boutles){
@@ -80,6 +82,12 @@ export class Tab2Page {
         if(json.how_scanner_work){
           this.description_how_to = json.how_scanner_work;
         }
+
+        if(json.prices){
+          this.prices = json.prices;
+        }
+
+        this.bonus_step_l = json.bonus_step_l;
 
         if(json.to_next_bonusL && json.to_next_bonusL>0){
           this.to_next_l = 100-json.to_next_bonusL;
