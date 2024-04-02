@@ -55,14 +55,14 @@
 <ion-col size="12" *ngIf="prices != ''">
   <ion-card *ngFor="let item of prices" class="product-items">
       <ion-row class="product-item">
-        <ion-col size="4">
+        <ion-col size="3">
           <ion-card-content>
           <div class="image">
             <img src="{{ item.image }}" alt="{{ item.title }}"  />
           </div>
         </ion-card-content>
         </ion-col>
-        <ion-col size="8">
+        <ion-col size="9">
           <ion-card-content>
           <ion-card-title  class="products-title ion-text-center">{{ item.title }}</ion-card-title>
           <ion-card-subtitle class="price ion-text-center ion-padding">{{ item.price }}</ion-card-subtitle>
