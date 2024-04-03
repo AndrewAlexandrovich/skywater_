@@ -99,7 +99,7 @@ export class Tab2Page {
         }
 
         if(json.to_next_bonusL > 0){
-          let segment = 370 / 100;
+          let segment = 370 / this.bonus_step_l;
           let percent =  json.bonuses_liters * segment;
           this.progress_l = percent+', 700';
         }else{

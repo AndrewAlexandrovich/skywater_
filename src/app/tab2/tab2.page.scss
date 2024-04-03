@@ -93,7 +93,9 @@ ion-progress-bar{min-height:8px}
 span.bonus-text {
     position: absolute;
     top: 33%;
-    left: 31%;
+    left: 0px;
+    width: 100%;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -111,7 +113,7 @@ span.bonus-text {
     padding: 16px 0;
 }
 span.bonus-text b {
-    font-size: 24px;
+    font-size: 30px;
     color: #3880ff;
 }
 .bottles-img {
