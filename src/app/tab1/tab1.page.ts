@@ -55,6 +55,13 @@ export class Tab1Page {
   public text_balance_bottle_cnt:any = '';
   public text_balance_bottle_cnt_end:any = '';
 
+  public contact_data:any = '';
+  public show_contact = false;
+
+  showContact(){
+    this.show_contact = true;
+  }
+
   openmyBottModal(){
     if(this.modal_bb_content != ''){
       this.myBottleModal = true;
@@ -93,6 +100,7 @@ export class Tab1Page {
     });
   }
   loadCategory(category_id:any){
+    this.show_contact = false; // hide block with contact
     let params = {
         token       : localStorage.getItem('token'),
         user_id     : localStorage.getItem('user_id'),
@@ -185,6 +193,7 @@ export class Tab1Page {
       this.templ_b_bottle = 0;
       this.templ_b_liter = 0;
       this.new_notify_cnt = 0;
+      this.contact_data = '';
 
   	  let homeData = JSON.parse(JSON.stringify(response));
   	  this.sliderItems = homeData.slider;
@@ -292,6 +301,10 @@ export class Tab1Page {
         if(homeData.text_balance_bottle_cnt_end){
           this.text_balance_bottle_cnt_end = homeData.text_balance_bottle_cnt_end;
         }
+      }
+
+      if(homeData.contact){
+        this.contact_data = homeData.contact;
       }
 
 

@@ -18,7 +18,6 @@
 		<swiper-slide *ngFor="let slide of sliderItems" class="swiperSlide">
 			<div class="slide-el">
 			<img src="{{ slide['src'] }}">
-
 			</div>
 		</swiper-slide>
 	</swiper-container>
@@ -69,13 +68,42 @@
 <div *ngIf="is_auto_category == true">
   <ion-segment [(ngModel)]="selectedCategory" value="custom" [scrollable]="true">
     <ion-segment-button value="custom" *ngFor="let category of categories" (click)="loadCategory(category.category_id)" value="category-{{ category.category_id }}" >
-
       <ion-label class="icon-flex"><div *ngIf="category.icon" class="cat-icon " [innerHTML]="category.icon">{{category.icon}}</div> {{ category.name }}</ion-label>
+    </ion-segment-button>
 
+    <ion-segment-button *ngIf="contact_data != ''" value="custom" (click)="showContact()" value="custom-tab" >
+      <ion-label class="icon-flex"><div *ngIf="contact_data.image" class="cat-icon " [innerHTML]="contact_data.image">{{contact_data.image}}</div> {{ contact_data.title }}</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <div class="products-on-category">
+  <div class="contact-section" *ngIf="contact_data != '' && show_contact == true">
+    <div class="inner">
+      <div *ngFor="let phone of contact_data.phones" class="phone contact-item">
+        <ion-icon name="call-outline"></ion-icon> <a href="tel:{{phone.tel}}">{{phone.view}}</a>
+      </div>
+      <div *ngIf="contact_data.email != ''" class="contact-item">
+        <ion-icon name="mail-outline"></ion-icon> <a href="mailTo:{{contact_data.email}}">{{contact_data.email}}</a>
+      </div>
+      <div *ngIf="contact_data.site != ''" class="contact-item">
+        <ion-icon name="globe-outline"></ion-icon> <a target="_blank" href="{{contact_data.site}}">{{contact_data.site}}</a>
+      </div>
+      <div *ngIf="contact_data.work_time != ''" class="contact-item">
+        <ion-icon name="time-outline"></ion-icon> <span>{{contact_data.work_time}}</span>
+      </div>
+      <div *ngIf="contact_data.address != ''" class="contact-item">
+        <ion-icon name="navigate-circle-outline"></ion-icon> <span>{{contact_data.address}}</span>
+      </div>
+      <div *ngIf="contact_data.facebook != '' || contact_data.instagram != ''" class="social-item">
+        <p>Ми в соціальних мережах:</p>
+        <a *ngIf="contact_data.facebook != ''" target="_blank" class="social-item" href="{{contact_data.facebook}}"><ion-icon name="logo-facebook"></ion-icon></a>
+        <a *ngIf="contact_data.instagram != ''" target="_blank" class="social-item" href="{{contact_data.instagram}}"><ion-icon name="logo-instagram"></ion-icon></a>
+      </div>
+      <div *ngIf="contact_data.description != ''" class="contact-item">
+        <ion-icon name="chatbox-outline"></ion-icon> <span>{{contact_data.description}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="products-on-category" *ngIf="show_contact == false">
     <ion-grid class="ion-no-padding">
       <ion-row>
         <div class="empty-products" *ngIf="showEmptyMsg == true">

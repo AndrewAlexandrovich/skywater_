@@ -225,3 +225,29 @@ span.bonus-text.bonus-liter b {
     align-items: center;
     justify-content: center;
 }
+.contact-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+.contact-section .contact-item ion-icon {
+    color: #3880ff;
+    font-size: 25px;
+    margin-right: 10px;
+}
+.contact-section .contact-item {
+    display: flex;
+    align-items: center;
+    padding: 7px 0px;
+    border-bottom: 1px solid #ddd;
+}
+.contact-section .contact-item a{
+  text-decoration:none;
+}
+.social-item p {
+    font-size: 14px;
+}
+.social-item a {
+    font-size: 34px;
+    margin-right: 15px;
+}
