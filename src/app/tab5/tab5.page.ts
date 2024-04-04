@@ -426,6 +426,7 @@ public alertRestoreOrderButtons = [
         if(json['shippings']){
             this.shippings = json['shippings'];
         }
+
         if(json['default_shipping_id'] != ''){
             this.shipping_id = json['default_shipping_id'];
         }else{
