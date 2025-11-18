@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "ua.com.skywawter"
-  compileSdk 34
+  compileSdk 35
   defaultConfig {
         applicationId "ua.com.skywawter"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -16,6 +16,7 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
 		multiDexEnabled true
+		
     }
     buildTypes {
         release {
@@ -30,6 +31,11 @@ android {
     dataBinding {
         enabled = true
     }
+	packagingOptions {
+		jniLibs {
+			useLegacyPackaging = false
+		}
+	}
 }
 
 repositories {
