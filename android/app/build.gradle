@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "ua.com.skywater"
+    namespace "ua.com.skywawter"
   compileSdk 34
   defaultConfig {
-        applicationId "ua.com.skywater"
+        applicationId "ua.com.skywawter"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3

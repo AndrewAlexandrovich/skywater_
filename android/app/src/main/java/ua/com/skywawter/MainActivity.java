@@ -1,4 +1,4 @@
-package ua.com.skywater;
+package ua.com.skywawter;
 
 import com.getcapacitor.BridgeActivity;
 
