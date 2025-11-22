@@ -25,6 +25,7 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+/* prev version
 .barcode-scanner-active ion-content {
   --background: transparent !important;
 }
@@ -44,4 +45,75 @@
     --background: transparent;
     --ion-background-color: transparent;
   }
+}
+
+*/
+
+/* Коли активний сканер — робимо фон прозорим */
+.barcode-scanner-active ion-content {
+  --background: transparent !important;
+  --ion-background-color: transparent !important;
+}
+
+/* НЕ приховувати visibility! */
+.barcode-scanner-active {
+  visibility: hidden;
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+.barcode-scanner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+/* Головна затемнена підкладка */
+.scanner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65); /* напівпрозорий фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+/* Сховати */
+.scanner-overlay.hidden {
+  display: none !important;
+}
+
+/* Прозорий квадрат у центрі */
+.scanner-frame {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  background: transparent;
+
+  /* Вирізуємо прозорий квадрат у затемненому фоні */
+  box-shadow:
+    0 0 0 9999px rgba(0, 0, 0, 0.65); /* створює виріз */
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #00e676; /* зелена рамка (можна змінити) */
+}
+
+/* Анімаційна лінія */
+.scanner-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #00e676;
+  animation: scan-line 2s linear infinite;
+}
+
+@keyframes scan-line {
+  0%   { top: 0; }
+  100% { top: 100%; }
 }

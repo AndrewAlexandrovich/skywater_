@@ -16,7 +16,7 @@
           <div class="caption">
             <span>Статус замовлення - <b style="color:{{order.order_color}}">{{order.order_status}}</b></span><br>
             Від {{order.date_added}}<br>
-            <small>На сумму {{ order.total }}</small>
+            <small *ngIf="order.total_raw">На сумму {{ order.total }}</small>
           </div>
         </div>
       </ion-label>

@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { App } from '@capacitor/app';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
+//for settings
+import { Capacitor } from '@capacitor/core';
+import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
 //barcode
-import { Barcode, BarcodeScanner, BarcodeFormat, LensFacing } from '@capacitor-mlkit/barcode-scanning';
+import { Barcode, BarcodeScanner, BarcodeFormat, LensFacing, BarcodesScannedEvent } from '@capacitor-mlkit/barcode-scanning';
+import type { PluginListenerHandle } from '@capacitor/core';
+
 
 @Component({
   selector: 'app-tab2',
@@ -13,7 +19,8 @@ import { Barcode, BarcodeScanner, BarcodeFormat, LensFacing } from '@capacitor-m
 })
 export class Tab2Page {
 
-  public isSupported = false;
+  public isSupported: boolean | null = null;
+  private backButtonListener: any;
 
   public qrcode:any = false;
   public show_empty:any = true;
@@ -37,6 +44,9 @@ export class Tab2Page {
   //
   public prices:any = '';
   public bonus_step_l:any = '';
+  
+  public last_code:any = '';
+  
   closemyLitModal(){
     this.myLitreModal = false;
   }
@@ -144,12 +154,14 @@ export class Tab2Page {
     return camera === 'granted' || camera === 'limited';
   }
   /*Завершити сканування*/
-  public async stopScan(): Promise<void> {
-    // Show everything behind the modal again
-    document.querySelector('body')?.classList.remove('barcode-scanner-active');
-    await BarcodeScanner.stopScan();
-    await BarcodeScanner.removeAllListeners();
-  }
+	public async stopScan(): Promise<void> {
+	  try {
+		document.querySelector('body')?.classList.remove('barcode-scanner-active');
+		await BarcodeScanner.stopScan();
+	  } catch (err) {
+		console.error('Failed to stop scanner:', err);
+	  }
+	}
 /*Відправити код на сервер для створення замовлення та перевірки*/
 checkBarcode(barcode:any){
   let params = {
@@ -174,49 +186,116 @@ checkBarcode(barcode:any){
 
 }
 /*Відсканувати 1 код і закртит вікно камери*/
+/*
+//prev ver 
 public scanSingleBarcode = async () => {
-  //check permission
   const granted = await this.requestPermissions();
   if (!granted) {
     this.presentAlert();
     return;
   }
-  //запустити таймер на 10 сек, щоб закрити камеру
-  this.closeCameraAfterTenSec;
 
   return new Promise(async resolve => {
     document.querySelector('body')?.classList.add('barcode-scanner-active');
 
+    // Таймер, який закриє камеру через 10 секунд
+    const timerId = window.setTimeout(async () => {
+      console.log('Timeout reached → stopping scan');
+      await BarcodeScanner.stopScan();
+      document.querySelector('body')?.classList.remove('barcode-scanner-active');
+      resolve(null);
+    }, 10000);
+
     const listener = await BarcodeScanner.addListener(
-      'barcodeScanned',
-      async result => {
+      'barcodesScanned',
+      async (event) => {
+        clearTimeout(timerId); // 🔥 зупиняємо таймер
         await listener.remove();
-        document.querySelector('body')?.classList.remove('barcode-scanner-active');
         await BarcodeScanner.stopScan();
-        this.stopScan(); // stop scan
-        this.checkBarcode(result.barcode);
-        resolve(result.barcode);
-      },
+        document.querySelector('body')?.classList.remove('barcode-scanner-active');
+
+        const code = event.barcodes?.[0]?.rawValue ?? null;
+		console.log('barcode event: ');
+		console.log(event.barcodes);
+		console.log('code '+ code);
+        if (code) {
+          this.checkBarcode(code);
+		  this.last_code = code;
+        }
+
+        resolve(code);
+      }
     );
 
-    await BarcodeScanner.startScan({formats:[BarcodeFormat.QrCode], lensFacing:LensFacing.Back});
+    await BarcodeScanner.startScan({
+      formats: [BarcodeFormat.QrCode],
+      lensFacing: LensFacing.Back
+    });
+  });
+};
+*/
+public scanSingleBarcode = async () => {
+  const granted = await this.requestPermissions();
+  if (!granted) {
+    await this.presentAlert();
+    return null;
+  }
+
+  document.body.classList.add('barcode-scanner-active');
+
+  return new Promise(async (resolve) => {
+    let listener: any = null;
+
+    // Таймаут на 10 секунд
+    const timeoutId = setTimeout(async () => {
+      console.log('⏳ Timeout → stopping scanner');
+      listener && listener(); // правильний спосіб видалення
+      // await BarcodeScanner.stopScan();
+	  this.stopScan();
+      document.body.classList.remove('barcode-scanner-active');
+      resolve(null);
+    }, 10000);
+
+    listener = BarcodeScanner.addListener('barcodesScanned', async (event) => {
+      console.log('📡 Event received:', event);
+
+      clearTimeout(timeoutId);
+
+      listener && listener(); // правильне видалення listener
+      await BarcodeScanner.stopScan();
+      document.body.classList.remove('barcode-scanner-active');
+
+      const code = event.barcodes?.[0]?.rawValue ?? null;
+      if (code) {
+        this.checkBarcode(code);
+      }
+
+      resolve(code);
+    });
+	console.log('Starting scan…');
+	try {
+    await BarcodeScanner.startScan({
+      formats: [BarcodeFormat.QrCode],
+      lensFacing: LensFacing.Back,
+    });
+	} catch (err) {
+	  console.error("🚨 startScan ERROR:", err);
+	}
+	console.log('Scan started!');
   });
 };
 
-/*Відкрити налаштування застосунку*/
-public openSettings = async () => {
-  this.showToast('Open setting ', 'light');
-  await BarcodeScanner.openSettings();
-};
-/*Зупинити камеру через 10 секунд*/
 
-public closeCameraAfterTenSec = setTimeout(() => {
-  this.stopScan();
-}, 10000);
+/*Відкрити налаштування застосунку*/
+public openSettings() {
+  NativeSettings.open({
+	  optionAndroid: AndroidSettings.ApplicationDetails,
+	  optionIOS: IOSSettings.App
+	})
+}
 
 
   async showToast(msg:any, color:any) {
-    console.log('start show');
     if(color == ''){
       color = 'primary';
     }
@@ -229,6 +308,71 @@ public closeCameraAfterTenSec = setTimeout(() => {
     });
     await toast.present();
   }
+  
+
+/*TETS*/
+public async scanTestTwo(): Promise<void> {
+  
+  const granted = await this.requestPermissions();
+  if (!granted) {
+    await this.presentAlert();
+  }
+	
+  let listener: PluginListenerHandle | undefined;
+  const overlay = document.getElementById("scanner-overlay");
+
+  // Показуємо рамку
+  overlay?.classList.remove("hidden");
+  document.body.classList.add("barcode-scanner-active");
+
+  // Таймаут
+  const timeout = setTimeout(async () => {
+    console.warn("Scan timeout — stopping");
+
+    await listener?.remove();
+    await BarcodeScanner.stopScan();
+
+    overlay?.classList.add("hidden");
+    document.body.classList.remove("barcode-scanner-active");
+  }, 10000);
+
+  // Listener
+  listener = await BarcodeScanner.addListener("barcodesScanned", async (event) => {
+    this.ngZone.run(async () => {
+      const first = event.barcodes[0];
+      if (!first) return;
+
+      clearTimeout(timeout);
+      console.log("QR FOUND:", first.rawValue);
+
+      await listener?.remove();
+      await BarcodeScanner.stopScan();
+
+      overlay?.classList.add("hidden");
+      document.body.classList.remove("barcode-scanner-active");
+	
+		if(first){
+			this.checkBarcode(first.rawValue);
+		}
+	
+      
+    });
+  });
+
+  // Google module
+  const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
+  if (!available) {
+    try {
+      await BarcodeScanner.installGoogleBarcodeScannerModule();
+    } catch {}
+  }
+
+  // Start scanning
+  await BarcodeScanner.startScan();
+}
+
+  
+
 
 
   constructor(
@@ -236,22 +380,28 @@ public closeCameraAfterTenSec = setTimeout(() => {
     private router: Router,
     private toastCtrl: ToastController,
     private alertController: AlertController,
-    private platform: Platform
+    private platform: Platform,
+	private ngZone: NgZone,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getApiData();
-    //check platform
-    BarcodeScanner.isSupported().then((result) => {
-        this.isSupported = result.supported;
-    });
+	
+	const result = await BarcodeScanner.isSupported();
+    this.isSupported = result.supported;
 
-    this.platform.backButton.subscribeWithPriority(5, () => {
-      this.stopScan();
-    });
   }
+  
 
   ionViewWillEnter() {
     this.getApiData();
   }
+  
+	ionViewDidEnter() {
+	  this.backButtonListener = App.addListener('backButton', () => {
+		this.stopScan();
+	  });
+	}
+
+	  
 }

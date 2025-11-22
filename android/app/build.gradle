@@ -2,23 +2,19 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "ua.com.skywawter"
-  compileSdk 35
-  defaultConfig {
+    compileSdk rootProject.ext.compileSdkVersion
+    defaultConfig {
         applicationId "ua.com.skywawter"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.0.7"
+        versionCode 10
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
              // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
-		multiDexEnabled true
-		ndk {
-			abiFilters "armeabi-v7a", "arm64-v8a"
-		}
     }
     buildTypes {
         release {
@@ -26,38 +22,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+	
+	// --- ABI splits: залишаємо лише arm64-v8a і armeabi-v7a ---
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a', 'armeabi-v7a'  // тільки ARM
+            universalApk false
+        }
+    }
 
-    buildFeatures {
-        dataBinding true
+    // --- packagingOptions: виключаємо x86 / x86_64 .so ---
+    packagingOptions {
+        exclude "lib/x86/*"
+        exclude "lib/x86_64/*"
     }
-    dataBinding {
-        enabled = true
-    }
-	packagingOptions {
-		jniLibs {
-			useLegacyPackaging = false
-		}
-	}
 }
 
 repositories {
-	google()       
-    mavenCentral()
     flatDir{
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
     }
 }
-
-//16kb fix
-configurations.all {
-    resolutionStrategy {
-        // Задай тут потрібні версії ML Kit
-        // Ми рекомендуємо 18.3.1 як першу спробу (підстав у разі потреби іншу версію)
-        force "com.google.mlkit:barcode-scanning:17.2.0"
-        force "com.google.mlkit:vision-common:17.3.0"
-    }
-}
-
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -69,11 +56,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-	implementation 'androidx.multidex:multidex:2.0.1'
-	
-	//16kb fix
-	implementation "com.google.mlkit:barcode-scanning:17.2.0"
-	implementation "com.google.mlkit:vision-common:17.3.0"
 }
 
 apply from: 'capacitor.build.gradle'
