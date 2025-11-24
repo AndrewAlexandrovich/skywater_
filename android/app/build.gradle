@@ -7,8 +7,8 @@ android {
         applicationId "ua.com.skywawter"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
-        versionName "1.0.9"
+        versionCode 20
+        versionName "1.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -20,6 +20,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			//16kb fix 
+			ndk {
+				debugSymbolLevel 'SYMBOL_TABLE'
+			}
         }
     }
 	
@@ -32,12 +36,27 @@ android {
             universalApk false
         }
     }
+	
+	//16kb fix
+	bundle {
+		language {
+			enableSplit = true
+		}
+		density {
+			enableSplit = true
+		}
+		abi {
+			enableSplit = true
+		}
+	}
+	packaging {
+		jniLibs {
+			useLegacyPackaging = false
+			excludes += ["**/x86/**", "**/x86_64/**"]
+		}
+	}
+	//16kb fix
 
-    // --- packagingOptions: виключаємо x86 / x86_64 .so ---
-    packagingOptions {
-        exclude "lib/x86/*"
-        exclude "lib/x86_64/*"
-    }
 }
 
 repositories {
@@ -56,6 +75,13 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+	//fix 16kb
+    implementation "com.google.mlkit:barcode-scanning:17.3.0"
+	implementation "com.google.mlkit:common:18.9.0"
+	implementation "androidx.camera:camera-core:$androidxCameraCoreVersion"
+    implementation "androidx.camera:camera-camera2:$androidxCameraCamera2Version"
+    implementation "androidx.camera:camera-lifecycle:$androidxCameraLifecycleVersion"
+    implementation "androidx.camera:camera-view:$androidxCameraViewVersion"
 }
 
 apply from: 'capacitor.build.gradle'
