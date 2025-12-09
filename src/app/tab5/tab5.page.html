@@ -9,6 +9,19 @@
    </ion-refresher>
 
   <ion-list  *ngIf="showEmptyMsg == false">
+  
+	<ion-item class="custom-message" *ngIf="custom_message">
+		<ion-card color="{{ custom_message_color }}">
+		  <ion-card-header *ngIf="custom_message_header">
+			<ion-card-title>
+			<ion-icon *ngIf="custom_message_icon" name="{{ custom_message_icon }}"></ion-icon>
+			{{ custom_message_header }}</ion-card-title>
+		  </ion-card-header>
+
+		  <ion-card-content>{{ custom_message_text }}</ion-card-content>
+		</ion-card>
+	</ion-item>
+  
     <ion-list-header>
       <ion-label><b>Товари</b></ion-label>
     </ion-list-header>

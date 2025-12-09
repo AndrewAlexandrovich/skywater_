@@ -132,11 +132,14 @@ ion-card.home_text{
     font-size: 30px;
 }
 .img-pad {
-    margin: 0 1em;
+    margin: 0 0.5em;
 }
 .icon-notif {
     font-size: 22px;
     color: #3880ff;
+}
+a.menu-link {
+    text-decoration: none;
 }
 .home_text{
   padding-bottom: 30px;
@@ -157,9 +160,11 @@ ion-segment-button {
     align-items: center;
     width: max-content;
 }
-.notify-icon {
+.main-manp{
     justify-content: end;
     display: flex;
+}
+.notify-icon {
     position: relative;
 }
 .notify-icon span.notify-counter {

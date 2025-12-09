@@ -165,3 +165,15 @@ ion-label.address-line.obmin .radio-wrapper {
     margin: 0px;
     color: #F44336;
 }
+.custom-message ion-card{
+	width:100%;
+	margin:10px 0px 0px;
+}
+.custom-message{
+	padding:0px
+}
+.custom-message ion-card-header ion-icon {
+    vertical-align: bottom;
+    margin: 0px;
+    font-size: 1.5rem;
+}

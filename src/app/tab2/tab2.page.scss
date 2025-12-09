@@ -141,3 +141,16 @@ span.bonus-text b {
 .bottles-svg svg {
     transform: rotate(-90deg);
 }
+
+.custom-message ion-card{
+	width:100%;
+	margin:10px 0px 10px 0px;
+}
+.custom-message{
+	padding:0px
+}
+.custom-message ion-card-header ion-icon {
+    vertical-align: bottom;
+    margin: 0px;
+    font-size: 1.5rem;
+}

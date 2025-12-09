@@ -27,14 +27,6 @@ const routes: Routes = [
     loadChildren: () => import('./account-orders/account-orders.module').then( m => m.AccountOrdersPageModule)
   },
   {
-    path: 'tab4',
-    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
-  },
-  {
-    path: 'tab5',
-    loadChildren: () => import('./tab5/tab5.module').then( m => m.Tab5PageModule)
-  },
-  {
     path: 'success-order',
     loadChildren: () => import('./success-order/success-order.module').then( m => m.SuccessOrderPageModule)
   },

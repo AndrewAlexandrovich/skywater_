@@ -51,6 +51,12 @@ export class Tab5Page implements OnInit {
 
   public restoreOrderId:any = 0;
   public restoreAlertOpened:any = false;
+  
+  public custom_message:any = false;
+  public custom_message_color:string = 'primary';
+  public custom_message_header:string = 'Зверніть увагу';
+  public custom_message_icon:string = '';
+  public custom_message_text:string = '';
 
   selectVariantObmin(type:any){
     this.tara_na_obmin_selected = type;
@@ -469,6 +475,22 @@ public alertRestoreOrderButtons = [
             }
           }
         }
+		
+		if(typeof json['show_message'] != 'undefined'){
+			if(typeof json['show_message']['color'] != 'undefined' && json['show_message']['color']){
+				this.custom_message_color = json['show_message']['color'];
+			}
+			if(typeof json['show_message']['header'] != 'undefined' && json['show_message']['header']){
+				this.custom_message_header = json['show_message']['header'];
+			}
+			if(typeof json['show_message']['icon'] != 'undefined' && json['show_message']['icon']){
+				this.custom_message_icon = json['show_message']['icon'];
+			}
+			if(typeof json['show_message']['text'] != 'undefined' && json['show_message']['text']){
+				this.custom_message_text = json['show_message']['text'];
+				this.custom_message = true;
+			}
+		}
 
       }else if(json['products']){
         this.showEmptyMsg = true;
