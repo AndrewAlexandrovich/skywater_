@@ -117,22 +117,22 @@
   0%   { top: 0; }
   100% { top: 100%; }
 }
-
-/*fix problem with safe area*/
+:root {
+  --real-safe-top: 0px;
+  --real-safe-bottom: 0px;
+}
 
 ion-header,
 ion-toolbar {
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--real-safe-top);
 }
+
 ion-tab-bar {
-  padding-bottom: env(safe-area-inset-bottom);
-  height: calc(56px + env(safe-area-inset-bottom));
+  padding-bottom: var(--real-safe-bottom);
+  height: calc(56px + var(--real-safe-bottom));
 }
+
 ion-content {
-  --padding-top: env(safe-area-inset-top);
-  --padding-bottom: env(safe-area-inset-bottom);
-}
-:root {
-  --ion-safe-area-top: env(safe-area-inset-top);
-  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+  --padding-top: var(--real-safe-top);
+  --padding-bottom: var(--real-safe-bottom);
 }
