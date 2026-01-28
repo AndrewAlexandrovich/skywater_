@@ -58,6 +58,8 @@ export class Tab5Page implements OnInit {
   public custom_message_icon:string = '';
   public custom_message_text:string = '';
 
+  public show_calendar = true;
+
   selectVariantObmin(type:any){
     this.tara_na_obmin_selected = type;
     this.triggerZastava(type);
@@ -474,6 +476,12 @@ public alertRestoreOrderButtons = [
               break;
             }
           }
+        }
+      
+        if(typeof json['show_calendar'] != 'undefined'){
+            this.show_calendar = Boolean(json['show_calendar']);
+            console.log('calendar status');
+            console.log(this.show_calendar);
         }
 		
 		if(typeof json['show_message'] != 'undefined'){

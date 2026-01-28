@@ -107,7 +107,7 @@
     <ion-list-header>
       <ion-label><b>Додатково</b></ion-label>
     </ion-list-header>
-    <ion-item *ngIf="time_periods != false">
+    <ion-item *ngIf="time_periods != false && show_calendar == true">
       <ion-icon name="calendar-outline" color="primary"></ion-icon>
       <ion-label (click)="setDateAndTime()" class="date-time-line">
 
